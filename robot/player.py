@@ -13,8 +13,7 @@ import threading, time, tkinter
 from os import getuid
 from pyrobot.robot.device import *
 from pyrobot.geometry import PIOVER180, DEG90RADS, COSDEG90RADS, SINDEG90RADS
-import playerc #DEBUG
-#import player
+import playerc 
 
 class PlayerDevice(Device):
     def __init__(self, client, type, groups = {},
