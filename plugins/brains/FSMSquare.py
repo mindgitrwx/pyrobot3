@@ -41,8 +41,8 @@ class edge (State):
         x = self.robot.x
         y = self.robot.y
         dist = distance( self.startX, self.startY, x, y) 
-        print("EDGE: actual = (%f, %f) start = (%f, %f); dist = %f" \
-              % (x, y, self.startX, self.startY, dist))
+        print(("EDGE: actual = (%f, %f) start = (%f, %f); dist = %f" \
+              % (x, y, self.startX, self.startY, dist)))
         if dist > 1.0:
             self.goto('turn')
         else:
@@ -55,7 +55,7 @@ class turn (State):
 
     def update(self):
         th = self.robot.th
-        print("TURN: actual = %f start = %f" % (th, self.th))
+        print(("TURN: actual = %f start = %f" % (th, self.th)))
         if (th - self.th) > 90: 
             self.goto('edge')
         else:

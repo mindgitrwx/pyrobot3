@@ -9,22 +9,22 @@ class LogicDevice(Device, threading.Thread):
         self.start()
 
     def updateDevice(self):
-        print "Updated started..."
+        print("Updated started...")
         self.lock.acquire()
         # look at the shared data
-        print "data:", self.data
+        print("data:", self.data)
         self.lock.release()
-        print "Updated done!"
+        print("Updated done!")
         
 
     def run(self):
         while self.isAlive():
-            print "   Async update started..."
+            print("   Async update started...")
             time.sleep(2) # do something that takes some time
             self.lock.acquire() # acquire the lock
             self.data = random.random() # update the data
             self.lock.release() # release the lock
-            print "   Async update done!"
+            print("   Async update done!")
 
 def INIT(robot):
     return {"logic": LogicDevice()}

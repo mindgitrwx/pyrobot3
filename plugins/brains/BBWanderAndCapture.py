@@ -25,12 +25,12 @@ class Avoid (Behavior):
         self.count += 1
         if self.count == 50:
             currtime = time.mktime(time.localtime())
-            print("================================Loop in", (currtime - self.lasttime)/50.0, "seconds.")
+            print(("================================Loop in", (currtime - self.lasttime)/50.0, "seconds."))
             self.count = 0
             self.lasttime =  time.mktime(time.localtime())
 
         close_dist, close_angle = min([(s.distance(), s.angle(unit="radians")/math.pi) for s in self.robot.range["all"]])
-        print("Closest distance is:", close_dist)
+        print(("Closest distance is:", close_dist))
         # FIX: direction
         self.IF(Fuzzy(1.0, 3.0) << close_dist, 'translate', 0)
         self.IF(Fuzzy(1.0, 3.0) << close_dist, 'rotate', \
@@ -40,7 +40,7 @@ class state1 (State):
     def setup(self):
         self.add(StraightBehavior(1))
         self.add(Avoid(1))
-        print("setupialized state", self.name)
+        print(("setupialized state", self.name))
 
     def onActivate(self):
         self.count = 0
@@ -55,7 +55,7 @@ class state1 (State):
 class state2 (State):
     def setup(self):
         self.add(StopBehavior(1))
-        print("setupialized state", self.name)
+        print(("setupialized state", self.name))
 
     def update(self):
         print("State 2")
@@ -63,7 +63,7 @@ class state2 (State):
 
 class state3 (State):
     def setup(self):
-        print("setupialized state", self.name)
+        print(("setupialized state", self.name))
         self.count = 0
 
     def onActivate(self):

@@ -3,7 +3,7 @@ A Pure Python 3D Robot Simulator in Tkinter
 
 (c) 2005, PyroRobotics.org. Licensed under the GNU GPL.
 """
-import Tkinter, time, math, random
+import tkinter, time, math, random
 from pyrobot.geometry.matrix import *
 from pyrobot.simulators.pysim import *
 
@@ -68,11 +68,11 @@ class Tk3DSimulator(TkSimulator):
 
     def drawPolygon(self, points, fill="", outline="black", tag = None, **args):
         if len(points[0]) == 3:
-            all = map(lambda pt: self.getPoint3D(pt[0],pt[1],pt[2]), points)
+            all = [self.getPoint3D(pt[0],pt[1],pt[2]) for pt in points]
         elif len(points[0]) == 2:
-            all = map(lambda pt: self.getPoint3D(pt[0],pt[1],0), points)            
-        xy = map(lambda pt: (pt[0], pt[1]), all)
-        zs = map(lambda pt: pt[2], all)
+            all = [self.getPoint3D(pt[0],pt[1],0) for pt in points]            
+        xy = [(pt[0], pt[1]) for pt in all]
+        zs = [pt[2] for pt in all]
         z = max(zs)
         args["fill"] = fill
         args["outline"] = outline
@@ -118,7 +118,7 @@ class Tk3DSimulator(TkSimulator):
                         args["fill"] = ""
                 self.canvas.create_polygon(points, **args)
             else:
-                print "need renderer for type:", p[0]
+                print("need renderer for type:", p[0])
         
     def redraw(self):
         if self.display["wireframe"] == 2:

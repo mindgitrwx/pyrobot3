@@ -18,7 +18,7 @@ class SimpleBrain(Brain):
 
    def step(self):
       self.camera.update()
-      print("%d: updated..." % (self.nStep))
+      print(("%d: updated..." % (self.nStep)))
       bmp = bitmap_from_V4LGrabber(self.camera, blob.FILTER_RED, 0.5)
       blob.Bitmap_write_to_pgm(bmp, "bmplast.pgm", 1)
       print("got bitmap...")
@@ -32,7 +32,7 @@ class SimpleBrain(Brain):
       print("got largest...")
       pos = blob.blob_at(data.bloblist,bigred).cm_x
       scalepos = (self.cwidth/2 - pos)/self.cwidth
-      print("%f\t%f" % (pos, scalepos))
+      print(("%f\t%f" % (pos, scalepos)))
       self.nStep = self.nStep + 1
       if min([s.distance() for s in self.robot.range["front"]]) > .4:
          print("Turning...")

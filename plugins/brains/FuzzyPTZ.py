@@ -6,7 +6,7 @@ from pyrobot.brain.behaviors import *
 
 class BBB(BehaviorBasedBrain):
     def destroy(self):
-        print("robot=", self.robot)
+        print(("robot=", self.robot))
         self.removeDevice("ptz0")
   
 class Track(Behavior): 

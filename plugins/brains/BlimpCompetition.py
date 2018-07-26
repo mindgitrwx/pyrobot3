@@ -264,8 +264,8 @@ class MaintainHeight(State):
       self.deriv = 0.0
       self.pulseTime = 0.5
       self.dutyCycle = .3
-      print("sleep between:", self.robot.frequency[0].asyncSleep)
-      print("sampleTime:", self.robot.frequency[0].sampleTime)
+      print(("sleep between:", self.robot.frequency[0].asyncSleep))
+      print(("sampleTime:", self.robot.frequency[0].sampleTime))
       for i in range(10):
          distance, freq, value, total, best, bestValue = self.robot.frequency[0].results
          self.mem[i] = distance

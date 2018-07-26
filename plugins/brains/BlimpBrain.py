@@ -23,8 +23,8 @@ class BlimpBrain(Brain):
       if not self.robot.hasA("frequency"):
          self.startDevice("Frequency")
       self.robot.frequency[0].setSampleTime(0.1)
-      print("sleep between:", self.robot.frequency[0].asyncSleep)
-      print("sampleTime:", self.robot.frequency[0].sampleTime)
+      print(("sleep between:", self.robot.frequency[0].asyncSleep))
+      print(("sampleTime:", self.robot.frequency[0].sampleTime))
       for i in range(10):
          distance, freq, value, total, best, bestValue = self.robot.frequency[0].results
          self.mem[i] = distance
@@ -33,7 +33,7 @@ class BlimpBrain(Brain):
    def step(self):
       distance, freq, value, total, best, bestValue = self.robot.frequency[0].results
       av = avg(self.mem)
-      print(abs(distance - av))
+      print((abs(distance - av)))
       if(abs(distance - av) > 1):
          self.cont_count += 1
          if(self.cont_count > 20):

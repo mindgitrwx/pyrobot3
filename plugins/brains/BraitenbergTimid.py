@@ -26,7 +26,7 @@ class Vehicle(Brain):
          leftSpeed = 1.0 - left
       if right < 1.0-self.constant and right < left:
          rightSpeed = 1.0 - right
-      print("leftSpeed, rightSpeed:", leftSpeed, rightSpeed)
+      print(("leftSpeed, rightSpeed:", leftSpeed, rightSpeed))
       self.motors(leftSpeed,  rightSpeed) 
 
 def INIT(engine):

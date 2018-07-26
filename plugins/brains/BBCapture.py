@@ -64,7 +64,7 @@ class Avoid (Behavior):
 class state1 (State):
     def setup(self):
         self.add(Avoid(1))
-        print("initialized state", self.name)
+        print(("initialized state", self.name))
 
     def onActivate(self):
         self.count = 0
@@ -79,7 +79,7 @@ class state1 (State):
 class state2 (State):
     def setup(self):
         self.add(StopBehavior(1))
-        print("initialized state", self.name)
+        print(("initialized state", self.name))
 
     def update(self):
         print("State 2")
@@ -87,7 +87,7 @@ class state2 (State):
 
 class state3 (State):
     def setup(self):
-        print("initialized state", self.name)
+        print(("initialized state", self.name))
         self.count = 0
 
     def onActivate(self):

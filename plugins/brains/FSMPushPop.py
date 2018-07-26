@@ -37,7 +37,7 @@ class stuck(State):
 
     def update(self):
         self.count += 1
-        print("UNSTICKING!", self.count)
+        print(("UNSTICKING!", self.count))
         if self.count == 10:
             self.pop()
         
@@ -51,8 +51,8 @@ class edge (State):
         x = self.robot.x
         y = self.robot.y
         dist = distance( self.startX, self.startY, x, y) 
-        print("EDGE: actual = (%f, %f) start = (%f, %f); dist = %f" \
-              % (x, y, self.startX, self.startY, dist))
+        print(("EDGE: actual = (%f, %f) start = (%f, %f); dist = %f" \
+              % (x, y, self.startX, self.startY, dist)))
         if self.robot.stall:
             self.push()
             self.goto('stuck')
@@ -68,7 +68,7 @@ class turn (State):
 
     def update(self):
         th = self.robot.th
-        print("TURN: actual = %f start = %f" % (th, self.th))
+        print(("TURN: actual = %f start = %f" % (th, self.th)))
         if self.robot.stall:
             self.push() # current statename is default;
             # can also take another statename to return to

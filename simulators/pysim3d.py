@@ -118,7 +118,7 @@ class Tk3DSimulator(TkSimulator):
                         args["fill"] = ""
                 self.canvas.create_polygon(points, **args)
             else:
-                print("need renderer for type:", p[0])
+                print(("need renderer for type:", p[0]))
         
     def redraw(self):
         if self.display["wireframe"] == 2:

@@ -20,13 +20,13 @@ class DriveIt (Behavior):
     def update(self):
         self.IF(1, 'translate', self.behaviorEngine.som_translate)
         self.IF(1, 'rotate', self.behaviorEngine.som_rotate)
-        print("Setting Translate = ", self.behaviorEngine.som_translate)
-        print("Setting Rotate = ", self.behaviorEngine.som_rotate)
+        print(("Setting Translate = ", self.behaviorEngine.som_translate))
+        print(("Setting Rotate = ", self.behaviorEngine.som_rotate))
 
 class state1 (State):
     def init(self):
         self.add(DriveIt(1))
-        print("initialized state", self.name)
+        print(("initialized state", self.name))
 
     def onActivate(self):
         self.count = 0
@@ -41,7 +41,7 @@ class state1 (State):
 class state2 (State):
     def init(self):
         self.add(StopBehavior(1))
-        print("initialized state", self.name)
+        print(("initialized state", self.name))
 
     def update(self):
         print("State 2")
@@ -52,7 +52,7 @@ class state2 (State):
 
 class state3 (State):
     def init(self):
-        print("initialized state", self.name)
+        print(("initialized state", self.name))
         self.som = SOM("/home/dblank/html/som/som.cod")
         #self.som = SOM("/home/dblank/html/som/mot.cod")
         self.count = 0
@@ -96,12 +96,12 @@ class state3 (State):
         # find closest model vector
         outVec = self.som.findModel(sensorVec)
 
-        print("translate =", outVec[0])
-        print("rotate =", outVec[1])
+        print(("translate =", outVec[0]))
+        print(("rotate =", outVec[1]))
 
-        print("set translate to=", outVec[0] * float(self.som.max_translate - self.som.min_translate) + self.som.min_translate)
+        print(("set translate to=", outVec[0] * float(self.som.max_translate - self.som.min_translate) + self.som.min_translate))
 
-        print("set rotate to=", outVec[1] * float(self.som.max_rotate - self.som.min_rotate) + self.som.min_rotate)
+        print(("set rotate to=", outVec[1] * float(self.som.max_rotate - self.som.min_rotate) + self.som.min_rotate))
 
         self.behaviorEngine.som_translate = outVec[0] * float(self.som.max_translate - self.som.min_translate) + self.som.min_translate
         self.behaviorEngine.som_rotate = outVec[1] * float(self.som.max_rotate - self.som.min_rotate) + self.som.min_rotate

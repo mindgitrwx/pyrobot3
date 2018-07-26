@@ -100,13 +100,13 @@ class KonanePlayer(Brain):
             self.myPiece = "X"
         self.firstMove = 1
         self.turn = 1
-        print "Welcome to Konane, Hawaiian Checkers!"
-        print "Red O or X on the board indicates that it"
-        print "is that shape's move."
-        print "Jumps must occur in a straight line."
-        print "A human can play, or start two Pyrobot's up,"
-        print "and connect onto two different ports using"
-        print "PyrobotRobot60000 and PyrobotRobot60001."
+        print("Welcome to Konane, Hawaiian Checkers!")
+        print("Red O or X on the board indicates that it")
+        print("is that shape's move.")
+        print("Jumps must occur in a straight line.")
+        print("A human can play, or start two Pyrobot's up,")
+        print("and connect onto two different ports using")
+        print("PyrobotRobot60000 and PyrobotRobot60001.")
 
     def step(self):
         if self.robot.whosMove != self.robot.id:
@@ -122,16 +122,16 @@ class KonanePlayer(Brain):
             move = moves[int(len(moves) * random.random())]
             if len(move) == 2: # remove the piece
                 self.robot.play("remove(%d,%d)" % move)
-                print self.turn, "remove(%d,%d)" % move
+                print(self.turn, "remove(%d,%d)" % move)
                 self.robot.play("done")
             else: # jumps
                 movestr = formatMove(move)
-                print self.turn, movestr
+                print(self.turn, movestr)
                 self.robot.play(movestr)
                 self.robot.play("done")
             self.turn += 1
         else:
-            print "You win!"
+            print("You win!")
             self.pleaseStop() # request to stop running brain
 
 def INIT(engine):

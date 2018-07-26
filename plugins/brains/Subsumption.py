@@ -23,7 +23,7 @@ class SubsumptionBrain(Brain):
 
     def step(self):
         b = self.updateAll()
-        print("%s is in control" % self.behaviors[b].__class__.__name__)
+        print(("%s is in control" % self.behaviors[b].__class__.__name__))
         self.robot.move(self.behaviors[b].translate,
                         self.behaviors[b].rotate)
         time.sleep(1)

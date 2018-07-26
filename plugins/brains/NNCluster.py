@@ -52,7 +52,7 @@ class NNBrain(Brain):
       return (val / self.maxvalue)
    
    def step(self):
-      print(self.counter)
+      print((self.counter))
       if self.counter < 500:
          mode = 'learn'
       elif self.counter == 500:
@@ -79,7 +79,7 @@ class NNBrain(Brain):
          # plot data in PCA space
          pass 
 
-      print(self.counter)
+      print((self.counter))
          
       # First, set inputs and targets:
       ins = [self.scale(s.distance()) for s in self.robot.range["all"]]

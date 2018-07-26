@@ -12,7 +12,7 @@ class LogicDevice(Device, threading.Thread):
         print("Updated started...")
         self.lock.acquire()
         # look at the shared data
-        print("data:", self.data)
+        print(("data:", self.data))
         self.lock.release()
         print("Updated done!")
         

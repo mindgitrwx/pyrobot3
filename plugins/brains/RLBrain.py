@@ -163,10 +163,10 @@ class SimpleBrain(Brain):
          self.count += 1
 
          # show the path
-         print("PATH: ", path)
+         print(("PATH: ", path))
 
          # adjust the utility values of the map
-         print("Computing TDs: #", self.count, " length: ", len(path))
+         print(("Computing TDs: #", self.count, " length: ", len(path)))
          self.td.do_td( path )
 
          # start a new run

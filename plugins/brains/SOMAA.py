@@ -20,13 +20,13 @@ class DriveIt (Behavior):
     def update(self):
         self.IF(1, 'translate', self.behaviorEngine.som_translate)
         self.IF(1, 'rotate', self.behaviorEngine.som_rotate)
-        print("Setting Translate = ", self.behaviorEngine.som_translate)
-        print("Setting Rotate = ", self.behaviorEngine.som_rotate)
+        print(("Setting Translate = ", self.behaviorEngine.som_translate))
+        print(("Setting Rotate = ", self.behaviorEngine.som_rotate))
 
 class state1 (State):
     def init(self):
         self.add(DriveIt(1))
-        print("initialized state", self.name)
+        print(("initialized state", self.name))
 
     def onActivate(self):
         self.count = 0
@@ -41,7 +41,7 @@ class state1 (State):
 class state2 (State):
     def init(self):
         self.add(StopBehavior(1))
-        print("initialized state", self.name)
+        print(("initialized state", self.name))
 
     def update(self):
         print("State 2")
@@ -52,7 +52,7 @@ class state2 (State):
 
 class state3 (State):
     def init(self):
-        print("initialized state", self.name)
+        print(("initialized state", self.name))
         self.motsom = SOM("/home/dblank/html/som/mot.cod")
         self.vissom = SOM("/home/dblank/html/som/vis.cod")
         self.irsom = SOM("/home/dblank/html/som/ir.cod")

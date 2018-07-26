@@ -38,7 +38,7 @@ class NNPredict(Brain):
       self.doneLearning = 0
       self.robot.range.units = 'METERS'
       self.maxvalue = self.robot.range.getMaxvalue()
-      print " Max value: ", self.maxvalue
+      print(" Max value: ", self.maxvalue)
       
       self.plot1 = Scatter()
       self.plot1.setTitle('translate x rotate')
@@ -71,7 +71,7 @@ class NNPredict(Brain):
          self.doneLearning = 1
          self.net.setLearning(0)
       else:
-         print self.counter
+         print(self.counter)
 
       # set targets   
       target_rotate = 0.5

@@ -17,7 +17,7 @@ class VisionBrain(Brain):
       
    def step(self):
       # do something with the camera processed data:
-      print self.camera[0].filterResults
+      print(self.camera[0].filterResults)
 
 def INIT(engine):
    return VisionBrain('VisionTest', engine)

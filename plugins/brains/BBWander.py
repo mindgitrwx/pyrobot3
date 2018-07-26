@@ -43,7 +43,7 @@ class state1 (State):
     """ sample state """
     def setup(self):
         self.add(Avoid(1, {'translate': .3, 'rotate': .3}))
-        print("initialized state", self.name)
+        print(("initialized state", self.name))
     def update(self):
         if min([s.distance() for s in self.robot.range["front-all"]]) < 1: 
             self.goto("TurnAround")

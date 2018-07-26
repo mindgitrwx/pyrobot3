@@ -72,8 +72,8 @@ class MaintainHeight(State):
       self.pulseTime = 0.5
       self.dutyCycle = .3
       print("MaintainHeight:")
-      print("  sleep between:", self.robot.frequency[0].asyncSleep)
-      print("  sampleTime:", self.robot.frequency[0].sampleTime)
+      print(("  sleep between:", self.robot.frequency[0].asyncSleep))
+      print(("  sampleTime:", self.robot.frequency[0].sampleTime))
       sampleCount = 0
       print("  sample starting...")
       while sampleCount < len(self.distances):
@@ -127,7 +127,7 @@ class Search(State): # looking through forward camera to find a fiducial
       backBlob = [data for data in backResults if type(data) == tuple][0][0] # get blob data
       frontBlob = [data for data in frontResults if type(data) == tuple][0][0] # get blob data
       # x1, y1, x2, x2, matches
-      print(frontBlob[4], backBlob[4])
+      print((frontBlob[4], backBlob[4]))
       if frontBlob[4] > backBlob[4]:
          if frontBlob[4] > self.brain.frontCamera.minBlob:
             self.trackFrontCount += 1

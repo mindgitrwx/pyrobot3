@@ -33,7 +33,7 @@ class BlimpRecorder(Brain):
             self.robot.camera[3].addFilter("grayScale")
       
     def step(self):
-        print(time.time(), self.robot.frequency[0].results)
+        print((time.time(), self.robot.frequency[0].results))
         self.robot.camera[0].vision.saveImage("cam0-%05d.pbm" % self.imageCount)
         self.imageCount += 1
 

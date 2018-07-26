@@ -3,7 +3,7 @@ from pyrobot.brain.behaviors import *
 
 class beh1 (Behavior):
     def setup(self): # called when created
-        print("---setupializing", self.name, "...")
+        print(("---setupializing", self.name, "..."))
         self.Effects('translate', 1.0) # default values
         self.Effects('rotate', 1.0) # now we don't have to set them again
 
@@ -12,7 +12,7 @@ class beh1 (Behavior):
       
     def update(self):
         fuzz = Fuzzy(5, 100)
-        print("---updating", self.name, "...")
+        print(("---updating", self.name, "..."))
         self.IF(Fuzzy(0, 1) >> 0, 'rotate', .96) # can set default amount
         self.IF(1.0, 'rotate', .5)
         self.IF(Fuzzy(5, 6) >> 6.5, 'rotate', .5)
@@ -21,7 +21,7 @@ class beh1 (Behavior):
 
 class beh2 (Behavior):
     def setup(self):
-        print("---setupializing", self.name, "...")
+        print(("---setupializing", self.name, "..."))
         
     def onActivate(self):
         self.Effects('translate', 1.0) # default values
@@ -31,7 +31,7 @@ class beh2 (Behavior):
         print('heading out...')
 
     def update(self):
-        print("---updating", self.name, "...")
+        print(("---updating", self.name, "..."))
         self.Effects('rotate', .7) # change affector on fly
         self.IF(.5, 'translate', 0.1)
         self.IF(1.0, 'rotate', 0.2)
@@ -43,7 +43,7 @@ class state1 (State):
         self.add(beh1(1))
         self.add(beh2(1))
         self.add(beh2(1, {}, 'beh3'))
-        print("setupialized state", self.name)
+        print(("setupialized state", self.name))
 
     def onActivate(self):
         self.count = 0
@@ -58,7 +58,7 @@ class state1 (State):
         self.count = self.count + 1
         if self.count == 10:
             self.goto('state_empty')
-        print("Finished executing step number  ",self.count)
+        print(("Finished executing step number  ",self.count))
        
 class state_empty (State):
     def onActivate(self): # called when it gets activated
@@ -76,7 +76,7 @@ class state_empty (State):
             self.goto('state1') # fork states, one with args:
             self.goto('state3', self.count, self.count + 1, \
                       self.count + 2) # it's ok if it is already active
-        print("Finished executing step number  ",self.count)
+        print(("Finished executing step number  ",self.count))
 
 class state3 (State):
     def setup(self):
@@ -87,9 +87,9 @@ class state3 (State):
 
     def onGoto(self, argv): # argv is optional unless you pass vars
         if len(argv) == 3:
-            print('x =', argv[0])
-            print('y =', argv[1])
-            print('z =', argv[2])
+            print(('x =', argv[0]))
+            print(('y =', argv[1]))
+            print(('z =', argv[2]))
             self.x = argv[0]
             self.y = argv[1]
             self.z = argv[2]
@@ -98,7 +98,7 @@ class state3 (State):
         print('heading out of state3...')
 
     def update(self):
-        print("State1 status =", self.getState('state1').status)
+        print(("State1 status =", self.getState('state1').status))
         print("Updating State3!")
 
 def INIT(engine):

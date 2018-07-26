@@ -1,12 +1,12 @@
-import Tkinter, os, random, pickle
+import tkinter, os, random, pickle
 import Image, ImageTk, ImageDraw, ImageFont 
 
-class GUI(Tkinter.Toplevel):
+class GUI(tkinter.Toplevel):
     """
     Konane: Hawaiian Checkers
     """
     def __init__(self, root, width, height):
-        Tkinter.Toplevel.__init__(self, root)
+        tkinter.Toplevel.__init__(self, root)
         self.done = 0
         self.quit = 0
         self.root = root
@@ -15,18 +15,18 @@ class GUI(Tkinter.Toplevel):
         self.lastMove = (0,0)
         self.visible = 1
         self.title("PyrobotSimulator: KonaneWorld")
-        self.mBar = Tkinter.Frame(self, relief=Tkinter.RAISED, borderwidth=2)
-        self.mBar.pack(fill=Tkinter.X)
+        self.mBar = tkinter.Frame(self, relief=tkinter.RAISED, borderwidth=2)
+        self.mBar.pack(fill=tkinter.X)
         #menubar = self.tk_menuBar(self.makeMenu(self.mBar,
         #                                        "Game",
         #                                        [["Done with move", self.playDone],
         #                                         ["Reset", self.initWorld],
         #                                         ]))
-        button = Tkinter.Button(self.mBar, text="Done!", command=self.playDone)
+        button = tkinter.Button(self.mBar, text="Done!", command=self.playDone)
         button.pack(side="left")
-        button = Tkinter.Button(self.mBar, text="Reset!", command=self.initWorld)
+        button = tkinter.Button(self.mBar, text="Reset!", command=self.initWorld)
         button.pack(side="right")
-        self.canvas = Tkinter.Canvas(self,width=self.width,height=self.height,bg="white")
+        self.canvas = tkinter.Canvas(self,width=self.width,height=self.height,bg="white")
         self.canvas.pack()
         self.canvas.bind('<Button-1>', self.click)
         self.winfo_toplevel().protocol('WM_DELETE_WINDOW',self.destroy)
@@ -41,10 +41,10 @@ class GUI(Tkinter.Toplevel):
 
     def makeMenu(self, bar, name, commands):
         """ Assumes self.menuButtons exists """
-        menu = Tkinter.Menubutton(bar,text=name,underline=0)
+        menu = tkinter.Menubutton(bar,text=name,underline=0)
         #self.menuButtons[name] = menu
-        menu.pack(side=Tkinter.LEFT,padx="2m")
-        menu.filemenu = Tkinter.Menu(menu)
+        menu.pack(side=tkinter.LEFT,padx="2m")
+        menu.filemenu = tkinter.Menu(menu)
         for cmd in commands:
             if cmd:
                 menu.filemenu.add_command(label=cmd[0],command=cmd[1])
@@ -61,11 +61,11 @@ class GUI(Tkinter.Toplevel):
         posx = int((event.x / float(self.width)) * 8 + 1)
         posy = 8 - int((event.y / float(self.height)) * 8)
         if self.world[posx - 1][posy - 1] != '':
-            print "remove(%d,%d) (or picking up for jump)" % (posx, posy)
+            print("remove(%d,%d) (or picking up for jump)" % (posx, posy))
             self.world[posx - 1][posy - 1] = ''
             self.lastMove = (posx, posy)
         elif self.lastMove == (posx, posy):
-            print "Took back move at (%d,%d)" % (posx, posy)
+            print("Took back move at (%d,%d)" % (posx, posy))
             if posx % 2 == posy % 2:
                 self.world[posx - 1][posy - 1] = 'O'
             else:
@@ -82,7 +82,7 @@ class GUI(Tkinter.Toplevel):
             else:
                 self.world[(x1+x2)/2 - 1][y1-1] = ''
             self.lastMove = (x2, y2)
-            print "jump(%d,%d,%d,%d)" % (x1, y1, posx, posy)
+            print("jump(%d,%d,%d,%d)" % (x1, y1, posx, posy))
         self.redraw()
 
     def initWorld(self):
@@ -101,14 +101,14 @@ class GUI(Tkinter.Toplevel):
         if request.count("remove"):
             request = request.replace(")", "")
             remove, pos = request.split("(")
-            x,y = map(int, pos.split(","))
+            x,y = list(map(int, pos.split(",")))
             self.world[x-1][y-1] = ''
             retval = "ok"
             self.redraw()
         elif request.count("jump"):
             request = request.replace(")", "")
             jump, pos = request.split("(")
-            places = map(int, pos.split(","))
+            places = list(map(int, pos.split(",")))
             while len(places) >= 4:
                 x1, y1, x2, y2 = places[:4]
                 piece = self.world[x1-1][y1-1]
@@ -189,6 +189,6 @@ class GUI(Tkinter.Toplevel):
         self.root.quit() # kill the gui
 
 def INIT():
-    root = Tkinter.Tk()
+    root = tkinter.Tk()
     root.withdraw()
     return GUI(root, 600, 600)

@@ -61,11 +61,11 @@ class GUI(tkinter.Toplevel):
         posx = int((event.x / float(self.width)) * 8 + 1)
         posy = 8 - int((event.y / float(self.height)) * 8)
         if self.world[posx - 1][posy - 1] != '':
-            print("remove(%d,%d) (or picking up for jump)" % (posx, posy))
+            print(("remove(%d,%d) (or picking up for jump)" % (posx, posy)))
             self.world[posx - 1][posy - 1] = ''
             self.lastMove = (posx, posy)
         elif self.lastMove == (posx, posy):
-            print("Took back move at (%d,%d)" % (posx, posy))
+            print(("Took back move at (%d,%d)" % (posx, posy)))
             if posx % 2 == posy % 2:
                 self.world[posx - 1][posy - 1] = 'O'
             else:
@@ -82,7 +82,7 @@ class GUI(tkinter.Toplevel):
             else:
                 self.world[(x1+x2)/2 - 1][y1-1] = ''
             self.lastMove = (x2, y2)
-            print("jump(%d,%d,%d,%d)" % (x1, y1, posx, posy))
+            print(("jump(%d,%d,%d,%d)" % (x1, y1, posx, posy)))
         self.redraw()
 
     def initWorld(self):

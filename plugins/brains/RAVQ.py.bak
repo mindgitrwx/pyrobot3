@@ -70,7 +70,7 @@ class SimpleBrain(Brain):
          self.ravq.logHistory(0, str(self.robot.simulation[0].getPose("Pioneer")))
  
    def step(self): 
-      print self.counter 
+      print(self.counter) 
       target = self.avoidObstacles() 
       self.move(target[0], target[1]) 
       self.recordRAVQ()          
@@ -83,5 +83,5 @@ class SimpleBrain(Brain):
       self.counter += 1 
  
 def INIT(engine):
-   print "This brain needs a robot named 'Pioneer' in the world"
+   print("This brain needs a robot named 'Pioneer' in the world")
    return SimpleBrain('SimpleBrain', engine) 

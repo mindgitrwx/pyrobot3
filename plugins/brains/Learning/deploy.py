@@ -26,7 +26,7 @@ class NNBrain(Brain):
       self.n.propagate()  
       translateActual = self.n.getLayer('output').activation[0] * 2 - 1.0
       rotateActual = self.n.getLayer('output').activation[1]  * 2 - 1.0
-      print("move", translateActual, rotateActual) 
+      print(("move", translateActual, rotateActual)) 
       robot.move(translateActual, rotateActual)  
    
 def INIT(robot):  

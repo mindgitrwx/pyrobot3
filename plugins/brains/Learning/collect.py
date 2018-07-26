@@ -18,7 +18,7 @@ class CollectDataBrain(Brain):
       self.datafile1 = open("sensors.dat", "w") 
       self.datafile2 = open("targets.dat", "w") 
       self.maxvalue = self.robot.range.getMaxvalue()
-      print("max sensor value is ", self.maxvalue) 
+      print(("max sensor value is ", self.maxvalue)) 
    ######################################################
  
    def determineMove(self, sensors): 
@@ -57,7 +57,7 @@ class CollectDataBrain(Brain):
       sensors = [x.value for x in robot.range['all']]
       translate = self.determineMove(sensors) 
       rotate = self.determineTurn(sensors) 
-      print("front sensors", sensors[2], sensors[3]) 
+      print(("front sensors", sensors[2], sensors[3])) 
       if self.counter > 1000: 
          self.datafile1.close() 
          self.datafile2.close() 
@@ -69,7 +69,7 @@ class CollectDataBrain(Brain):
          sleep(0.5) 
          self.countstopping = 0 
       else: 
-         print("move", self.counter, translate, rotate)
+         print(("move", self.counter, translate, rotate))
          saveListToFile( list(map(self.scale, sensors)), self.datafile1) 
          saveListToFile([(x + 1)/2.0 for x in [translate, rotate]],
                         self.datafile2) 

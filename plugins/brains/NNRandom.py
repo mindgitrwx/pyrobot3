@@ -72,7 +72,7 @@ class Reinforce(Brain):
       .set targets according to new sensor and motor values
       .backpropagate
       ''' 
-      print(self.counter)
+      print((self.counter))
       
       if self.doneLearning:
          self.net.setLearning(0)

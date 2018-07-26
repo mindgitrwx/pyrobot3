@@ -70,7 +70,7 @@ class SimpleBrain(Brain):
          self.ravq.logHistory(0, str(self.robot.simulation[0].getPose("Pioneer")))
  
    def step(self): 
-      print(self.counter) 
+      print((self.counter)) 
       target = self.avoidObstacles() 
       self.move(target[0], target[1]) 
       self.recordRAVQ()          

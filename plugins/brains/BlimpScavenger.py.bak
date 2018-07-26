@@ -50,7 +50,7 @@ class Start(State):
       self.engine.gui.watch("brain.activeState.name")
       self.engine.gui.watch("brain.states['MaintainHeight'].distance")
       self.engine.gui.watch("brain.states['MaintainHeight'].old_amt")
-      print "Here we go!"
+      print("Here we go!")
       # start two states:
       self.goto("MaintainHeight")
       self.goto("Search")
@@ -71,18 +71,18 @@ class MaintainHeight(State):
       self.deriv = 0.0
       self.pulseTime = 0.5
       self.dutyCycle = .3
-      print "MaintainHeight:"
-      print "  sleep between:", self.robot.frequency[0].asyncSleep
-      print "  sampleTime:", self.robot.frequency[0].sampleTime
+      print("MaintainHeight:")
+      print("  sleep between:", self.robot.frequency[0].asyncSleep)
+      print("  sampleTime:", self.robot.frequency[0].sampleTime)
       sampleCount = 0
-      print "  sample starting..."
+      print("  sample starting...")
       while sampleCount < len(self.distances):
          distance, freq, value, total, best, bestValue = self.robot.frequency[0].results
          if bestValue/total <= 0.15:
             self.distances[sampleCount] = distance
             sampleCount += 1
          time.sleep(.1)
-      print "  sample done!"
+      print("  sample done!")
          
    def step(self):
       distance, freq, value, total, best, bestValue = self.robot.frequency[0].results
@@ -127,22 +127,22 @@ class Search(State): # looking through forward camera to find a fiducial
       backBlob = [data for data in backResults if type(data) == tuple][0][0] # get blob data
       frontBlob = [data for data in frontResults if type(data) == tuple][0][0] # get blob data
       # x1, y1, x2, x2, matches
-      print frontBlob[4], backBlob[4]
+      print(frontBlob[4], backBlob[4])
       if frontBlob[4] > backBlob[4]:
          if frontBlob[4] > self.brain.frontCamera.minBlob:
             self.trackFrontCount += 1
             if self.trackFrontCount > 5:
-               print "Track front"
+               print("Track front")
                self.goto("Track", "front")
                return
       else:
          if backBlob[4] > self.brain.backCamera.minBlob:
             self.trackBackCount += 1
             if self.trackBackCount > 5:
-               print "Track back"
+               print("Track back")
                self.goto("Track", "back")
                return
-      print "Still searching..."
+      print("Still searching...")
       # we are still searching. let's rotate!
       rand = random.random()
       if rand < .33:

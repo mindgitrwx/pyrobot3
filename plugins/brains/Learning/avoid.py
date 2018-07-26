@@ -36,7 +36,7 @@ class NNBrain(Brain):
       sensors = [x.value for x in robot.range['all']]
       translate = self.determineMove(sensors) 
       rotate = self.determineTurn(sensors) 
-      print("front sensors", sensors[2], sensors[3]) 
+      print(("front sensors", sensors[2], sensors[3])) 
       robot.move(translate, rotate) 
         
 def INIT(robot): 

@@ -12,7 +12,7 @@ class Vehicle(Brain):
       leftSpeed = max([s.value for s in self.robot.light[0]["left"]])
       rightSpeed = max([s.value for s in self.robot.light[0]["right"]])
       speed = (leftSpeed + rightSpeed)/2.0
-      print "speed:", speed
+      print("speed:", speed)
       self.motors(speed,  speed) 
 
 def INIT(engine):

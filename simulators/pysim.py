@@ -1467,9 +1467,9 @@ class TkSimulator(tkinter.Toplevel, Simulator):
         if not self.running:
             self.step(run=0)
     def printDetails(self):
-        print("Window: size=(%d,%d), offset=(%d,%d), scale=%f" % (self.winfo_width(), self.winfo_height(), self.offset_x, self.offset_y, self.scale))
+        print(("Window: size=(%d,%d), offset=(%d,%d), scale=%f" % (self.winfo_width(), self.winfo_height(), self.offset_x, self.offset_y, self.scale)))
         for robot in self.robots:
-            print("   %s: pose = (%.2f, %.2f, %.2f)" % (robot.name, robot._gx, robot._gy, robot._ga % (2 * math.pi)))
+            print(("   %s: pose = (%.2f, %.2f, %.2f)" % (robot.name, robot._gx, robot._gy, robot._ga % (2 * math.pi))))
         
     def addBox(self, ulx, uly, lrx, lry, color="white", wallcolor="black"):
         Simulator.addBox(self, ulx, uly, lrx, lry, color, wallcolor)

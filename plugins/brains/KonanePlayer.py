@@ -122,11 +122,11 @@ class KonanePlayer(Brain):
             move = moves[int(len(moves) * random.random())]
             if len(move) == 2: # remove the piece
                 self.robot.play("remove(%d,%d)" % move)
-                print(self.turn, "remove(%d,%d)" % move)
+                print((self.turn, "remove(%d,%d)" % move))
                 self.robot.play("done")
             else: # jumps
                 movestr = formatMove(move)
-                print(self.turn, movestr)
+                print((self.turn, movestr))
                 self.robot.play(movestr)
                 self.robot.play("done")
             self.turn += 1
