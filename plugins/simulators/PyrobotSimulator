@@ -15,15 +15,15 @@ def INIT(filename):
     search = '/'.join(path)
     oldpath = sys.path[:] # copy
     sys.path.insert(0, search)
-    print "Attempting to import '%s'..." % module 
+    print ("Attempting to import '%s'..." % module )
     exec("import " + module + " as userspace")
     reload(userspace)
-    print "Loaded '%s'!" % userspace.__file__
+    print ("Loaded '%s'!" % userspace.__file__)
     sys.path = oldpath
     try:
         userspace.INIT
     except AttributeError:
-        raise ImportError, "your program needs an INIT() function"
+        raise (ImportError, "your program needs an INIT() function")
     retval = userspace.INIT()
     return retval
 
@@ -65,7 +65,7 @@ class Thread(threading.Thread):
             self.server.socket.settimeout(1) # checks to see if need to quit
             #self.server.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         except:
-            print "WARN: entering deadlock zone; upgrade to Python 2.3 to avoid"
+            print ("WARN: entering deadlock zone; upgrade to Python 2.3 to avoid")
 
     def run(self):
         while not self.gui.quit:
@@ -83,7 +83,7 @@ if __name__ == "__main__":
         worldFile += '.py'
     gui = INIT(worldFile)
     for port in gui.ports:
-        print "Simulator starting listener on port", port, "..."
+        print ("Simulator starting listener on port", port, "...")
         thread = Thread(gui, port)
         thread.start()
     gui.mainloop()
