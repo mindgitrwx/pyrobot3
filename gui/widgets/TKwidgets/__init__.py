@@ -88,7 +88,7 @@ class Dialog:
 		geomStr = "+" + centerx + "+" + centery
 		print("CenterDialog error log10") # DEBUG
 		print(geomStr) # DEBUG
-		self.top.geometry("%dx%d%+d%+d" % (300, 200, 250, 125)) #DEBUG - not as i thin
+		self.top.geometry("%dx%d%+d%+d" % (500, 500, 500, 500)) #DEBUG - not as i thin
 		#self.top.geometry(geomStr) # DEBUG : REMOVED
 		print("CenterDialog error log11") # DEBUG
 ####
