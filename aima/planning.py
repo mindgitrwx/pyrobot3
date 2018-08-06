@@ -2,6 +2,6 @@
 """
 
 
-from .utils import *
-from . import agents
+from utils import *
+import agents
 import math, random, sys, time, bisect, string

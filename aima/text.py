@@ -4,7 +4,7 @@ and show the Viterbi algorithm for segmentatioon of letters into words.
 Then we show a very simple Information Retrieval system, and an example
 working on a tiny sample of Unix manual pages."""
 
-from .utils import *
+from utils import *
 from math import log, exp
 import re, probability, string, search
 

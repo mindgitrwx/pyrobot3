@@ -1,6 +1,6 @@
 """Learn to estimate functions  from examples. (Chapters 18-20)"""
 
-from .utils import *
+from utils import *
 import agents, random, os.path, operator
 from functools import reduce
 

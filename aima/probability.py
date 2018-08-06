@@ -1,9 +1,9 @@
 """Probability models. (Chapter 13-15)
 """
 
-from .utils import *
-from .logic import extend
-from . import agents
+from utils import *
+from logic import extend
+import agents
 import bisect, random
 
 #______________________________________________________________________________

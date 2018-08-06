@@ -4,15 +4,19 @@
 import operator, math, random, copy, sys, os.path, bisect
 from functools import reduce
 
-if sys.version_info >= (2, 3):
-    from sets import *
-else:
-    from .python23 import *
+# issue: No module named 'sets'
+#if sys.version_info >= (2, 3):
+#    from sets import *
+#else:
+#    from .python23 import *
 
 #______________________________________________________________________________
 # Simple Data Structures: infinity, Dict, Struct
                 
 infinity = 1.0e400
+
+def cmp(a, b):
+    return ((a>b)-(a<b))
 
 def Dict(**entries):  
     """Create a dict out of the argument=value arguments. 
@@ -416,7 +420,7 @@ def print_table(table, header=None, sep=' ', numfmt='%g'):
 
 def AIMAFile(components, mode='r'):
     "Open a file based at the AIMA root directory."
-    from . import utils
+    import utils
     dir = os.path.dirname(utils.__file__)
     return open(os.path.join(*[dir] + components), mode)
 

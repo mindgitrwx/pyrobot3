@@ -34,7 +34,8 @@ def importer(m):
 def find1(regex, str):
     return (re.findall(regex, str) or ['&nbsp;'])[0]
 
-def convert_files(filenames, local_filenames=None, tblfile='readme.htm'):
+#def convert_files(filenames, local_filenames=None, tblfile='readme.htm'): typo
+def convert_files(filenames, local_filenames=None, tblfile='readme.htm'): 
     "Convert files of python code to colorized HTML."
     global local_files
     local_files = local_filenames or filenames
@@ -57,7 +58,9 @@ def convert_files(filenames, local_filenames=None, tblfile='readme.htm'):
         totallines = 0
         tbl = ["<tr><th>Chapter<th>Module<th>Links<th>Lines<th>Description"]
         fmt = "<tr><td align=right>%s<th>%s<td>%s<td align=right>%s<td>%s" 
-        items = list(summary_table.items()); items.sort(num_cmp)
+        items = list(summary_table.items()); 
+        #items.sort(num_cmp);
+        items.sort();
         for (ch, entries) in items:
             for (module, lines, desc) in entries:
                 totallines += lines
@@ -76,7 +79,7 @@ def num_cmp(x, y):
         nums = re.findall('[0-9]+', x or '')
         if nums: return int(nums[0])
         return x
-    return cmp(num(x[0]), num(y[0]))
+    return (num(x[0])>num(y[0]))-(num(x[0])<num(y[0]))
 
 ### Above is general (more or less); below is specific to my files.
 

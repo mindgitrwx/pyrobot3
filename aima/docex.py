@@ -75,7 +75,7 @@ class Test:
                 out.close()
                 
     def __repr__(self):
-	if self.failed:
+        if self.failed:
             return ('<Test: #### failed %d, passed %d>'
                     % (self.failed, self.passed))
         else:

@@ -6,7 +6,7 @@ as a dictionary of {state:action} pairs, and a Utility function as a
 dictionary of {state:number} pairs.  We then define the value_itteration 
 and policy_iteration algorithms."""
 
-from .utils import *
+from utils import *
 
 class MDP:
     """A Markov Decision Process, defined by an initial state, transition model,
@@ -19,7 +19,7 @@ class MDP:
 
     def __init__(self, init, actlist, terminals, gamma=.9): 
         update(self, init=init, actlist=actlist, terminals=terminals, 
-               gamma=gamma, states=Set(), reward={})
+               gamma=gamma, states=set(), reward={})
 
     def R(self, state): 
         "Return a numeric reward for this state."

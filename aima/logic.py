@@ -26,8 +26,8 @@ And a few other functions:
 
 
 import re
-from . import agents
-from .utils import *
+import agents
+from utils import *
 
 #______________________________________________________________________________
 

@@ -18,7 +18,7 @@ def random_board(n=4):
 
 def board(str):
     "Return a board made from the letters in str."
-    return [c.upper() for c in str if c in string.letters]
+    return [c.upper() for c in str if c in string.ascii_letters]
 
 ## The best 5x5 board found by Boyan, with our word list we get
 ## 2274 words, for a score of 9837

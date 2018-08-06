@@ -1,6 +1,6 @@
 """A chart parser and some grammars. (Chapter 22)"""
 
-from .utils import *
+from utils import *
 
 #______________________________________________________________________________
 # Grammars and Lexicons

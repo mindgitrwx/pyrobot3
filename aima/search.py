@@ -1,12 +1,11 @@
-"""Search (Chapters 3-4)
+"""Search (Chapters 3-4) The way to use this code is to subclass Problem to create a class of problems, then create problem instances and solve them with calls to the various search functions.""" 
 
-The way to use this code is to subclass Problem to create a class of problems,
-then create problem instances and solve them with calls to the various search
-functions."""
+#DEBUG
+#from .utils import *
+from utils import *
+#DEBUG
+import agents # issue: agent cannot imporTEDJKJK
 
-
-from .utils import *
-from . import agents
 import math, random, sys, time, bisect, string
 
 #______________________________________________________________________________
@@ -738,7 +737,6 @@ def compare_graph_searchers():
 
 _docex = """
 ab = GraphProblem('A', 'B', romania)
-
 breadth_first_tree_search(ab).state ==> 'B'
 breadth_first_graph_search(ab).state ==> 'B'
 depth_first_graph_search(ab).state ==> 'B'
@@ -747,7 +745,6 @@ depth_limited_search(ab).state ==> 'B'
 astar_search(ab).state ==> 'B'
 [node.state for node in astar_search(ab).path()] ==> ['B', 'P', 'R', 'S', 'A']
 compare_graph_searchers()
-
 board = list('SARTELNID')
 print_boggle(board)
 f = BoggleFinder(board)

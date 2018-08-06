@@ -18,8 +18,8 @@ Then we implement various functions for doing logical inference:
 
 
 import re
-from . import agents
-from .utils import *
+import agents
+from utils import *
 
 #______________________________________________________________________________
 
