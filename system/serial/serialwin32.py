@@ -9,7 +9,7 @@
 import win32file  # The base COM port and file IO functions.
 import win32event # We use events and the WaitFor[Single|Multiple]Objects functions.
 import win32con   # constants.
-from .serialutil import *
+from serialutil import *
 
 VERSION = "$Revision: 1.1 $".split()[1]     #extract CVS version
 

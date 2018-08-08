@@ -11,7 +11,7 @@
 # references: http://www.easysw.com/~mike/serial/serial.html
 
 import sys, os, fcntl, termios, struct, select
-from .serialutil import *
+from serialutil import *
 
 VERSION = "$Revision: 1.2 $".split()[1]     #extract CVS version
 

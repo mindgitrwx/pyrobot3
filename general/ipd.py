@@ -85,7 +85,7 @@ for file in files:
     file = file.strip()
     path = file[:-6]
     sys.path[0] = path
-    from . import ipd as userspace
+    from import ipd as userspace
     imp.reload(userspace)
     IPD = userspace.IPD
     players.append( IPD() )

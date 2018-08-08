@@ -10,9 +10,9 @@ VERSION = string.split("$Revision: 1.1 $")[1]     #extract CVS version
 
 #chose an implementation, depending on os
 if os.name == 'nt': #sys.platform == 'win32':
-    from .serialwin32 import *
+    from serialwin32 import *
 elif os.name == 'posix':
-    from .serialposix import *
+    from serialposix import *
 elif os.name == 'java':
     from serialjava import *
 else:

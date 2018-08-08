@@ -1,7 +1,7 @@
 __author__ = "Matt Fiedler"
 __version__ = "$Revision: 1.2 $"
 
-from .Hinton import *
+from Hinton import *
 import tkinter
 
 class Hinton(MatrixHinton):
