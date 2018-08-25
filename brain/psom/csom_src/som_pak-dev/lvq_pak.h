@@ -204,7 +204,7 @@ struct teach_params {
 #define ALPHA_INVERSE_T 2
 
 struct typelist {
-  int id;           /* numeric id */
+  int id;           /* numpy id */
   char *str;        
   void *data;       /* data pointer */
 };

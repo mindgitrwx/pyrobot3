@@ -1,4 +1,4 @@
-#import numeric, math, random, sys
+#import numpy, math, random, sys
 import numpy, math, random, sys
 
 from pyrobot.tools.circularlist import CircularList
@@ -28,7 +28,7 @@ def averageVector(V):
     """
     Determines the average vector of a set of vectors V.
     """
-    return Numeric.add.reduce(V) / len(V)
+    return numpy.add.reduce(V) / len(V)
 
 def tooSmall(v):
     if v < 1.0e-32:
@@ -37,15 +37,15 @@ def tooSmall(v):
 
 def euclideanDistance(x, y, mask):
     """
-    Takes two Numeric vectors as arguments.
+    Takes two numpy vectors as arguments.
     d(x, y) = sqrt(Sum[i = 1 to |x|]{(x_i - y_i) ^ 2 * mask_i})
     """
     try:
-        result = math.sqrt(Numeric.add.reduce( ((x - y)  ** 2) * mask))
+        result = math.sqrt(numpy.add.reduce( ((x - y)  ** 2) * mask))
     except:
-        x = Numeric.array(list(map(tooSmall, x)))
-        y = Numeric.array(list(map(tooSmall, y)))
-        result = math.sqrt(Numeric.add.reduce( ((x - y)  ** 2) * mask))
+        x = numpy.array(list(map(tooSmall, x)))
+        y = numpy.array(list(map(tooSmall, y)))
+        result = math.sqrt(numpy.add.reduce( ((x - y)  ** 2) * mask))
     return result
 
 def getDistance(V, X, mask):
@@ -58,7 +58,7 @@ def getDistance(V, X, mask):
     for x in X:
         for v in V:
             min.append(euclideanDistance(x,v,mask))
-        sum += min[Numeric.argmin(min)]
+        sum += min[numpy.argmin(min)]
     return sum / len(X)
 
 def stringArray(a, newline = 1, width = 0, format = "%4.4f "):
@@ -175,9 +175,9 @@ class RAVQ:
             print("Step:", self.time)
         if self.verbosity > 2:
             print(vec)
-        array = Numeric.array(vec, 'd')
+        array = numpy.array(vec, 'd')
         if self.mask == None:
-            self.mask = Numeric.ones(len(array), 'd')
+            self.mask = numpy.ones(len(array), 'd')
         self.buffer.addItem(array)
         if self.time >= len(self.buffer):
             self.process() 
@@ -200,7 +200,7 @@ class RAVQ:
         The mask serves to weight certain components of the inputs in
         the distance calculations.
         """
-        self.mask = Numeric.array(mask, 'd')
+        self.mask = numpy.array(mask, 'd')
     def getWinnerCount(self):
         """
         Returns the number of times the current winner has been the
@@ -299,7 +299,7 @@ class RAVQ:
             self.winner = 'No Winner'
         else:
             self.previousWinnerIndex= self.newWinnerIndex
-            self.newWinnerIndex = Numeric.argmin(min)
+            self.newWinnerIndex = numpy.argmin(min)
             if self.previousWinnerIndex == self.newWinnerIndex:
                 self.winnerCount += 1
             else:
@@ -404,7 +404,7 @@ class ARAVQ(RAVQ):
                 self.deltaWinner = self.alpha * (self.movingAverage - self.winner)
                 if self.verbosity > 4: print('Learning')
             else:
-                self.deltaWinner = Numeric.zeros(len(self.winner)) 
+                self.deltaWinner = numpy.zeros(len(self.winner)) 
         else:
             self.deltaWinner = 'No Winner'
     def learn(self):
@@ -466,9 +466,9 @@ if __name__ == '__main__':
     print("------------------------------------------------------------")
     print("mask:", ravq.mask)
     print("Test masking functionality in euclidean distance calc's:", end=' ') 
-    print(euclideanDistance(Numeric.array([1,2]),
-                            Numeric.array([3,5]),
-                            Numeric.array([1,0])))
+    print(euclideanDistance(numpy.array([1,2]),
+                            numpy.array([3,5]),
+                            numpy.array([1,0])))
     print(ravq)
     print("Saving to file...")
     ravq.saveRAVQToFile('test.ravq')

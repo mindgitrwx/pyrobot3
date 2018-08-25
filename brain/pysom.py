@@ -142,7 +142,7 @@ class SOM:
 
     def test(self):
         self.loadOrder = list(range(len(self.input)))
-        histogram = Numeric.zeros((self.cols, self.rows), 'i')
+        histogram = numpy.zeros((self.cols, self.rows), 'i')
         for p in self.loadOrder:
             x, y, d = self.winner(self.input[p])
         #    print "Input[%d] =" % p, self.input[p],"(%d, %d)" % (x, y)
@@ -154,7 +154,7 @@ class SOM:
         print("")
 
 if __name__ == '__main__':
-    #import Numeric
+    #import numpy
     s = SOM(5, 7, 5) # rows, cols; length of high-dimensional input
     s.setInputs( RandomArray.random((100, 5))) 
     s.maxStep = 100

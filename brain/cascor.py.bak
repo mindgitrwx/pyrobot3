@@ -212,11 +212,11 @@ class CascorNetwork(Network):
         #we need to get the initial correlations to know what direction to update the weights in
         ###################################################### equivalent to Fahlman's correlation epoch function
         V_p, netInptToCnd = self.computeChangingDataFromProp(layerActivations)
-        V_avg = Numeric.sum(V_p)/len(V_p)
+        V_avg = numpy.sum(V_p)/len(V_p)
         S_co = self.computeFahlmanS_co(V_p, V_avg, E_po, E_o_avg)
         S_co = -1.0 * S_co
         #sigma_o[i][j] is the sign of the correlation between the ith candidate and the jth output
-        sigma_o = Numeric.sign(S_co)
+        sigma_o = numpy.sign(S_co)
         ######################################################
 
         while ep < self.maxCandEpochs and ep < self.quitEpoch:
@@ -226,19 +226,19 @@ class CascorNetwork(Network):
             #
             #no need to reactivate output layer here since we don't need to recompute any data about its propagation status
             V_p, netInptToCnd = self.computeChangingDataFromProp(layerActivations)
-            V_avg = Numeric.sum(V_p)/len(V_p)
+            V_avg = numpy.sum(V_p)/len(V_p)
             
-            sumSqErr = [Numeric.sum(Numeric.multiply(E_po[:,j], E_po[:,j])) for j in range(numOutputs)] ##does this help?
+            sumSqErr = [numpy.sum(numpy.multiply(E_po[:,j], E_po[:,j])) for j in range(numOutputs)] ##does this help?
             for c in range(numCandidates): #for every candidate unit in the layer, get ready to train the bias weight
                 #recompute dSdw for the bias weight for this candidate
-                dSdw_bias = Numeric.sum( [Numeric.sum([sigma_o[i][c]*(E_po[p][i] - E_o_avg[i])*self.actDeriv(netInptToCnd[p][c]) \
+                dSdw_bias = numpy.sum( [numpy.sum([sigma_o[i][c]*(E_po[p][i] - E_o_avg[i])*self.actDeriv(netInptToCnd[p][c]) \
                                                        for p in self.loadOrder]) for i in range(numOutputs)] )
-                #dSdw_bias = Numeric.divide(dSdw_bias, sumSqErr) ##is this what fahlman does?
+                #dSdw_bias = numpy.divide(dSdw_bias, sumSqErr) ##is this what fahlman does?
                 self.updateCandidateLayer(dSdw_bias, c)
             for conxn in incomingConnections: #for every connection going into the candidate layer, prepare to train the weights
                 #dSdw[i][j] is the derivative of S for the ith, jth weight of the current connection
                 dSdw = self.compute_dSdw(sigma_o, E_po, E_o_avg, netInptToCnd, layerActivations, conxn)
-                #dSdw = Numeric.divide(dSdw, sumSqErr)
+                #dSdw = numpy.divide(dSdw, sumSqErr)
                 self.updateConnection(conxn, dSdw)
             #deactivate output layer here so we don't change its weights
             self["output"].active = 0
@@ -248,7 +248,7 @@ class CascorNetwork(Network):
             #S_c is a list of the covariances for each candidate, or
             #Fahlman's 'S' quantity, computed for each candidate unit
             #perhaps construction of uneccesary temporary lists could be avoided with
-            #generator expressions, but Numeric.sum doesn't seem to
+            #generator expressions, but numpy.sum doesn't seem to
             #fold a generator expression
             #S_c = self.computeS_c(V_p, V_avg, E_po, E_o_avg)
             #best = findMax(S_c)
@@ -260,10 +260,10 @@ class CascorNetwork(Network):
             #We only use S_c to pick what we recruit so we need to fix its sign, alternatively we could probably find a min instead of a max
             #  but that obfuscates the intent and motivation of the algorithm even more
             S_co = -1.0 * S_co
-            S_c = Numeric.sum(S_co)
+            S_c = numpy.sum(S_co)
             best = findMax([abs(cr) for cr in S_c])
             bestScore = abs(S_c[best])
-            sigma_o = Numeric.sign(S_co)
+            sigma_o = numpy.sign(S_co)
             ep += 1
             self.totalEpoch += 1
             self.cor = S_co[:,best] #need to save this for in order to know a good initial weight from the newly recruited candidate to
@@ -302,8 +302,8 @@ class CascorNetwork(Network):
                     layerActivations[(i, layer.name)] = layer.activation
             E_po[i] = self.errorFunction(self["output"].target, self["output"].activation) #need not be recomputed later
             outputs[i] = self["output"].activation #need not be recomputed later
-        E_o_avg = [E/len(E_po) for E in Numeric.sum(E_po)] # list of the average error over all patterns for each output
-        return (Numeric.array(E_po), Numeric.array(E_o_avg), Numeric.array(outputs), layerActivations)
+        E_o_avg = [E/len(E_po) for E in numpy.sum(E_po)] # list of the average error over all patterns for each output
+        return (numpy.array(E_po), numpy.array(E_o_avg), numpy.array(outputs), layerActivations)
     def computeChangingDataFromProp(self, layerActivations):
         """
         Computes data based on propagation that needs to be recomputed between candidate weight changes.
@@ -315,27 +315,27 @@ class CascorNetwork(Network):
             self.propagate(**self.getData(i))
             netInptToCnd[i] = self["candidate"].netinput
             V_p[i] = [neuron.activation for neuron in self["candidate"]]
-        return (Numeric.array(V_p), Numeric.array(netInptToCnd))
+        return (numpy.array(V_p), numpy.array(netInptToCnd))
     def computeS_c(self, V_p, V_avg, E_po, E_o_avg):
         """
         S_c is a list of the covariances for each candidate, or
         Fahlman's 'S' quantity, computed for each candidate unit
         perhaps construction of uneccesary temporary lists could be avoided with
-        generator expressions, but Numeric.sum doesn't seem to
+        generator expressions, but numpy.sum doesn't seem to
         evaluate a generator expression
         """
-        return Numeric.sum(Numeric.fabs(Numeric.sum(
-            [[Numeric.multiply( Numeric.subtract(V_p[i], V_avg), E_po[i][j] - E_o_avg[j])  
+        return numpy.sum(numpy.fabs(numpy.sum(
+            [[numpy.multiply( numpy.subtract(V_p[i], V_avg), E_po[i][j] - E_o_avg[j])  
                 for j in range(len(E_po[0])) ] for i in range(len(V_p)) ])))
     def computeFahlmanS_co(self, V_p, V_avg, E_po, E_o_avg):
-        return (Numeric.array([Numeric.sum(Numeric.transpose(Numeric.multiply(Numeric.transpose(V_p), E_po[:,c]))) \
-                               for c in range(len(E_po[0]))]) - V_avg*E_o_avg)/Numeric.sum(Numeric.sum(E_po*E_po))
+        return (numpy.array([numpy.sum(numpy.transpose(numpy.multiply(numpy.transpose(V_p), E_po[:,c]))) \
+                               for c in range(len(E_po[0]))]) - V_avg*E_o_avg)/numpy.sum(numpy.sum(E_po*E_po))
     def compute_dSdw(self, sigma_o, E_po, E_o_avg, netInptToCnd, layerActivations, conxn):
         """
         Computes dSdW for a specific connection to the candidate layer.
         """
         numOutputs = len(E_po[0])
-        return Numeric.array([[Numeric.sum( [Numeric.sum( \
+        return numpy.array([[numpy.sum( [numpy.sum( \
                     [sigma_o[i][col]*(E_po[p][i] - E_o_avg[i])*self.actDeriv( netInptToCnd[p][col] )*layerActivations[(p, conxn.fromLayer.name)][row] \
                      for p in self.loadOrder]) for i in range(numOutputs)] ) \
                                  for col in range(len(conxn.weight[0]))] for row in range(len(conxn.weight))])
@@ -353,11 +353,11 @@ class CascorNetwork(Network):
         self["candidate"].active = 0 #in fact, don't let the candidate layer do anything!  Hopefully this won't cause problems
         self.quitEpoch = self.patience
         for layer in self.layers:
-            layer.wedLast = Numeric.zeros(layer.size, 'f')
-            layer.dweight = Numeric.zeros(layer.size, 'f')
+            layer.wedLast = numpy.zeros(layer.size, 'f')
+            layer.dweight = numpy.zeros(layer.size, 'f')
         for connection in self.connections:
-            connection.wedLast =  Numeric.zeros((connection.fromLayer.size, connection.toLayer.size), 'f')
-            connection.dweight =  Numeric.zeros((connection.fromLayer.size, connection.toLayer.size), 'f')
+            connection.wedLast =  numpy.zeros((connection.fromLayer.size, connection.toLayer.size), 'f')
+            connection.dweight =  numpy.zeros((connection.fromLayer.size, connection.toLayer.size), 'f')
         # check architecture
         self.complete = 0
         self.verifyArchitecture()
@@ -499,5 +499,5 @@ class CascorNetwork(Network):
         self["candidate"].randomize(1)
         # finally, connect new hidden to candidate
         self.connectAt(hname, "candidate", position = -1)
-        self[hname, "output"].weight = Numeric.array( [ -1.0 * self.cor ])
+        self[hname, "output"].weight = numpy.array( [ -1.0 * self.cor ])
 

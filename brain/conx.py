@@ -14,7 +14,7 @@ making artificial neural networks in Python.
 __author__ = "Douglas Blank <dblank@brynmawr.edu>"
 __version__ = "$Revision: 1.241 $"
 
-#import Numeric, math, random, time, sys, operator
+#import numpy, math, random, time, sys, operator
 import numpy, math, random, time, sys, operator 
 from functools import reduce
 try:
@@ -138,7 +138,7 @@ def randomArray2(size, bound):
     """
     if type(size) == type(1):
         size = (size,)
-    temp = Numeric.array( ndim(*size) ) * (2.0 * bound)
+    temp = numpy.array( ndim(*size) ) * (2.0 * bound)
     return temp - bound
 def randomArray(size, bound):
     """
@@ -339,27 +339,27 @@ class Layer:
             raise LayerError('Layer size changed to zero.', newsize)
         minSize = min(self.size, newsize)
         bias = randomArray(newsize, self._maxRandom)
-        Numeric.put(bias, Numeric.arange(minSize), self.weight)
+        numpy.put(bias, numpy.arange(minSize), self.weight)
         self.weight = bias
         self.size = newsize
         self.displayWidth = newsize
         self.targetSet = 0
         self.activationSet = 0
-        self.target = Numeric.zeros(self.size, 'f')
-        self.error = Numeric.zeros(self.size, 'f')
-        self.activation = Numeric.zeros(self.size, 'f')
-        self.dweight = Numeric.zeros(self.size, 'f')
-        self.delta = Numeric.zeros(self.size, 'f')
-        self.netinput = Numeric.zeros(self.size, 'f')
-        self.wed = Numeric.zeros(self.size, 'f')
-        self.wedLast = Numeric.zeros(self.size, 'f')
+        self.target = numpy.zeros(self.size, 'f')
+        self.error = numpy.zeros(self.size, 'f')
+        self.activation = numpy.zeros(self.size, 'f')
+        self.dweight = numpy.zeros(self.size, 'f')
+        self.delta = numpy.zeros(self.size, 'f')
+        self.netinput = numpy.zeros(self.size, 'f')
+        self.wed = numpy.zeros(self.size, 'f')
+        self.wedLast = numpy.zeros(self.size, 'f')
 
     # error and report methods
     def TSSError(self):
         """
         Returns Total Sum Squared Error for this layer's pattern.
         """
-        return Numeric.add.reduce((self.target - self.activation) ** 2)
+        return numpy.add.reduce((self.target - self.activation) ** 2)
     def RMSError(self):
         """
         Returns Root Mean Squared Error for this layer's pattern.
@@ -370,7 +370,7 @@ class Layer:
         """
         Returns the number of nodes within tolerance of the target.
         """
-        return Numeric.add.reduce(Numeric.fabs(self.target - self.activation) < tolerance)
+        return numpy.add.reduce(numpy.fabs(self.target - self.activation) < tolerance)
     def getWinner(self, type = 'activation'):
         """
         Returns the winner of the type specified {'activation' or
@@ -380,16 +380,16 @@ class Layer:
         maxpos = -1
         ttlvalue = 0
         if type == 'activation':
-            ttlvalue = Numeric.add.reduce(self.activation)
-            maxpos = Numeric.argmax(self.activation)
+            ttlvalue = numpy.add.reduce(self.activation)
+            maxpos = numpy.argmax(self.activation)
             maxvalue = self.activation[maxpos]
         elif type == 'target':
             # note that backprop() resets self.targetSet flag
             if self.verify and self.targetSet == 0:
                 raise LayerError('getWinner() called with \'target\' but target has not been set.', \
                        self.targetSet)
-            ttlvalue = Numeric.add.reduce(self.target)
-            maxpos = Numeric.argmax(self.target)
+            ttlvalue = numpy.add.reduce(self.target)
+            maxpos = numpy.argmax(self.target)
             maxvalue = self.target[maxpos]
         else:
             raise LayerError('getWinner() called with unknown layer attribute.', \
@@ -491,7 +491,7 @@ class Layer:
         return self.activation.copy()
     def getActivations(self):
         """
-        Returns node activations in (Numeric) array (pointer) form.
+        Returns node activations in (numpy) array (pointer) form.
         """
         return self.activation
     def setActivations(self, value):
@@ -501,7 +501,7 @@ class Layer:
         #if self.verify and not self.activationSet == 0:
         #    raise LayerError, \
         #          ('Activation flag not reset. Activations may have been set multiple times without any intervening call to propagate().', self.activationSet)
-        Numeric.put(self.activation, Numeric.arange(len(self.activation)), value)
+        numpy.put(self.activation, numpy.arange(len(self.activation)), value)
         self.activationSet = 1
     def copyActivations(self, arr, reckless = 0):
         """
@@ -527,7 +527,7 @@ class Layer:
         return self.target.copy()
     def getTargets(self):
         """
-        Return targets in (Numeric) array form.
+        Return targets in (numpy) array form.
         """
         return self.target
     def setTargets(self, value):
@@ -543,7 +543,7 @@ class Layer:
         #        self.warningIssued = 1
         if value > self.maxActivation or value < self.minActivation:
             raise LayerError('Targets for this layer are out of the proper interval.', (self.name, value))
-        Numeric.put(self.target, Numeric.arange(len(self.target)), value)
+        numpy.put(self.target, numpy.arange(len(self.target)), value)
         self.targetSet = 1
     def copyTargets(self, arr):
         """
@@ -634,9 +634,9 @@ class Connection:
         if toLayerSize <= 0 or fromLayerSize <= 0:
             raise LayerError('changeSize() called with invalid layer size.', \
                                (fromLayerSize, toLayerSize))
-        dweight = Numeric.zeros((fromLayerSize, toLayerSize), 'f')
-        wed = Numeric.zeros((fromLayerSize, toLayerSize), 'f')
-        wedLast = Numeric.zeros((fromLayerSize, toLayerSize), 'f')
+        dweight = numpy.zeros((fromLayerSize, toLayerSize), 'f')
+        wed = numpy.zeros((fromLayerSize, toLayerSize), 'f')
+        wedLast = numpy.zeros((fromLayerSize, toLayerSize), 'f')
         weight = randomArray((fromLayerSize, toLayerSize),
                              self.toLayer._maxRandom)
         # copy from old to new, considering one is smaller
@@ -1296,7 +1296,7 @@ class Network(object):
         """
         for l in arg:
             if not type(l) == list and \
-               not type(l) == type(Numeric.array([0.0])) and \
+               not type(l) == type(numpy.array([0.0])) and \
                not type(l) == tuple and \
                not type(l) == dict:
                 return 0
@@ -1931,7 +1931,7 @@ class Network(object):
                 for connection in self.connections:
                     if connection.active and connection.toLayer.name == layer.name:
                         connection.toLayer.netinput = connection.toLayer.netinput + \
-                                                      Numeric.matrixmultiply(connection.fromLayer.activation,\
+                                                      numpy.matrixmultiply(connection.fromLayer.activation,\
                                                                              connection.weight) # propagate!
                 if layer.type != 'Input':
                     layer.activation = self.activationFunction(layer.netinput)
@@ -2016,7 +2016,7 @@ class Network(object):
         for connection in self.connections:
             if connection.active and connection.toLayer.name == toLayer and connection.fromLayer.active:
                 connection.toLayer.netinput = connection.toLayer.netinput + \
-                                              Numeric.matrixmultiply(connection.fromLayer.activation,\
+                                              numpy.matrixmultiply(connection.fromLayer.activation,\
                                                                      connection.weight) # propagate!
                 if self[toLayer].type != 'Input':
                     self[toLayer].activation = self.activationFunction(self[toLayer].netinput)
@@ -2057,7 +2057,7 @@ class Network(object):
                 for connection in self.connections:
                     if connection.active and connection.toLayer.name == layer.name and connection.fromLayer.active:
                         connection.toLayer.netinput = connection.toLayer.netinput + \
-                                                      Numeric.matrixmultiply(connection.fromLayer.activation,\
+                                                      numpy.matrixmultiply(connection.fromLayer.activation,\
                                                                              connection.weight) # propagate!
                 if layer.type != 'Input':
                     layer.activation = self.activationFunction(layer.netinput)
@@ -2099,7 +2099,7 @@ class Network(object):
         def act(v):
             if   v < -15.0: return 0.0
             elif v >  15.0: return 1.0
-            else: return 1.0 / (1.0 + Numeric.exp(-v))
+            else: return 1.0 / (1.0 + numpy.exp(-v))
         return (act(x) * (1.0 - act(x))) + self.sigmoid_prime_offset
     #here are three functions that define a symmetric sigmoid activation function identical to the one
     # fahlman uses in his code
@@ -2107,15 +2107,15 @@ class Network(object):
         def act(v):
             if   v < -15.0: return -0.5
             elif v >  15.0: return 0.5
-            else: return 1.0 / (1.0 + Numeric.exp(-v)) - 0.5
-        return Numeric.array(list(map(act, x)), 'f')
+            else: return 1.0 / (1.0 + numpy.exp(-v)) - 0.5
+        return numpy.array(list(map(act, x)), 'f')
     def ACTPRIME_Fahlman(self, act):
         return self.sigmoid_prime_offset+0.25 - act*act
     def actDerivFahlman(self, x):
         def act(v):
             if   v < -15.0: return -0.5
             elif v >  15.0: return 0.5
-            else: return 1.0 / (1.0 + Numeric.exp(-v)) - 0.5
+            else: return 1.0 / (1.0 + numpy.exp(-v)) - 0.5
         return self.ACTPRIME_Fahlman( act(x) )
     
     #here are three functions that define an alternative node activation function
@@ -2123,17 +2123,17 @@ class Network(object):
         def act(v):
             if   v < -15.0: return -1.0
             elif v >  15.0: return 1.0
-            else: return 1.7159 * Numeric.tanh(0.66666 * v)
-        return Numeric.array(list(map(act, x)), 'f')
+            else: return 1.7159 * numpy.tanh(0.66666 * v)
+        return numpy.array(list(map(act, x)), 'f')
     def ACTPRIMETANH(self, act):
         return 1 - act*act + self.sigmoid_prime_offset
     def actDerivTANH(self, x):
-        #print x, 1/Numeric.cosh(x)
-        #return 1/Numeric.cosh(x) + self.sigmoid_prime_offset
+        #print x, 1/numpy.cosh(x)
+        #return 1/numpy.cosh(x) + self.sigmoid_prime_offset
         def act(v):
             if   v < -15.0: return -1.0
             elif v >  15.0: return 1.0
-            else: return 1.7159 * Numeric.tanh(0.66666 * v)
+            else: return 1.7159 * numpy.tanh(0.66666 * v)
         return self.ACTPRIMETANH(act(x))
     def useTanhActivationFunction(self):
         """
@@ -2185,7 +2185,7 @@ class Network(object):
         if self.splitEpsilon:
             e /= float(n)
         if self._quickprop:
-            nextStep = Numeric.zeros(len(dweightLast), 'f')
+            nextStep = numpy.zeros(len(dweightLast), 'f')
             for i in range(len(dweightLast)):
                 s = wed[i] 
                 d = dweightLast[i]
@@ -2248,13 +2248,13 @@ class Network(object):
                     layer.weight += layer.dweight
                     #print "layer.wed = ",layer.wed
                     #print "layer.weight = ",layer.weight," layer.dweight = ",layer.dweight
-                    layer.wedLast = Numeric.array(layer.wed) # make copy
+                    layer.wedLast = numpy.array(layer.wed) # make copy
                     if self._quickprop:
                         layer.wed = layer.weight * self.decay # reset to last weight, with decay
                     else:
-                        layer.wed = layer.wed * 0.0 # keep same numeric type, just zero it
+                        layer.wed = layer.wed * 0.0 # keep same numpy type, just zero it
                     dw_count += len(layer.dweight)
-                    dw_sum += Numeric.add.reduce(abs(layer.dweight))
+                    dw_sum += numpy.add.reduce(abs(layer.dweight))
         if len(self.cacheConnections) != 0:
             changeConnections = self.cacheConnections
         else:
@@ -2268,8 +2268,8 @@ class Network(object):
                 if self._quickprop or self.splitEpsilon:
                     # doing it one vector at a time, to match layer bias training (a quickprop abstraction)
                     for i in range(len(connection.dweight)):
-                        Numeric.put(connection.dweight[i],
-                                    Numeric.arange(len(connection.dweight[i])),
+                        numpy.put(connection.dweight[i],
+                                    numpy.arange(len(connection.dweight[i])),
                                     self.deltaWeight(self.epsilon,
                                                      connection.wed[i],
                                                      self.momentum,
@@ -2283,14 +2283,14 @@ class Network(object):
                 #print "connection.wed = ",connection.wed
                 #print "connection.weight = ",connection.weight," connection.dweight = ",connection.dweight
                 # reset values:
-                connection.wedLast = Numeric.array(connection.wed) # make copy
+                connection.wedLast = numpy.array(connection.wed) # make copy
                 if self._quickprop:
                     connection.wed = connection.weight * self.decay 
                 else:
-                    connection.wed = connection.wed * 0.0 # keeps the same Numeric type, but makes it zero
+                    connection.wed = connection.wed * 0.0 # keeps the same numpy type, but makes it zero
                 # get some stats
-                dw_count += Numeric.multiply.reduce(connection.dweight.shape)
-                dw_sum += Numeric.add.reduce(Numeric.add.reduce(abs(connection.dweight)))
+                dw_count += numpy.multiply.reduce(connection.dweight.shape)
+                dw_sum += numpy.add.reduce(numpy.add.reduce(abs(connection.dweight)))
         if self.verbosity >= 1:
             print("WEIGHTS CHANGED")
             if self.verbosity > 2:
@@ -2313,7 +2313,7 @@ class Network(object):
                 if   v < -0.9999999: return -17.0
                 elif v >  0.9999999: return  17.0
                 else: return math.log( (1.0 + v) / (1.0 - v) )
-                #else: return Numeric.arctanh(v) # half that above
+                #else: return numpy.arctanh(v) # half that above
         return list(map(difference, t - a))
 
     def ce_init(self):
@@ -2328,7 +2328,7 @@ class Network(object):
                     layer.error = self.errorFunction(layer.target, layer.activation) 
                     totalCount += layer.size
                     retval += numpy.add.reduce((layer.target - layer.activation) ** 2)
-                    correct += numpy.add.reduce(Numeric.fabs(layer.target - layer.activation) < self.tolerance)
+                    correct += numpy.add.reduce(numpy.fabs(layer.target - layer.activation) < self.tolerance)
                 elif (layer.type == 'Hidden'):
                     for i in range(layer.size): # do it this way so you don't break reference links
                         layer.error[i] = 0.0
@@ -2355,7 +2355,7 @@ class Network(object):
                 connect.toLayer.delta = (connect.toLayer.error *
                                          (self.ACTPRIME(connect.toLayer.activation)))
                 connect.fromLayer.error = connect.fromLayer.error + \
-                                          Numeric.matrixmultiply(connect.weight,connect.toLayer.delta)
+                                          numpy.matrixmultiply(connect.weight,connect.toLayer.delta)
         # now all errors are set on all layers!
         pcorrect = self.getLayerErrors()
         return (error, correct, total, pcorrect)
@@ -2368,7 +2368,7 @@ class Network(object):
             totalCorrect += reduce(operator.add, [abs(d) < self.tolerance for d in layer.target - layer.activation])
             if layer.patternReport: 
                 lyst = [0,0,0,0]  # correct, total, pcorrect, ptotal
-                lyst[0] = Numeric.add.reduce(Numeric.fabs(layer.target - layer.activation) < self.tolerance)
+                lyst[0] = numpy.add.reduce(numpy.fabs(layer.target - layer.activation) < self.tolerance)
                 lyst[1] = layer.size
                 if self.compare(layer.target, layer.activation): # if the same
                     lyst[2] += 1 # correct
@@ -2380,7 +2380,7 @@ class Network(object):
         for layer in self.layers:
             if layer.patternReport: 
                 lyst = [0,0,0,0]  # correct, total, pcorrect, ptotal
-                lyst[0] = Numeric.add.reduce(Numeric.fabs(layer.target - layer.activation) < self.tolerance)
+                lyst[0] = numpy.add.reduce(numpy.fabs(layer.target - layer.activation) < self.tolerance)
                 lyst[1] = layer.size
                 if self.compare(layer.target, layer.activation): # if the same
                     lyst[2] += 1 # correct
@@ -2398,7 +2398,7 @@ class Network(object):
             changeConnections = self.connections            
         for connect in reverse(changeConnections):
             if connect.active and connect.fromLayer.active and connect.toLayer.active:
-                connect.wed = connect.wed + Numeric.outerproduct(connect.fromLayer.activation,
+                connect.wed = connect.wed + numpy.outerproduct(connect.fromLayer.activation,
                                                                  connect.toLayer.delta)
         if len(self.cacheLayers) != 0:
             changeLayers = self.cacheLayers

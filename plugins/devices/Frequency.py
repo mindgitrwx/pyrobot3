@@ -1,6 +1,6 @@
 """ Device for getting a frequence and turning it into distance. """
 
-import ossaudiodev, struct, math, FFT, Numeric, time, random
+import ossaudiodev, struct, math, FFT, numpy, time, random
 from pyrobot.robot.device import Device
 
 class FrequencyDevice(Device):
@@ -91,11 +91,11 @@ class FrequencyDevice(Device):
             return
         elif minFreqPos > maxFreqPos:
             minFreqPos, maxFreqPos = maxFreqPos, minFreqPos
-        freqPos = Numeric.argmax(transform[1+minFreqPos:maxFreqPos])
+        freqPos = numpy.argmax(transform[1+minFreqPos:maxFreqPos])
         value = transform[1+minFreqPos:maxFreqPos][freqPos]
         freq = int((freqPos + minFreqPos) / seconds)
         distance = freq * 0.0051 - 0.0472
-        bestFreqPos = Numeric.argmax(transform[1:])
+        bestFreqPos = numpy.argmax(transform[1:])
         bestValue = transform[1:][bestFreqPos]
         bestFreq = int(bestFreqPos / seconds)
         return (distance, freq, value, transform[0], bestFreq, bestValue)

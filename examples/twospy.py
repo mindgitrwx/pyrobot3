@@ -6,8 +6,8 @@ net.useFahlmanActivationFunction()
 
 lines = open("twospiral.dat",'r').readlines()
 inputs = [[float(num) for num in line.split()[:-1]] for line in lines]
-inputs = Numeric.array(inputs)
-targets = Numeric.array([[float(line.split()[-1])] for line in lines])
+inputs = numpy.array(inputs)
+targets = numpy.array([[float(line.split()[-1])] for line in lines])
 net.setInputs(inputs)
 net.setTargets(targets)
 
@@ -22,3 +22,5 @@ net.setSigmoid_prime_offset( 0.1)
 net.outputMu = 2.0
 net.candMu = 2.0
 net.train(50)
+
+

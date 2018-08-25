@@ -5,7 +5,7 @@ A simple Genetic Algorithm in Python
 __author__ = "Douglas Blank <dblank@brynmawr.edu>"
 __version__ = "$Revision: 1.42 $"
 
-import Numeric, math, random, time, sys, string
+import numpy, math, random, time, sys, string
 from copy import deepcopy
 
 def display(v):

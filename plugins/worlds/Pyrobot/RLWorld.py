@@ -1,6 +1,6 @@
 import tkinter, os, random, pickle
 import Image, ImageTk, ImageDraw, ImageFont 
-from Numeric import resize
+from numpy import resize
 from string import atof, atoi
 import itertools
 
