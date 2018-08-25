@@ -15,7 +15,9 @@ Pyrobot project.
 __author__ = "Robert Casey <rcasey@cs.uml.edu>"
 __version__ = "$Revision: 1.1 $"
 
-from Numeric import resize
+#from Numeric import resize
+import numpy
+from numbers import *
 import itertools
 
 class Temporal_Difference:

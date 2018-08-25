@@ -5,7 +5,7 @@ A simple Genetic Algorithm in Python
 __author__ = "Douglas Blank <dblank@brynmawr.edu>"
 __version__ = "$Revision: 1.42 $"
 
-import Numeric, math, random, time, sys, string
+import numpy, math, random, time, sys, string
 from copy import deepcopy
 
 def display(v):
@@ -75,8 +75,8 @@ class Gene:
             elif self.mode == 'char':
                 self.genotype.append( self.alphabet[int(random.random() * len(self.alphabet)) ] )
             else:
-                raise "unknownMode", self.mode
-
+                #raise "unknownMode", self.mode
+                raise ("unknownMode", self.mode)
     def copy(self):
         return deepcopy(self)
 
@@ -96,7 +96,7 @@ class Gene:
             # print(string.join(self.genotype, '')) DEBUG
             print(self.genotype.join(''))
         else:
-            raise "unknownMode", self.mode
+            raise ("unknownMode", self.mode)
 
     def mutate(self, mutationRate):
         """
@@ -131,7 +131,7 @@ class Gene:
                 elif self.mode == 'char':
                     self.genotype[i] = self.alphabet[ int(random.random() * len(self.alphabet)) ]
                 else:
-                    raise "unknownMode", self.mode
+                    raise ("unknownMode", self.mode)
 
     def crossover(self, parent2, crossoverRate):
         """
@@ -172,7 +172,7 @@ class Gene:
                     if random.random() < .5:
                         crossPoints[i] = 1
             else:
-                raise "unknownCrossoverType", self.crossoverPoints
+                raise ("unknownCrossoverType", self.crossoverPoints)
             # now, each time there is a cross point, swap parents
             for i in range(geneLength):
                 if crossPoints[i]:
@@ -239,7 +239,7 @@ class Population:
         while index < self.size-1:
             fitness = self.individuals[index].fitness
             if fitness < 0:
-                raise "Negative fitness in select", fitness
+                raise ("Negative fitness in select", fitness)
             partsum += self.individuals[index].fitness
             if partsum >= spin:
                 break

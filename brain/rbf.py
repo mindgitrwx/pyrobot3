@@ -7,7 +7,7 @@
 __author__ = "Douglas Blank <dblank@brynmawr.edu>"
 __version__ = "$Revision: 1.2 $"
 
-import Numeric, math, random
+import numpy, math, random
 
 # Typical activation functions are:
 
@@ -22,11 +22,11 @@ class RBF:
     def __init__(self, size):
         # center can be selected at random from training data. Here
         # we just assign a random vector:
-        self.center = Numeric.array([random.random() for r in range(size)])
+        self.center = numpy.array([random.random() for r in range(size)])
         # initial radius:
         self.radius = 1.0
         # initial values of activation:
-        self.activation = Numeric.zeros(size)
+        self.activation = numpy.zeros(size)
     def propagate(self, input):
         self.activation = gaussian((input - self.center) / self.radius)
 
@@ -43,7 +43,7 @@ class RBFLayer:
 rbfLayer = RBFLayer(10, 5)
 
 # sample vector:
-input = Numeric.array([0.0, 0.2, 0.4, 0.3, 0.8])
+input = numpy.array([0.0, 0.2, 0.4, 0.3, 0.8])
 
 # compare it to units:
 rbfLayer.propagate(input)

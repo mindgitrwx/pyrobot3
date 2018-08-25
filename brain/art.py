@@ -268,7 +268,7 @@ class ARTMap(ART):
       return 1
     activation=self.activateCategories(data)
     sorted=[(activation[i],i) for i in range(self.numCategories)]
-    sorted.sort(lambda a,b: cmp(b,a))
+    #sorted.sort(lambda a, b: cmp(b,a))
     resonance=0
     currentSortedIndex=0
     while resonance==0:
@@ -317,7 +317,7 @@ class ARTMap(ART):
     if self.complementCode: input=complementCode(input)
     activation=self.activateCategories(input)
     sorted=[(activation[i],i) for i in range(self.numCategories)]
-    sorted.sort(lambda a,b: cmp(b,a))
+    #sorted.sort(lambda a,b: cmp(b,a))
     resonance=0
     currentSortedIndex=0
     while resonance==0:

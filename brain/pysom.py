@@ -3,7 +3,8 @@
 __author__ = "Douglas Blank <dblank@brynmawr.edu>"
 __version__ = "$Revision: 1.3 $"
 
-import RandomArray, random, math, sys
+#import RandomArray, random, math, sys
+import numpy, random, math, sys
 
 class SOM:
 
@@ -11,7 +12,8 @@ class SOM:
         self.rows = rows
         self.cols = cols
         self.vectorLen = size
-        self.weight = RandomArray.random((rows, cols, size))
+        #self.weight = RandomArray.random((rows, cols, size))
+        self.weight = numpy.randn((rows, cols, size))
         self.input = []
         self.loadOrder = []
         self.step = 0
@@ -152,7 +154,7 @@ class SOM:
         print("")
 
 if __name__ == '__main__':
-    import Numeric
+    #import Numeric
     s = SOM(5, 7, 5) # rows, cols; length of high-dimensional input
     s.setInputs( RandomArray.random((100, 5))) 
     s.maxStep = 100

@@ -1,4 +1,4 @@
-"""
+""""
 ----------------------------------------------------
 An Artificial Neural Network System Implementing
 Backprop. Part of the Pyrobot Robotics Project.
@@ -14,7 +14,8 @@ making artificial neural networks in Python.
 __author__ = "Douglas Blank <dblank@brynmawr.edu>"
 __version__ = "$Revision: 1.241 $"
 
-import Numeric, math, random, time, sys, operator
+#import Numeric, math, random, time, sys, operator
+import numpy, math, random, time, sys, operator 
 from functools import reduce
 try:
     import pyrobot.system.share as share
@@ -145,7 +146,7 @@ def randomArray(size, bound):
     """
     if type(size) == type(1):
         size = (size,)
-    temp = Numeric.array( ndim(*size) ) * (2.0 * bound)
+    temp = numpy.array( ndim(*size) ) * (2.0 * bound)
     return temp - bound
 
 def displayArray(name, a, width = 0):
@@ -278,14 +279,14 @@ class Layer:
         layer (target, error, activation, dbias, delta, netinput, bed).
         """
         self.randomize()
-        self.dweight = Numeric.zeros(self.size, 'f')
-        self.delta = Numeric.zeros(self.size, 'f')
-        self.wed = Numeric.zeros(self.size, 'f')
-        self.wedLast = Numeric.zeros(self.size, 'f')
-        self.target = Numeric.zeros(self.size, 'f')
-        self.error = Numeric.zeros(self.size, 'f')
-        self.activation = Numeric.zeros(self.size, 'f')
-        self.netinput = Numeric.zeros(self.size, 'f')
+        self.dweight = numpy.zeros(self.size, 'f')
+        self.delta = numpy.zeros(self.size, 'f')
+        self.wed = numpy.zeros(self.size, 'f')
+        self.wedLast = numpy.zeros(self.size, 'f')
+        self.target = numpy.zeros(self.size, 'f')
+        self.error = numpy.zeros(self.size, 'f')
+        self.activation = numpy.zeros(self.size, 'f')
+        self.netinput = numpy.zeros(self.size, 'f')
         self.targetSet = 0
         self.activationSet = 0
     def randomize(self, force = 0):
@@ -507,7 +508,7 @@ class Layer:
         Copies activations from the argument array into
         layer activations.
         """
-        array = Numeric.array(arr)
+        array = numpy.array(arr)
         if not len(array) == self.size:
             raise LayerError('Mismatched activation size and layer size in call to copyActivations()', \
                    (len(array), self.size))
@@ -548,7 +549,7 @@ class Layer:
         """
         Copies the targets of the argument array into the self.target attribute.
         """
-        array = Numeric.array(arr)
+        array = numpy.array(arr)
         if not len(array) == self.size:
             raise LayerError('Mismatched target size and layer size in call to copyTargets()', \
                    (len(array), self.size))
@@ -559,7 +560,7 @@ class Layer:
         #              (self.name, self.targetSet)
         #        print "(Warning will not be issued again)"
         #        self.warningIssued = 1
-        if Numeric.add.reduce(array < self.minTarget) or Numeric.add.reduce(array > self.maxTarget):
+        if numpy.add.reduce(array < self.minTarget) or numpy.add.reduce(array > self.maxTarget):
             print(self.name, self.minTarget, self.maxTarget)
             raise LayerError('Targets for this layer are out of range.', (self.name, array))
         self.target = array
@@ -606,11 +607,11 @@ class Connection:
         Initializes self.dweight and self.wed to zero matrices.
         """
         self.randomize()
-        self.dweight = Numeric.zeros((self.fromLayer.size, \
+        self.dweight = numpy.zeros((self.fromLayer.size, \
                                       self.toLayer.size), 'f')
-        self.wed = Numeric.zeros((self.fromLayer.size, \
+        self.wed = numpy.zeros((self.fromLayer.size, \
                                   self.toLayer.size), 'f')
-        self.wedLast = Numeric.zeros((self.fromLayer.size, \
+        self.wedLast = numpy.zeros((self.fromLayer.size, \
                                       self.toLayer.size), 'f')
     def randomize(self, force = 0):
         """
@@ -1975,7 +1976,7 @@ class Network(object):
                         and connection.fromLayer.active
                         and connection.active):
                         connection.toLayer.netinput = connection.toLayer.netinput + \
-                                                      Numeric.matrixmultiply(connection.fromLayer.activation,\
+                                                      numpy.matmul(connection.fromLayer.activation,\
                                                                              connection.weight) # propagate!
                 if layer.type != 'Input':
                     layer.activation = self.activationFunction(layer.netinput)
@@ -2083,8 +2084,8 @@ class Network(object):
         def act(v):
             if   v < -15.0: return 0.0
             elif v >  15.0: return 1.0
-            else: return 1.0 / (1.0 + Numeric.exp(-v))
-        return Numeric.array(list(map(act, x)), 'f')
+            else: return 1.0 / (1.0 + numpy.exp(-v))
+        return numpy.array(list(map(act, x)), 'f')
     def ACTPRIMEASIG(self, act):
         """
         Used in compute_error.
@@ -2326,8 +2327,8 @@ class Network(object):
                 if layer.type == 'Output':
                     layer.error = self.errorFunction(layer.target, layer.activation) 
                     totalCount += layer.size
-                    retval += Numeric.add.reduce((layer.target - layer.activation) ** 2)
-                    correct += Numeric.add.reduce(Numeric.fabs(layer.target - layer.activation) < self.tolerance)
+                    retval += numpy.add.reduce((layer.target - layer.activation) ** 2)
+                    correct += numpy.add.reduce(Numeric.fabs(layer.target - layer.activation) < self.tolerance)
                 elif (layer.type == 'Hidden'):
                     for i in range(layer.size): # do it this way so you don't break reference links
                         layer.error[i] = 0.0
@@ -2868,7 +2869,8 @@ class Network(object):
             if lastLength == None or (not checkEven) or (checkEven and len(newdata) == lastLength):
                 data.append( newdata )
             else:
-                raise "DataFormatError", ("line = %d:" % lineno, newdata)
+                #raise "DataFormatError", ("line = %d:" % lineno, newdata)
+                raise NotImplementedError
             lastLength = len(newdata)
             lineno += 1
             line = fp.readline()    
