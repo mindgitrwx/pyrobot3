@@ -5,7 +5,8 @@ from pyrobot.robot.device import Device
 
 import tkinter
 import PIL.PpmImagePlugin
-import Image, ImageTk, types, time, struct
+import types, time, struct
+from PIL import Image, ImageTk
 
 def display(item):
    print(item)

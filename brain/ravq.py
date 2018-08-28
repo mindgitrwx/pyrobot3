@@ -176,7 +176,7 @@ class RAVQ:
         if self.verbosity > 2:
             print(vec)
         array = numpy.array(vec, 'd')
-        if self.mask == None:
+        if numpy.all(self.mask == None):
             self.mask = numpy.ones(len(array), 'd')
         self.buffer.addItem(array)
         if self.time >= len(self.buffer):
@@ -347,7 +347,7 @@ class RAVQ:
 
     def saveRAVQToFile(self, filename):
         import pickle
-        fp = open(filename, 'w')
+        fp = open(filename, 'wb')
         pickle.dump(self, fp)
         fp.close()
 

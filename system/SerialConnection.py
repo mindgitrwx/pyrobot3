@@ -57,7 +57,7 @@ class SerialConnection:
         """
 
         mode = tcgetattr(self.mSerial_nr)
-    	mode[self.IFLAG] = mode[self.IFLAG] & ~(IGNBRK    |
+        mode[self.IFLAG] = mode[self.IFLAG] & ~(IGNBRK    |
                                       BRKINT    |
                                       IGNPAR    |
                                       INPCK     |
@@ -65,16 +65,16 @@ class SerialConnection:
                                       ICRNL     |    
                                       INLCR     |
                                       IXON|IXOFF)
-	mode[self.OFLAG] = mode[self.OFLAG] & ~(OPOST)
-	mode[self.CFLAG] = mode[self.CFLAG] & ~(CSIZE | PARENB)
+        mode[self.OFLAG] = mode[self.OFLAG] & ~(OPOST)
+        mode[self.CFLAG] = mode[self.CFLAG] & ~(CSIZE | PARENB)
         # CS8 = 8 Bits, CSTOPB = 1 stop bit, CRTSCTS = no hardware flow control
         # PARENB = no parity; BAUD/N/8/1 
-	mode[self.CFLAG] = mode[self.CFLAG] | (CS8)
-	mode[self.CFLAG] = mode[self.CFLAG] & ~(PARENB | CSTOPB | CRTSCTS)
-	mode[self.LFLAG] = mode[self.LFLAG] & ~(ECHO | ICANON | IEXTEN | ISIG)
-	mode[self.CC][VMIN] = 1
-	mode[self.CC][VTIME] = 0
-	tcsetattr(self.mSerial_nr, TCSANOW, mode)
+        mode[self.CFLAG] = mode[self.CFLAG] | (CS8)
+        mode[self.CFLAG] = mode[self.CFLAG] & ~(PARENB | CSTOPB | CRTSCTS)
+        mode[self.LFLAG] = mode[self.LFLAG] & ~(ECHO | ICANON | IEXTEN | ISIG)
+        mode[self.CC][VMIN] = 1
+        mode[self.CC][VTIME] = 0
+        tcsetattr(self.mSerial_nr, TCSANOW, mode)
 
     ########################################################################
 

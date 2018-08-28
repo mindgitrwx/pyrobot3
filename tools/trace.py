@@ -1,9 +1,10 @@
 # Python Program to display a path in a window
 
-import Image, ImageChops, ImageDraw, ImageFont
+from PIL import ImageChops, ImageDraw, ImageFont, ImageTk
+#from PIL import Image
 import sys, os, colorsys, math
 import random
-import tkinter, ImageTk
+import tkinter
 import string
 
 class ColorSet:
@@ -37,7 +38,7 @@ class Trace:
         if 'PYROBOT' in os.environ:
             path = os.environ['PYROBOT']
         else:
-            raise "Unknown Environment Variable", "PYROBOT"
+            raise Exception("Unknown Environment Variable", "PYROBOT")
         self.fontFilename = path + "/tools/pilfonts/courR08.pil"
         self.symbols = 1        # activates/deactivates symbol mode
         self.color = "0"          # activates/deactivates color

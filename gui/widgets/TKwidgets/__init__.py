@@ -964,7 +964,7 @@ def string_printable(s):
 
 
 if __name__ == "__main__":
-   from tk import Tk
+   from tkinter import Tk
    tk = Tk()
    w = Watcher(tk)
    w.watch("w")

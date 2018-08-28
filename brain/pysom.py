@@ -13,7 +13,7 @@ class SOM:
         self.cols = cols
         self.vectorLen = size
         #self.weight = RandomArray.random((rows, cols, size))
-        self.weight = numpy.randn((rows, cols, size))
+        self.weight = numpy.random.randn((rows, cols, size))
         self.input = []
         self.loadOrder = []
         self.step = 0

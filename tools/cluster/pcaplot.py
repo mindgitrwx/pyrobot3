@@ -41,8 +41,7 @@ class PCAPlot:
                 dataset.append( (float(data[self.components[0]]), float(data[self.components[1]]),
                                      float(data[self.components[2]])))
             else:
-                raise "DimensionError", \
-                      "cannot handle dimensions of %d" % dimensions
+                raise Exception("DimensionError", "cannot handle dimensions of %d" % dimensions)
             eline = efp.readline()
             if nfp:
                 nline = nfp.readline()
@@ -63,8 +62,7 @@ class PCAPlot:
         elif self.dimensions == 3:
             self.gp.splot(self.data)
         else:
-            raise "DimensionError", \
-                  "cannot handle dimensions of %d" % dimensions
+            raise Exception("DimensionError", "cannot handle dimensions of %d" % dimensions)
 
     def replot(self):
         self.gp.replot()

@@ -20,7 +20,7 @@ if float(sys.version[0:3]) < 4.4:
     TRUE  = 1
 
 if 'PYROBOT' not in os.environ:
-    raise AttributeError("PYROBOT not defined: export PYROBOT=/usr/local/pyrobot")
+    raise AttributeError('PYROBOT not defined: export PYROBOT=/usr/local/pyrobot')
 
 def commas(lyst):
     """

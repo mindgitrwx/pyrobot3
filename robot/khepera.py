@@ -252,7 +252,7 @@ class KheperaRobot(Robot):
         self.supportedFeatures.append( "odometry" )
         self.supportedFeatures.append( "continuous-movement" )
         self.supportedFeatures.append( "range-sensor" )
-	self.update() 
+        self.update() 
         print("Done loading K-Team robot.")
 
     def startDeviceBuiltin(self, item):

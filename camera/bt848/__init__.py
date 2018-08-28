@@ -1,4 +1,4 @@
-from bt848 import BT848      # cameraDevice
+import __init__    # cameraDevice
 from pyrobot.camera import Camera, CBuffer
 
 class BT848Camera(Camera):
@@ -23,8 +23,8 @@ class BT848Camera(Camera):
       self.handle=None
       self._cbuf=None
       try:
-         self._dev = BT848(device, width, height, depth)
-	 self._dev.setRGB( 2, 1, 0)
+        self._dev = BT848(device, width, height, depth)
+        self._dev.setRGB( 2, 1, 0)
       except:
          print("bt848: grab_image failed!")
       # connect vision system: --------------------------
@@ -36,7 +36,7 @@ class BT848Camera(Camera):
       self._cbuf = self.vision.getMMap()
       # -------------------------------------------------
       if title == None:
-	 title = self.deviceFile
+        title = self.deviceFile
       self.rgb = (2, 1, 0) # offsets to BGR
       self.format = "BGR"
       Camera.__init__(self, width, height, depth, title = title)

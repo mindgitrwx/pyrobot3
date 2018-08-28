@@ -628,7 +628,7 @@ class bite(State):
 
 class pause(State):
     def onActivate(self):
-	print("pause")
+        print("pause")
 
     def step(self):
         self.goto("chooseMotion")
