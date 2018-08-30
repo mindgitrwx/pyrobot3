@@ -364,7 +364,8 @@ class PyrobotImage:
                else:
                   bitmap.set(w, h, 0)
       else:
-         raise "unrecognized mode", mode
+         #raise "unrecognized mode", mode
+         raise Exception('unrecognized mode')
       return bitmap
 
    def histogram(self, cols = 20, rows = 20, initvals = 0):

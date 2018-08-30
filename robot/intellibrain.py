@@ -160,18 +160,18 @@ class IntelliBrainBot(Robot):
             self.sc = Serial(port, baudrate=rate) #, xonxoff=0, rtscts=0)
             self.sc.setTimeout(0)
             self.sc.readlines() # to clear out the line
-	self.lastTranslate = 0
-   	self.lastRotate = 0
-	self.currSpeed = [0, 0]
+        self.lastTranslate = 0
+        self.lastRotate = 0
+        self.currSpeed = [0, 0]
         
 	# This could go as high as 127, but I am keeping it small
         # to be on the same scale as larger robots. -DSB
-	self.translateFactor = 9
+        self.translateFactor = 9
         self.dataTypes = {'n' : 'ir',
                           'o' : 'light'
                           }
         self.rawData = {}
-	self.rawData['position'] = [0] * 3
+        self.rawData['position'] = [0] * 3
         self.rawData['ir'] = [0] * 2
         self.rawData['light'] = [0] * 2
         self.subtype = subtype
@@ -198,10 +198,10 @@ class IntelliBrainBot(Robot):
         self.simulated = simulator
         self.supportedFeatures.append( "continuous-movement" )
         self.supportedFeatures.append( "range-sensor" )
-	self.supportedFeatures.append( "light-sensor" )
-	self.supportedFeatures.append( "mono-sound" )
-	self.supportedFeatures.append( "visual-feedback" )
-	self.update() 
+        self.supportedFeatures.append( "light-sensor" )
+        self.supportedFeatures.append( "mono-sound" )
+        self.supportedFeatures.append( "visual-feedback" )
+        self.update() 
         print("Done loading IntelliBrain.")
 
     def startDeviceBuiltin(self, item):
@@ -213,7 +213,7 @@ class IntelliBrainBot(Robot):
             raise AttributeError("IntelliBrainBot does not support device '%s'" % item)
 	    
     def connect(self):
-    	self.start()
+        self.start()
 	
     def disconnect(self):
         self.stop()
@@ -221,7 +221,7 @@ class IntelliBrainBot(Robot):
     def sendMsg(self, msg):
         self.lock.acquire()
         self.sc.writeline(msg, self._newline)
-	time.sleep(0.05)
+        time.sleep(0.05)
         self.lock.release()
 
     def readData(self):
@@ -262,54 +262,54 @@ class IntelliBrainBot(Robot):
         while self.sc.inWaiting(): self.readData()
 	
     def beep(dev):
-    	dev.sendMsg('H,1')
+        dev.sendMsg('H,1')
     
     def led(dev, value):
-    	if value == 1:
-		dev.sendMsg('L,0,1')
-	elif value == 2:
-		dev.sendMsg('L,1,0')
-	elif value == 3:
-		dev.sendMsg('L,1,1')
-	else:
-		dev.sendMsg('L,0,0')
+        if value == 1:
+            dev.sendMsg('L,0,1')
+        elif value == 2:
+            dev.sendMsg('L,1,0')
+        elif value == 3:
+            dev.sendMsg('L,1,1')
+        else:
+            dev.sendMsg('L,0,0')
     
     def stop(dev):
-    	dev.sendMsg('D,0,0')
-	dev.sendMsg('L,0,0')
+        dev.sendMsg('D,0,0')
+        dev.sendMsg('L,0,0')
 	
     def move(self, trans, rotate):
-	self.lastTranslate = trans
-	self.lastRotate = rotate
-	self.adjustSpeed()
+        self.lastTranslate = trans
+        self.lastRotate = rotate
+        self.adjustSpeed()
 
     def adjustSpeed(dev):
-    	left  = dev.lastTranslate - dev.lastRotate
+        left  = dev.lastTranslate - dev.lastRotate
         right = dev.lastTranslate + dev.lastRotate
         maxL = abs(left)
-	maxR = abs(right)
+        maxR = abs(right)
 
-	if maxL > maxR:
-		max = maxL
-	else:
-		max = maxR
+        if maxL > maxR:
+            max = maxL
+        else:
+            max = maxR
 	
-	if max > 1:
-		left = left/max
-		right = right/max
+        if max > 1:
+            left = left/max
+            right = right/max
 
-	left = int(left * dev.translateFactor)
-	right = int(right * dev.translateFactor)
+        left = int(left * dev.translateFactor)
+        right = int(right * dev.translateFactor)
 
-	dev.sendMsg('D,%i,%i' % (left, right))
+        dev.sendMsg('D,%i,%i' % (left, right))
 
     def translate(dev, value):
-	dev.lastTranslate = value
-	dev.adjustSpeed()
+        dev.lastTranslate = value
+        dev.adjustSpeed()
 
     def rotate(dev, value):
-    	dev.lastRotate = value
-	dev.adjustSpeed()
+        dev.lastRotate = value
+        dev.adjustSpeed()
 
 if __name__ == '__main__':
     x = IntelliBrainBot()

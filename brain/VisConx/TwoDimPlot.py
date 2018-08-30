@@ -48,49 +48,49 @@ class TwoDimPlot(tkinter.Toplevel):
         
         #begin axis labels
         xLabel = tkinter.Label(self, text=self.xTitle, bg="white")
-        xLabel.grid(row=3,col=2)
+        xLabel.grid(row=3,column=2)
         yLabel = tkinter.Label(self, text=self.yTitle, bg="white")
-        yLabel.grid(row=1, col=0)
+        yLabel.grid(row=1, column=0)
         #end axis labels
         
         #begin x axis ticks and tick labels
         self.xTickLabels = []
         self.xAxisCanvas = tkinter.Canvas(self, bg="white", width=self.plotWidth+25, height=21,highlightthickness=0)
-        for xLoc in range (self.plotWidth/self.xNumTicks, self.plotWidth+1, self.plotWidth/self.xNumTicks):
+        for xLoc in range (self.plotWidth//self.xNumTicks, self.plotWidth+1, self.plotWidth//self.xNumTicks):
             self.xAxisCanvas.create_line(xLoc, 0, xLoc, self.TICK_LENGTH)
             self.xTickLabels += [self.xAxisCanvas.create_text(xLoc, self.TICK_LENGTH, anchor=tkinter.N, text="%.2g"%(xLoc*self.xMax/self.plotWidth))]
 
         self.xAxisCanvas.create_line(0,0,self.plotWidth,0)
-        self.xAxisCanvas.grid(row=2, col=2, columnspan=2)
+        self.xAxisCanvas.grid(row=2, column=2, columnspan=2)
         # end x axis ticks and tick labels
         
         #begin y axis ticks and tick labels
         yCanvasWidth = 50
         self.yTickLabels = []
         self.yAxisCanvas = tkinter.Canvas(self, bg="white", height=self.plotHeight+25, width=yCanvasWidth, highlightthickness=0)
-        for yLoc in range(25, self.plotHeight+25, self.plotHeight/self.yNumTicks):
+        for yLoc in range(25, self.plotHeight+25, self.plotHeight//self.yNumTicks):
             self.yAxisCanvas.create_line(yCanvasWidth, yLoc, yCanvasWidth-self.TICK_LENGTH , yLoc)
             self.yTickLabels += [self.yAxisCanvas.create_text(yCanvasWidth-self.TICK_LENGTH-4, yLoc, anchor=tkinter.E, \
                                                               text="%.2g"%((self.plotHeight+25-yLoc)*self.yMax/self.plotHeight))]
         self.yAxisCanvas.create_line(yCanvasWidth-1,25,yCanvasWidth-1,self.plotHeight+25)
-        self.yAxisCanvas.grid(row=0, col=1, rowspan=2)
+        self.yAxisCanvas.grid(row=0, column=1, rowspan=2)
         #end y axis ticks and tick labels
         
         #fill in corner of graph
         cornerCanvas = tkinter.Canvas(self, bg="white", width =yCanvasWidth, height =21, highlightthickness=0)
         cornerCanvas.create_line(yCanvasWidth-1,0,yCanvasWidth,0)
-        cornerCanvas.grid(row=2,col=1)
+        cornerCanvas.grid(row=2,column=1)
 
         #top spacer
         self.xSpacer = tkinter.Frame(self, height=25, width=self.plotWidth, bg="white")
-        self.xSpacer.grid(row=0, col = 2)
+        self.xSpacer.grid(row=0, column = 2)
         self.ySpacer = tkinter.Frame(self, width=25, height =self.plotHeight, bg="white")
-        self.ySpacer.grid(row=1,col=3)
+        self.ySpacer.grid(row=1,column=3)
         
         #set up plotArea
         self.plotArea = tkinter.Canvas(self, bg="white", \
                                highlightthickness=0,width = self.plotWidth, height = self.plotHeight)
-        self.plotArea.grid(row=1, col=2)               
+        self.plotArea.grid(row=1, column=2)               
 
         ## ---- END GUI SETUP ---- 
     def addPoint(self, dataTuple):

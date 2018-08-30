@@ -65,7 +65,7 @@ if __name__ == '__main__':
     n.setEpsilon(0.25)
     n.setMomentum(0.1)
     n.setBatch(0)
-    n.setSequenceType("epoch")
+    n.setSequenceTyp("ordered-segmented")
     n.setReportRate(100)
     n.setLayerVerification(0) # turn off automatic error checking
     sequentialXor(n, 100000)

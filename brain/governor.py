@@ -209,7 +209,7 @@ class GovernorNetwork(Governor, Network):
             if self.verbosity: print("in:", vectorIn)
             self.map(vectorIn)
             # get the next
-            vectorOut = next(self)
+            vectorOut = iter(self)
             if self.verbosity: print("out:", vectorOut)
             if vectorOut == None:
                 vectorOut = vectorIn
@@ -349,7 +349,7 @@ class GovernorSRN(Governor, SRN):
         if self.governing and not self._cv:
             # when layers are added one by one, ensure that mask and sharing
             # are in place
-            if not self.ravq.mask:
+            if not numpy.all(self.ravq.mask):
                 self.setBalancedMask()
             if self.trainingNetwork.sharedWeights == 0:
                 self.trainingNetwork.setLayerVerification(0)
@@ -376,7 +376,7 @@ class GovernorSRN(Governor, SRN):
             vectorIn = inputValues + actContext + targetValues
             self.map(vectorIn)
             # get the next
-            vectorOut = next(self)
+            vectorOut = iter(self)
             if vectorOut == None:
                 vectorOut = vectorIn
             # get the pieces out of vectorOut:

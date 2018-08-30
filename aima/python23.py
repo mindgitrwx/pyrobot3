@@ -14,7 +14,7 @@ except:
         def __int__(self): return self.val
         def __repr__(self): return ('False', 'True')[self.val]
 
-    True, False = bool(1), bool(0)
+    #True, False = bool(1), bool(0)
 
 try: sum
 except:

@@ -1,4 +1,4 @@
-import vision
+import pyrobot.vision
 
 class VisionSystem(vision.Vision):
     """

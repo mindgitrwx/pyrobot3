@@ -116,7 +116,7 @@ class Matrix:
     def init(self, str):
         if type(str) == type("1001"):
             if (len(str) != self.size):
-                raise "ImproperLength", str
+                raise Exception('ImproperLength')
             for i in range(len(str)):
                 self.data[0][i] = int(str[i] == '1' or str[i] == 'X')
         else:

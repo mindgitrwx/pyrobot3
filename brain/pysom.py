@@ -13,7 +13,7 @@ class SOM:
         self.cols = cols
         self.vectorLen = size
         #self.weight = RandomArray.random((rows, cols, size))
-        self.weight = numpy.randn((rows, cols, size))
+        self.weight = numpy.random.randn(rows, cols, size)
         self.input = []
         self.loadOrder = []
         self.step = 0
@@ -156,7 +156,7 @@ class SOM:
 if __name__ == '__main__':
     #import numpy
     s = SOM(5, 7, 5) # rows, cols; length of high-dimensional input
-    s.setInputs( RandomArray.random((100, 5))) 
+    s.setInputs(numpy.random.randn(100, 5))
     s.maxStep = 100
     s.train()
     s.test()

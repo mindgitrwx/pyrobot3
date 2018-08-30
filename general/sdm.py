@@ -1,10 +1,9 @@
-import RandomArray
-import Numeric
+import numpy
 import operator
 from functools import reduce
 
 def randomBits(length):
-    address = RandomArray.randint(0, 2, length)
+    address = numpy.random.randint(0, 2, length)
     return address
 
 def rnd3(val):
@@ -22,7 +21,7 @@ class Neuron:
         self.address = address
 
     def distance(self, otherAddress):
-        xor = Numeric.logical_xor(self.address, otherAddress)
+        xor = numpy.logical_xor(self.address, otherAddress)
         sum = reduce( operator.add, xor)
         return sum
 
@@ -35,7 +34,7 @@ class HardLocation:
 
     def __init__(self, addressLength, dataLength):
         self.addressDecoder = Neuron(randomBits(addressLength))
-        self.counters = Numeric.zeros(dataLength)
+        self.counters = numpy.zeros(dataLength)
 
     def select(self, address, threshold):
         return self.addressDecoder.select(address, threshold)
@@ -71,7 +70,7 @@ class SDM:
     def read(self, address, threshold = None):
         if self.verbose: print("Reading...", end=' ')
         s = self.select( address, threshold)
-        counts = Numeric.zeros( self.dataLength)
+        counts = numpy.zeros( self.dataLength)
         for i in range(len(s)):
             if s[i]:
                 counts += self.memory[i].counters

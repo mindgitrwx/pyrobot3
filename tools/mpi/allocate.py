@@ -11,7 +11,7 @@ NOTES:
 import sys, random, time
 
 try:
-    import mpi
+    import pyrobot.tools.mpi
 except:
     raise ImportError("must run under mpi!")
 

@@ -3,19 +3,19 @@ Classes for 3D Matrix manipulations.
 """
 
 import math
-import Numeric
+import numpy
 
 RAD = math.pi/180.0
 
 class Line:
     """ A line class for 3D graphics """
     def __init__(self, x0, y0, x1, y1):
-        self.data = Numeric.array([x0, y0, 0, x1, y1, 0])
+        self.data = numpy.array([x0, y0, 0, x1, y1, 0])
 
 class Vertex3D(object):
     """ A vertex class for 3D graphics """
     def __init__(self, x = 0.0, y = 0.0, z = 0.0):
-        self.data = Numeric.array([x, y, z])
+        self.data = numpy.array([x, y, z])
     def _getX(self): return self.data[0]
     def _getY(self): return self.data[1]
     def _getZ(self): return self.data[2]
@@ -30,13 +30,13 @@ class Matrix:
     """ A matrix class for 3D graphics """
     def __init__(self, *args):
         if len(args) == 0:
-            self.matrix = Numeric.array([[[0.0] for y in range(4)] for x in range(4)])
+            self.matrix = numpy.array([[[0.0] for y in range(4)] for x in range(4)])
             self.init(1.0, 0.0, 0.0, 0.0,
                       0.0, 1.0, 0.0, 0.0,
                       0.0, 0.0, 1.0, 0.0,
                       0.0, 0.0, 0.0, 1.0)            
         elif len(args) == 16:
-            self.matrix = Numeric.array([[[0.0] for y in range(4)] for x in range(4)])
+            self.matrix = numpy.array([[[0.0] for y in range(4)] for x in range(4)])
             self.init(*args)
         else:
             self.matrix = args[0]

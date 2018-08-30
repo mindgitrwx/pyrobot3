@@ -1,0 +1,5 @@
+2018-08-28 15:48:38,972 INFO /usr/local/lib/python3.6/dist-packages/pyrobot/system/log.py line:87 pyrobot logging started using file 'logTest_180828_154838_0.9728.log'
+2018-08-28 15:48:38,973 INFO log.py line:103 This is a test of the StartLogging module
+2018-08-28 15:48:38,973 INFO log.py line:104 This is only a test
+2018-08-28 15:48:38,973 INFO log.py line:105 If this was a real application, its python logs would be here
+2018-08-28 15:48:38,973 INFO log.py line:106 but it isnt, so goodbye

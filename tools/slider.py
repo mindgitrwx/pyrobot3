@@ -28,7 +28,7 @@ class Slider(tkinter.Toplevel):
 
 if __name__ == '__main__':
    # just to test
-   app = Tk()
+   app = tkinter.Tk()
    app.withdraw()
    slider = Slider("x", 0.0, 10.0, parent = app)
    app.mainloop()

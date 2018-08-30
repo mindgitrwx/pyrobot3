@@ -1,5 +1,6 @@
 from pyrobot.camera import Camera, CBuffer
-from pyrobot.camera.aibo.aibo import AiboCam
+#from pyrobot.camera.aibo.aibo import AiboCam
+import pyrobot.camera.aibo.__init__
 from math import pi, sin, cos
 import threading
 import time

@@ -1001,8 +1001,8 @@ class vector:
     vectors, but for model vectors represents its coordinates in the SOM
     """
     def __init__(self, elts='unset', weight=1, mask='NULL', entry='unset',
-                 dim='unset', point='unset', label=[]):
-	"""
+        dim='unset', point='unset', label=[]):
+        """
 	vector: __init__()
 	------------------
 	vector constructor

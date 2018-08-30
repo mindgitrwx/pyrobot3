@@ -1,4 +1,4 @@
-""""
+"""
 ----------------------------------------------------
 An Artificial Neural Network System Implementing
 Backprop. Part of the Pyrobot Robotics Project.
@@ -2355,7 +2355,7 @@ class Network(object):
                 connect.toLayer.delta = (connect.toLayer.error *
                                          (self.ACTPRIME(connect.toLayer.activation)))
                 connect.fromLayer.error = connect.fromLayer.error + \
-                                          numpy.matrixmultiply(connect.weight,connect.toLayer.delta)
+                                          numpy.matmul(connect.weight,connect.toLayer.delta)
         # now all errors are set on all layers!
         pcorrect = self.getLayerErrors()
         return (error, correct, total, pcorrect)
@@ -2398,7 +2398,7 @@ class Network(object):
             changeConnections = self.connections            
         for connect in reverse(changeConnections):
             if connect.active and connect.fromLayer.active and connect.toLayer.active:
-                connect.wed = connect.wed + numpy.outerproduct(connect.fromLayer.activation,
+                connect.wed = connect.wed + numpy.outer(connect.fromLayer.activation,
                                                                  connect.toLayer.delta)
         if len(self.cacheLayers) != 0:
             changeLayers = self.cacheLayers
@@ -3422,7 +3422,8 @@ class SRN(Network):
         inputBankTotalSize = sum(inputBankSizes)
         inputArgSizes = [len(args[name]) for name in inputBankNames if name in args]
         inputArgTotalSize = sum(inputArgSizes)
-        sequenceLength = inputArgTotalSize / inputBankTotalSize
+        #sequenceLength = inputArgTotalSize / inputBankTotalSize
+        sequenceLength = inputArgTotalSize // inputBankTotalSize
         learning = self.learning
         totalRetvals = (0.0, 0, 0) # error, correct, total
         totalPCorrect = {}

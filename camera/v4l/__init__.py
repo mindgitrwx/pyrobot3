@@ -1,4 +1,4 @@
-from v4l import V4L      # cameraDevice
+from pyrobot.camera.v4l import *      # cameraDevice
 from pyrobot.camera import Camera, CBuffer
 
 class V4LCamera(Camera):
@@ -37,7 +37,7 @@ class V4LCamera(Camera):
       self._cbuf = self.vision.getMMap()
       # -------------------------------------------------
       if title == None:
-	 title = self.deviceFilename
+        title = self.deviceFilename
       self.rgb = (2, 1, 0) # offsets to BGR
       self.format = "BGR"
       Camera.__init__(self, width, height, depth, title = title,

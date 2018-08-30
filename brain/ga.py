@@ -264,7 +264,10 @@ class Population:
         bestPosition = 0
         worst= self.individuals[0]
         self.eliteMembers = self.individuals[0:int(self.elitePercent * len(self.individuals))]
-        self.eliteMembers.sort(lambda x, y: cmp( x.fitness, y.fitness))
+        #self.eliteMembers.sort(lambda x, y: cmp( x.fitness, y.fitness))
+        self.eliteMembers.sort(key = lambda y: y.fitness)
+        self.eliteMembers.sort(key = lambda x: x.fitness)
+        #self.eliteMembers.sort(key = lambda y: y.fitness)
         for i in range(self.size):
             current = self.individuals[i]
             current.position = i #needed to save the elite members of the population
@@ -276,7 +279,9 @@ class Population:
                 bestPosition = i
             if len(self.eliteMembers) > 0 and current.fitness > self.eliteMembers[0].fitness:
                 self.eliteMembers.append( current )
-                self.eliteMembers.sort(lambda x, y: cmp( x.fitness, y.fitness))
+                #self.eliteMembers.sort(lambda x, y: cmp( x.fitness, y.fitness))
+                self.eliteMembers.sort(key = lambda y: y.fitness)
+                self.eliteMembers.sort(key = lambda x: x.fitness)
                 self.eliteMembers = self.eliteMembers[1:]
         self.bestMember = best
         self.avgFitness = (self.sumFitness * 1.0) / self.size

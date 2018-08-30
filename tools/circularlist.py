@@ -114,7 +114,7 @@ def main():
     clist[2].addItem('f')
     for i in range(12):
         print(clist)
-        print("Next:", next(clist.next()))
+        print("Next:", next(clist.__next__()))
     print(clist)
     print("-------------------------------------------------")
     print("TEST: test circular list as an iterator")

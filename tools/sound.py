@@ -3,15 +3,17 @@ try:
 except:
     print("ossaudiodev not installed")
     ossaudiodev = None
+"""
 try:
     import FFT
 except:
     print("FFT not installed")
     ossaudiodev = None
+"""
 try:
-    import Numeric
+    import numpy
 except:
-    print("Numeric not installed")
+    print("numpy not installed")
     ossaudiodev = None
 import struct, math, time, threading, copy
 
