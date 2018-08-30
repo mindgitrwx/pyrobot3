@@ -1,9 +1,17 @@
 """
-A Pure Python 2D Robot Simulator
+A Pure Python 3D Robot Simulator
 
 (c) 2005, PyroRobotics.org. Licensed under the GNU GPL.
 """
-import tkinter, time, math, random
+import time, math, random
+import tkinter
+try:
+    # for Python2
+    from Tkinter import *
+except ImportError:
+    # for Python3
+    from tkinter import *
+
 try:
     import pickle as pickle
 except:

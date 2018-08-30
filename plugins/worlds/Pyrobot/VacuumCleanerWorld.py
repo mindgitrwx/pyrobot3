@@ -1,5 +1,5 @@
 import tkinter, os, pickle
-import Image, ImageTk, ImageDraw, ImageFont 
+from PIL import Image, ImageTk, ImageDraw, ImageFont 
 
 class GUI(tkinter.Toplevel):
     """

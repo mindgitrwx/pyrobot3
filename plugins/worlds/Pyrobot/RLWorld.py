@@ -1,7 +1,7 @@
 import tkinter, os, random, pickle
-import Image, ImageTk, ImageDraw, ImageFont 
+from PIL import Image, ImageTk, ImageDraw, ImageFont 
 from numpy import resize
-from string import atof, atoi
+from locale import atof, atoi
 import itertools
 
 class GUI(tkinter.Toplevel):
@@ -23,20 +23,20 @@ class GUI(tkinter.Toplevel):
                              (11,6),(12,6),(13,6),(11,7),(12,7),(13,7),(11,8),(12,8),(13,8),\
                              (0,11),(1,11),(2,11),(0,12),(1,12),(2,12),(0,13),(1,13),(2,13),(0,14),(1,14),(2,14)];
     
-	self.path_color        = "#5ee563"
-	self.visited_color     = "#c5c5c5"
+        self.path_color        = "#5ee563"
+        self.visited_color     = "#c5c5c5"
         self.current_pos_color = "#00AF32"
-	self.inaccessible_color= "black"
-	self.gridline_color    = "black"
-	self.background_color  = "white"
+        self.inaccessible_color= "black"
+        self.gridline_color    = "black"
+        self.background_color  = "white"
 
         self.path    = []
         self.visited = []
-	self.pits    = []
-	self.goal    = []
+        self.pits    = []
+        self.goal    = []
 
-	self.goal_id = -1
-	self.pit_ids = []
+        self.goal_id = -1
+        self.pit_ids = []
 
         # how many states ?
         self.num_squares_x = 15
@@ -74,8 +74,8 @@ class GUI(tkinter.Toplevel):
         pitImage = pitImage.resize( [self.square_height-2, self.square_width-2] )
         self.pitImageTk = ImageTk.PhotoImage(pitImage, height=self.square_height, width=self.square_width)
 
-	for i in range(0, self.num_squares_x):
-	  for j in range(0, self.num_squares_y):
+        for i in range(0, self.num_squares_x):
+          for j in range(0, self.num_squares_y):
             self.squares[i][j] = self.canvas.create_rectangle( i*self.square_width, j*self.square_height,
                             	        (i+1)*self.square_width - 1, (j+1)*self.square_height - 1,
                                 	fill= self.background_color, tag = "square-%d-%d" % (i,j));
@@ -105,8 +105,8 @@ class GUI(tkinter.Toplevel):
 
         del self.pits[0:]
 
-	for i in range(0, self.num_squares_x):
-	  for j in range(0, self.num_squares_y):
+        for i in range(0, self.num_squares_x):
+          for j in range(0, self.num_squares_y):
               if not( (i,j) in self.inaccessible ):
                   self.canvas.itemconfigure( self.squares[i][j], fill=self.background_color )
         
@@ -320,14 +320,14 @@ class GUI(tkinter.Toplevel):
 
     def drawGoal(self):
         (x,y) = self.goal
-	if self.goal_id > -1:
+        if self.goal_id > -1:
           self.canvas.delete( self.goal_id )
 
         self.goal_id = self.canvas.create_image( x*self.square_width+1, y*self.square_height+1,
                                   image = self.goldImageTk, anchor=tkinter.NW, tag="goal")
 
     def drawPits(self):
-	while len( self.pit_ids ) > 0:
+        while len( self.pit_ids ) > 0:
           self.canvas.delete( self.pit_ids.pop() );
 
         for (x,y) in self.pits:
@@ -353,8 +353,8 @@ class GUI(tkinter.Toplevel):
     
 
     def redraw(self):
-	self.drawGoal()
-	self.drawPits()
+        self.drawGoal()
+        self.drawPits()
         self.redrawVisited()
 
             
