@@ -15,7 +15,7 @@ class TkMap(Map, tkinter.Tk):
         tkinter.Tk.__init__(self)
         self.title(title)
         if menu == None:
-            menu = [('File',[['Exit',self.destroy]])]
+            menu = [ ('File',[['Exit',self.destroy]]) ]
         keybindings.append( ("<Configure>", self.changeSize))
         self.menuButtons = {}
         self.debug = 0
@@ -52,21 +52,25 @@ class TkMap(Map, tkinter.Tk):
 
     def addMenu(self, menu):
         """ Create a menu """
+        self.menubar = tkinter.Menu()
         self.mBar = tkinter.Frame(self,relief=tkinter.RAISED,borderwidth=2)
         self.mBar.pack(fill=tkinter.X)
         for entry in menu:
-            self.mBar.tk_menuBar(self.makeMenu(self.mBar, entry[0],entry[1]))
+            #self.mBar.tk_menuBar(self.makeMenu(self.mBar, entry[0],entry[1]))
+            self.menubar.add_cascade(label = entry[0], menu = self.makeMenu(self.menubar,entry[0],entry[1]))
+        self.configure(menu = self.menubar)
         self.mBar.pack(side = "top")
 
     def makeMenu(self, bar, name, commands):
         """ Assumes self.menuButtons exists """
-        menu = tkinter.Menubutton(bar,text=name,underline=0)
+        #menu = tkinter.Menubutton(bar,text=name,underline=0)
+        menu = tkinter.Menu(bar)
         self.menuButtons[name] = menu
-        menu.pack(side=tkinter.LEFT,padx="2m")
-        menu.filemenu = tkinter.Menu(menu)
+        #menu.pack(side=tkinter.LEFT,padx="2m")
+        #menu.filemenu = tkinter.Menu(menu)
         for cmd in commands:
-            menu.filemenu.add_command(label=cmd[0],command=cmd[1])
-        menu['menu'] = menu.filemenu
+            menu.add_command(label=cmd[0],command=cmd[1])
+        #menu['menu'] = menu.filemenu
         return menu
 
     def changeSize(self, event = 0):
