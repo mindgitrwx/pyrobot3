@@ -511,4 +511,4 @@ class KheperaGripper(GripperDevice):
 if __name__ == '__main__':
     x = KheperaRobot()
     x.update()
-    x.GetMin()
+    #x.GetMin()

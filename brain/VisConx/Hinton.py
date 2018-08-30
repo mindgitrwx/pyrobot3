@@ -88,40 +88,40 @@ class MatrixHinton(tkinter.Toplevel):
         self.rectMatrix = []
 
         #top spacer
-        tkinter.Frame(self, bg="white", highlightthickness=0, height=self.TOP_SPACE).grid(row=0, col=0, columnspan=3)
+        tkinter.Frame(self, bg="white", highlightthickness=0, height=self.TOP_SPACE).grid(row=0, column=0, columnspan=3)
                                                                                              
         # place "axis" labels
         if not toAxisLabel=="":
-            tkinter.Label(self, text=toAxisLabel, bg=self.OUTSIDE_COL,).grid(row=1, col=0)
+            tkinter.Label(self, text=toAxisLabel, bg=self.OUTSIDE_COL,).grid(row=1, column=0)
         if not fromAxisLabel=="":
-            tkinter.Label(self, text=fromAxisLabel, bg=self.OUTSIDE_COL).grid(row=2,col=1)
+            tkinter.Label(self, text=fromAxisLabel, bg=self.OUTSIDE_COL).grid(row=2,column=1)
             
         #show values checkbox
         buttonFrame = tkinter.Frame(self, bg="white")
         self.showValues = tkinter.IntVar(self)
         self.showValues.set(0)
-        tkinter.Label(buttonFrame, bg=self.OUTSIDE_COL, text="Options:").grid(col=0, row=1, sticky=tkinter.W)
+        tkinter.Label(buttonFrame, bg=self.OUTSIDE_COL, text="Options:").grid(column=0, row=1, sticky=tkinter.W)
         self.valueButton = tkinter.Checkbutton(buttonFrame, text="Show Values", bg=self.OUTSIDE_COL, activebackground=self.OUTSIDE_COL, \
                                                highlightthickness=0, variable=self.showValues, command=self.updateLabels)
-        self.valueButton.grid(col=0, row=1, sticky=tkinter.W)
-        buttonFrame.grid(col=1, row=3, columnspan=2, sticky=tkinter.N)
+        self.valueButton.grid(column=0, row=1, sticky=tkinter.W)
+        buttonFrame.grid(column=1, row=3, columnspan=2, sticky=tkinter.N)
 
         diagFrame = tkinter.Frame(self, bg="white")
         #create the specific data labels
         if len(weightMatrix[0]) > 1:
             for i in range(len(weightMatrix[0])):
-                tkinter.Label(diagFrame, text="%u" % (i,), bg=self.OUTSIDE_COL).grid(col=0, row=i, sticky=tkinter.NSEW)
+                tkinter.Label(diagFrame, text="%u" % (i,), bg=self.OUTSIDE_COL).grid(column=0, row=i, sticky=tkinter.NSEW)
         for i in range(len(weightMatrix)):
-            tkinter.Label(diagFrame, text="%u" % (i,), bg=self.OUTSIDE_COL).grid(row = len(self.weightMatrix[0]), col=i+1, sticky=tkinter.NSEW)
+            tkinter.Label(diagFrame, text="%u" % (i,), bg=self.OUTSIDE_COL).grid(row = len(self.weightMatrix[0]), column=i+1, sticky=tkinter.NSEW)
 
         #draw rectangles
         for i in range(len(weightMatrix)):
             tempRectList = []
             for j in range(len(weightMatrix[i])):
                 tempRectList += [HintonBlock(diagFrame, blockSize, self.weightMatrix[i][j], self.maxAbs)]
-                tempRectList[-1].grid(col=i+1, row=j)
+                tempRectList[-1].grid(column=i+1, row=j)
             self.rectMatrix += [tempRectList]
-        diagFrame.grid(row=1,col=1)
+        diagFrame.grid(row=1,column=1)
         
         self.update_idletasks()
 

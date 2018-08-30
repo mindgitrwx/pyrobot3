@@ -353,7 +353,7 @@ class RAVQ:
 
     def loadRAVQFromFile(self, filename):
         import pickle
-        fp = open(filename, 'r')
+        fp = open(filename, 'rb')
         self = pickle.load(fp)
 
     # helpful string methods, see __str__ method for use.

@@ -19,8 +19,9 @@ PARITY_NAMES = {
 try:
     True
 except:
-    True = 1
-    False = not True
+    False
+    #True = 1
+    #False = not True
 
 class SerialException(Exception):
     """Base class for serial port related exceptions."""

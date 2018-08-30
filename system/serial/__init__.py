@@ -9,13 +9,11 @@ import sys, os, string
 VERSION = str.split("$Revision: 1.1 $")[1]     #extract CVS version
 
 #chose an implementation, depending on os
-if os.name == 'nt': #sys.platform == 'win32':
-    from serialwin32 import *
-elif os.name == 'posix':
-    from serialposix import *
+if os.name == 'posix':
+    from pyrobot.system.serial.serialposix import *
 elif os.name == 'java':
-    from serialjava import *
+    from pyrobot.system.serial.serialjava import *
 else:
-    raise Exception('Sorry no implementation for your platform available.')
+    raise Exception("Sorry no implementation for your platform available.")
 
 #no "mac" implementation. someone want's to write it? i have no access to a mac.

@@ -11,7 +11,7 @@
 # references: http://www.easysw.com/~mike/serial/serial.html
 
 import sys, os, fcntl, termios, struct, select
-from serialutil import *
+from pyrobot.system.serial.serialutil import *
 
 VERSION = "$Revision: 1.2 $".split()[1]     #extract CVS version
 
@@ -287,7 +287,7 @@ class Serial(SerialBase):
         """Output the given string over the serial port."""
         if not self.fd: raise portNotOpenError
         t = len(data)
-        d = data
+        d = data.encode()
         while t>0:
             n = os.write(self.fd, d)
             d = d[n:]
@@ -378,7 +378,7 @@ if __name__ == '__main__':
     s.setDTR(1)
     s.flushInput()
     s.flushOutput()
-    s.write('hello')
+    s.write(b'hello')
     print(repr(s.read(5)))
     print(s.inWaiting())
     del s
