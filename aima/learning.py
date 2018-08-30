@@ -110,12 +110,19 @@ class DataSet:
 
     def attrnum(self, attr):
         "Returns the number used for attr, which can be a name, or -n .. n."
-        if attr < 0:
-            return len(self.attrs) + attr
-        elif isinstance(attr, str): 
+        if isinstance(attr, str): 
             return self.attrnames.index(attr)
+        elif int(attr) < 0:
+            return len(self.attrs) + attr
         else:
             return attr
+        
+        """if attr < 0:
+           return len(self.attrs) + attr
+        elif isinstance(attr, str): 
+           return self.attrnames.index(attr)
+        else:
+           return attr"""
 
     def sanitize(self, example):
        "Return a copy of example, with non-input attributes replaced by 0."
