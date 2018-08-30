@@ -243,8 +243,9 @@ class Simbot(Robot):
 		self.radius = self.getItem("radius")
 		self.properties = self.getItem("properties")
 		self.builtinDevices = self.getItem("builtinDevices")
-		self.builtinDevices.append("simulation")
-		self.builtinDevices.append("position")
+		#FIXED: str has no attribute append
+		self.builtinDevices += "simulation"
+		self.builtinDevices += "position"
 		self.supportedFeatures = self.getItem("supportedFeatures")
 		self.name = self.getItem("name")
 		self.id   = self.connectionNum
