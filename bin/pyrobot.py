@@ -140,7 +140,7 @@ def process_options():
             pyrobot.system.usage()
             sys.exit(1)
         elif o in ("-g", "--gui"):
-            window = string.upper(a)kkk
+            window = string.upper(a)
         elif o in ("-r", "--robot"):
             robotfile = a
         elif o in ("-s", "--sim"):
