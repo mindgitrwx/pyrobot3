@@ -133,12 +133,14 @@ def process_options():
 
     flags = {}
     flags.update(opts)
+
+    #TODO: What is the meaning of o , a??
     for o, a in opts:
         if o in ("-h", "--help"):
             pyrobot.system.usage()
             sys.exit(1)
         elif o in ("-g", "--gui"):
-            window = string.upper(a)
+            window = string.upper(a)kkk
         elif o in ("-r", "--robot"):
             robotfile = a
         elif o in ("-s", "--sim"):
@@ -226,6 +228,7 @@ if pyrobot.startup_check():
     ## need to make root here, before we load brain
     ## in case brain has gui things
     if window == "TK":
+        print("window == TK1")
         import tkinter
         # save it, in case we need it:
         import pyrobot.system.share as share
@@ -238,18 +241,23 @@ if pyrobot.startup_check():
     eng = Engine(robotfile, brainfile, simulator,
                  pyroargs, c, worldfile, devices.split(",") )
     if window == 'GL':
+        print("window == GL")
         from pyrobot.gui.GL import GLgui
         gui = GLgui(eng)
         gui.win.redraw = gui.redraw
     elif window == 'TK':
+        print("window == TK2")
         from pyrobot.gui.TK import TKgui
         gui = TKgui(eng)
     elif window == 'SIMPLE':
+        print("window == TK3")
         gui = pyrobot.gui.gui("tty gui", {}, eng)
     elif window == 'TTY':
+        print("window == TK4")
         from pyrobot.gui.tty import TTYGui
         gui = TTYGui(engine = eng)
     elif window == 'CURSES':
+        print("window == TK5")
         from pyrobot.gui.Curses import Curses as Curses
         gui = Curses("curses gui", {}, eng)
     if evalcommand != "":

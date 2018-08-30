@@ -1286,7 +1286,10 @@ class TkSimulator(tkinter.Toplevel, Simulator):
                           lambda: self.toggleOption("lightAboveWalls")]]),
             ]
         for entry in menu:
-            self.mBar.tk_menuBar(self.makeMenu(self.mBar, entry[0], entry[1]))
+            #ISSUE: FRAME object has no attribute tk_menubar
+            #FIXED: by removed self~menubar
+            #self.mBar.tk_menuBar(self.makeMenu(self.mBar, entry[0], entry[1]))
+            self.makeMenu(self.mBar, entry[0], entry[1])
         self.shapes = []
         if run:
             self.running = 1

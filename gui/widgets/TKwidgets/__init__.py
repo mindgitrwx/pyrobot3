@@ -57,7 +57,9 @@ class Dialog:
 		self.top.focus()
 
 	def TerminateDialog(self, withValue):
+		print("Terminate Dialog") # DEBUG
 		self.top.setvar(self.myWaitVar, withValue)
+		print("Top withdraw") # DEBUG
 		self.top.withdraw()
 
 	def DialogCleanup(self):

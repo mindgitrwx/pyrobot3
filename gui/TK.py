@@ -924,9 +924,12 @@ class TKgui(tkinter.Toplevel, gui):
          print("retval") #DEBUG
          print(retval) #DEBUG
          if retval == 1:
+            print("2") #DEBUG
             doc = d.GetFileName()
+            print("3") #DEBUG
             d.DialogCleanup()
             retval = doc
+            print(retval) #DEBUG
          else:
             d.DialogCleanup()
       except:
@@ -995,3 +998,9 @@ if __name__ == '__main__':
    engine = Engine()
    gui = TKgui(engine)
    gui.inform("Ready...")
+
+#        from pyrobot.gui.TK import TKgui
+#        gui = TKgui(eng)
+ 
+#    gui.run(evalcommand)
+#    gui.cleanup()
