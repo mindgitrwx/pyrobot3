@@ -64,18 +64,20 @@ class SimulationDevice(Device):
 
 class RangeSimDevice(Device):
 	def __init__(self, name, index, robot, geometry, groups):
-		Device.__init__(self, name)
-		self._geometry = geometry
-		self.groups = groups
-		self.startDevice()
-		self._dev = robot
-		self.index = index
-		self.maxvalueraw = geometry[2]
-		self.rawunits = "M"
-		self.units = "ROBOTS"
-		self.radius = robot.radius
-		self.count = len(self)
-		self._noise = [0.05] * self.count
+                Device.__init__(self, name)
+                self._geometry = geometry
+                print(geometry)
+                self.groups = groups
+                self.startDevice()
+                self._dev = robot
+                self.index = index
+                print(geometry)
+                self.maxvalueraw = geometry[2]
+                self.rawunits = "M"
+                self.units = "ROBOTS"
+                self.radius = robot.radius
+                self.count = len(self)
+                self._noise = [0.05] * self.count
 		
 	def __len__(self):
 		return len(self._geometry[0])
@@ -112,7 +114,9 @@ class LightSimDevice(RangeSimDevice):
 	def _getRgb(self):
 		retval = []
 		for i in range(len(self)):
-			retval.append( self.getSensorValue(i).rgb )
+                        #FIXED : append error
+			#retval.append( self.getSensorValue(i).rgb )
+			retval += self.getSensorValue(i).rgb 
 		return retval
 	def getSensorValue(self, pos):
 		retval = RangeSimDevice.getSensorValue(self, pos)
@@ -255,17 +259,20 @@ class Simbot(Robot):
 				if dev in ["sonar", "laser", "ir"]:
 					self.range = d
 	def move(self, message, other = None):
-		if type(message) in [type(1), type(1.)] and type(other) in [type(1), type(1.)]:
-			message = "m_%.2f_%.2f" % (message, other)
-			other = None
-		retval = None
-		if other != None: return # rotate,translate command ignored
-		if message == "quit" or message == "exit" or message == "end" or message == "disconnect":
-			self.simulator.process(message, self.port, 0)
-			return "ok"
-		else:
-			retval = self.simulator.process(message, self.port, 0)
-		return retval
+                print("is it occured")
+                print("moved?")
+                print(message)
+                if type(message) in [type(1), type(1.)] and type(other) in [type(1), type(1.)]:
+                	message = "m_%.2f_%.2f" % (message, other)
+                	other = None
+                retval = None
+                if other != None: return # rotate,translate command ignored
+                if message == "quit" or message == "exit" or message == "end" or message == "disconnect":
+	                self.simulator.process(message, self.port, 0)
+	                return "ok"
+                else:
+	                retval = self.simulator.process(message, self.port, 0)
+                return retval
 	def disconnect(self): pass
 	def localize(self, x = 0, y = 0, th = 0):
 		pass
@@ -322,20 +329,30 @@ class Simbot(Robot):
 		elif name == "position":
 			return {name: PositionSimDevice(self)}
 		elif name == "light":
-			self.properties.append("%s_%d" % (name, index))
-			self.move("s_%s_%d" % (name, index))
-			geometry = self.move("g_%s_%d" % (name, index))
-			groups = self.move("r_%s_%d" % (name, index))
-			return {name: LightSimDevice(name, index, self, geometry, groups)}
+                        #FIXED: str append error
+                        #self.properties.append("%s_%d" % (name, index))
+                        self.properties += name + "_" + str(index)
+                        self.move("s_%s_%d" % (name, index))
+                        print(name)
+                        print(index)
+                        geometry = self.move("g_%s_%d" % (name, index))
+                        print(geometry)
+                        groups = self.move("r_%s_%d" % (name, index))
+                        return {name: LightSimDevice(name, index, self, geometry, groups)}
 		else:
-			self.properties.append("%s_%d" % (name, index))
-			self.move("s_%s_%d" % (name, index))
-			geometry = self.move("g_%s_%d" % (name, index))
-			groups = self.move("r_%s_%d" % (name, index))
-			dev = RangeSimDevice(name, index, self, geometry, groups)
-			if name == "bumper":
-				dev.units = "SCALED"
-			return {name: dev}
+                        #FIXED: str append error
+                        #self.properties.append("%s_%d" % (name, index))
+                        self.properties += name + "_" + str(index)
+                        print("moved?111")
+                        self.move("s_%s_%d" % (name, index))
+                        #Error occured
+                        geometry = self.move("g_%s_%d" % (name, index))
+                        
+                        groups = self.move("r_%s_%d" % (name, index))
+                        dev = RangeSimDevice(name, index, self, geometry, groups)
+                        if name == "bumper":
+       	                       dev.units = "SCALED"
+                        return {name: dev}
 
 	def translate(self, value):
 		self.move("t_%f" % value)
@@ -376,7 +393,7 @@ class TCPRobot(Simbot):
 	def move(self, message, other = None):
 		self.lock.acquire()
 		if type(message) in [type(1), type(1.)] and type(other) in [type(1), type(1.)]:
-			message = "m_%.2f_%.2f" % (message, other)
+			message = ("m_%.2f_%.2f" % (message, other))
 			other = None
 		exp = None
 		if self.socket == 0: return "not connected"
