@@ -987,6 +987,9 @@ class Simulator:
         request  - a string message
         sockname - (IPNUMBER (str), SOCKETNUM (int)) from client
         """
+        #DEBUG
+        request = request.decode("utf-8")
+
         retval = 'error'
         if request == 'reset':
             self.reset()
@@ -1235,6 +1238,7 @@ class Simulator:
                         if i == index:
                             retval = d.scan
                         index += 1
+        #FIXED: warning _test
         if pickleIt:
             return pickle.dumps(retval)
         else:

@@ -25,16 +25,19 @@ except:
 
 class PositionSimDevice(Device):
 	def __init__(self, robot):
+		#print("PositionSimDevice init") # error check
 		Device.__init__(self, "position")
 		self._dev = robot
 		self.startDevice()
 	def addWidgets(self, window):
+		#print("PositionSimDevice addWidgets") # error check
 		window.addData("x", ".x:", self._dev.x)
 		window.addData("y", ".y:", self._dev.y)
 		window.addData("thr", ".th (angle in radians):", self._dev.th)
 		window.addData("th", ".thr (angle in degrees):", self._dev.thr)
 		window.addData("stall", ".stall:", self._dev.stall)
 	def updateWindow(self):
+		#print("PositionSimDevice updateWindow") # error check
 		if self.visible:
 			self.window.updateWidget("x", self._dev.x)
 			self.window.updateWidget("y",self._dev.y)
@@ -44,35 +47,44 @@ class PositionSimDevice(Device):
 
 class SimulationDevice(Device):
 	def __init__(self, robot):
+		#print("SimulationDevice init") # error check
 		Device.__init__(self, "simulation")
 		self._dev = robot
 		self.startDevice()
 	def setPose(self, name, x = 0, y = 0, thr = 0):
+		#print("SimulationDevice setPose") # error check
 		self._dev.move("a_%s_%f_%f_%f" % (name, x, y, thr))
 		self._dev.localize(0,0,0)
 		return "ok"
 	def getPose(self, name):
+		#print("getPose") # error check
 		retval = self._dev.move("c_%s" % (name, ))
 		return retval
 	def eval(self, command):
+		#print("eval") # error check
 		retval = self._dev.move("!%s" % (command,))
 		return retval
 	def addWidgets(self, window):
+		#print("addWidgets") # error check
 		window.addCommand("eval", "Evaluate exp!", "self.", self.onCommand)
 	def onCommand(self, command):
 		return self.eval(command)
 
 class RangeSimDevice(Device):
 	def __init__(self, name, index, robot, geometry, groups):
+                print("RangeSimDevice init") # error check
                 Device.__init__(self, name)
                 self._geometry = geometry
-                print(geometry)
+                #print(geometry[0]) # error check
+                #print(geometry[1]) # error check
+                #print(geometry[2]) # error check
                 self.groups = groups
                 self.startDevice()
                 self._dev = robot
                 self.index = index
-                print(geometry)
-                self.maxvalueraw = geometry[2]
+                #print("geometry") # FIXME: no value
+                #print(geometry) # FIXME: no value
+                self.maxvalueraw = geometry[2] #FIXME: string index out of range
                 self.rawunits = "M"
                 self.units = "ROBOTS"
                 self.radius = robot.radius
@@ -80,9 +92,11 @@ class RangeSimDevice(Device):
                 self._noise = [0.05] * self.count
 		
 	def __len__(self):
+		#print("RangeSimDevice __len__") # error check
 		return len(self._geometry[0])
 
 	def getSensorValue(self, pos):
+		#print("SensorValue") # error check
 		try:
 			v = self._dev.__dict__["%s_%d" % (self.type, self.index)][pos]
 		except:
@@ -115,8 +129,8 @@ class LightSimDevice(RangeSimDevice):
 		retval = []
 		for i in range(len(self)):
                         #FIXED : append error
-			#retval.append( self.getSensorValue(i).rgb )
-			retval += self.getSensorValue(i).rgb 
+			retval.append( self.getSensorValue(i).rgb )
+			#retval += self.getSensorValue(i).rgb 
 		return retval
 	def getSensorValue(self, pos):
 		retval = RangeSimDevice.getSensorValue(self, pos)
@@ -245,11 +259,14 @@ class Simbot(Robot):
 		self.init(startDevices)
 	def init(self, startDevices=1):
 		self.radius = self.getItem("radius")
-		self.properties = self.getItem("properties")
+		#self.properties = self.getItem("properties") FIXED:append error
+		self.properties = []
 		self.builtinDevices = self.getItem("builtinDevices")
 		#FIXED: str has no attribute append
-		self.builtinDevices += "simulation"
-		self.builtinDevices += "position"
+		#self.builtinDevices += "simulation"
+		#self.builtinDevices += "position"
+		self.builtinDevices.append("simulation")
+		self.builtinDevices.append("position")
 		self.supportedFeatures = self.getItem("supportedFeatures")
 		self.name = self.getItem("name")
 		self.id   = self.connectionNum
@@ -259,20 +276,18 @@ class Simbot(Robot):
 				if dev in ["sonar", "laser", "ir"]:
 					self.range = d
 	def move(self, message, other = None):
-                print("is it occured")
-                print("moved?")
-                print(message)
-                if type(message) in [type(1), type(1.)] and type(other) in [type(1), type(1.)]:
-                	message = "m_%.2f_%.2f" % (message, other)
-                	other = None
-                retval = None
-                if other != None: return # rotate,translate command ignored
-                if message == "quit" or message == "exit" or message == "end" or message == "disconnect":
-	                self.simulator.process(message, self.port, 0)
-	                return "ok"
-                else:
-	                retval = self.simulator.process(message, self.port, 0)
-                return retval
+		if type(message) in [type(1), type(1.)] and type(other) in [type(1), type(1.)]:
+		        message = "m_%.2f_%.2f" % (message, other)
+		        other = None
+		retval = None
+		if other != None: return # rotate,translate command ignored
+		if message == "quit" or message == "exit" or message == "end" or message == "disconnect":
+		        self.simulator.process(message, self.port, 0)
+		        return "ok"
+		else:
+		        retval = self.simulator.process(message, self.port, 0)
+		#print(retval)
+		return retval
 	def disconnect(self): pass
 	def localize(self, x = 0, y = 0, th = 0):
 		pass
@@ -281,7 +296,7 @@ class Simbot(Robot):
 			self.__dict__[i] = self.getItem(i)
 		self.updateDevices()
 	def getItem(self, item):
-		return self.move(item)
+                return self.move(item)
 	def eat(self, amt):
 		return self.move("e_%f" % (amt))
 	def play(self, item):
@@ -303,6 +318,7 @@ class Simbot(Robot):
 		return self.move("b_%f_%f_%f" % (x, y, thr))
 
 	def startDeviceBuiltin(self, name, index = 0):
+		#print("startDeviceBuiltin")
 		if name == "simulation":
 			return {"simulation": SimulationDevice(self)}
 		elif name == "bulb":
@@ -330,28 +346,43 @@ class Simbot(Robot):
 			return {name: PositionSimDevice(self)}
 		elif name == "light":
                         #FIXED: str append error
-                        #self.properties.append("%s_%d" % (name, index))
-                        self.properties += name + "_" + str(index)
+                        self.properties.append("%s %d" % (name, index)) #removednderline
+                        #print(type(properties))
+                        #self.properties += name + "_" + str(index)
                         self.move("s_%s_%d" % (name, index))
-                        print(name)
-                        print(index)
+                        #print(name)
+                        #print(index)
+                        self.move("s_%s_%d" % (name, index))
                         geometry = self.move("g_%s_%d" % (name, index))
-                        print(geometry)
+                        #print(geometry)
                         groups = self.move("r_%s_%d" % (name, index))
                         return {name: LightSimDevice(name, index, self, geometry, groups)}
 		else:
+                        #print("name-") # error check
+                        #print(name) # error check
+                        #print("index-") # error check
+                        #print(index) # error check
                         #FIXED: str append error
-                        #self.properties.append("%s_%d" % (name, index))
-                        self.properties += name + "_" + str(index)
-                        print("moved?111")
+                        self.properties.append("%s_%d" % (name, index))
+                        #self.properties += ("%s_%d" % (name, index))
+                        #print("moved?") # error check
                         self.move("s_%s_%d" % (name, index))
+                        #print("name and index")
+                        #print(name)
+                        #print(type(name))
+                        #print(index)
+                        #print(type(index))
                         #Error occured
+                        #print("g_%s_%d" % (name, index))
                         geometry = self.move("g_%s_%d" % (name, index))
-                        
+                        #print("geometry")
+                        #print(geometry)
+                        #self.move("s_%s_%d" % (name, index))
+                        #print("geometry: %s_%d" % (name, index)) # error check
                         groups = self.move("r_%s_%d" % (name, index))
                         dev = RangeSimDevice(name, index, self, geometry, groups)
                         if name == "bumper":
-       	                       dev.units = "SCALED"
+                               dev.units = "SCALED"
                         return {name: dev}
 
 	def translate(self, value):
@@ -366,9 +397,14 @@ class TCPRobot(Simbot):
 	"""
 	BUFSIZE = 4096 # 2048 # 1024
 	def __init__(self, host, port, startDevices=1):
+		#print("TCPRobot __init__")
 		Robot.__init__(self)
 		self.lock = threading.Lock()
 		# Set the socket parameters
+		#print("host:")
+		#print(host)
+		#print("port")
+		#print(port)
 		self.host = host
 		self.port = port
 		self.addr = (host, port)
@@ -391,33 +427,52 @@ class TCPRobot(Simbot):
 		self.init(startDevices)
 
 	def move(self, message, other = None):
+		#print("def move (TCPRobot) is occured")
+		#print("message")
+		#print(message)
 		self.lock.acquire()
 		if type(message) in [type(1), type(1.)] and type(other) in [type(1), type(1.)]:
-			message = ("m_%.2f_%.2f" % (message, other))
-			other = None
+		        #print("TCPiP: def move in first if it occured")
+		        message = ("m_%.2f_%.2f" % (message, other))
+		        other = None
 		exp = None
 		if self.socket == 0: return "not connected"
 		if other != None: return # rotate,translate command ignored
 		if message == "quit" or message == "exit" or message == "end" or message == "disconnect":
+			#print("TCPiP: def move in second if it occured")
 			self.socket.sendto(message, self.addr)
 			self.socket.close()
 			self.socket = 0
 			self.lock.release()
+			print("ok")
 			return "ok"
 		else:
-		        # DEBUG
-			# self.socket.sendto(message, self.addr)
-			self.socket.sendto(message.encode(), self.addr)
+			# self.socket.sendto(message, self.addr) DEBUG
+			#print("TCP ROBOT move - not exit")
+			#print("TCP ROBOT move - sended messae:")
+			#print(message)
+			#self.socket.sendto(message.encode(), self.addr)
 			try:
-				retval, addr = self.socket.recvfrom(self.BUFSIZE)
+				#self.socket.sendto(message.encode(), self.addr) DEBUG
+				self.socket.sendto(message.encode('utf-8'), self.addr)
 			except:
+				print("TCP socket error")
+			try:
+				#print("TCPmove socket")
+				retval, addr = self.socket.recvfrom(self.BUFSIZE) #addr is not important
+			except:
+				#print("TCPmove socket except")
 				retval = ""
 			retval = retval.strip()
 			try:
+				#print("TCPmove picle")
 				exp = pickle.loads( retval )
 			except:
+				#print("TCPmove picle exp")
 				exp = retval
 		self.lock.release()
+		#print("TCPROBOT last exp")
+		#print(exp)
 		return exp
 
 	def disconnect(self):

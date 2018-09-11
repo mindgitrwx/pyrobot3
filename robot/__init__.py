@@ -243,6 +243,8 @@ class Robot:
         >>> robot.startDevice("FilenameDevice")
         <Object>
         """
+        print("item")
+        print(item)
         dev = self.startDevices(item, **args)
         if len(dev) < 1:
             print("Error loading device: '%s'" % item)
@@ -250,6 +252,7 @@ class Robot:
             return dev[0]
         
     def startDevices(self, item, override = FALSE, **args):
+        print("pyrobot/robot/__init.py__ startDevices") #error occured
         """Load devices can take a dict, list, builtin name, or filename """
         # Item can be: dict, list, or string. string can be name or filename
         if type(item) == type({}):
@@ -265,7 +268,14 @@ class Robot:
             return retval
         elif item in self.builtinDevices: # built-in name
             # deviceBuiltin returns dictionary
-            deviceList = self.startDeviceBuiltin(item)
+            print("pyrobot/robot/__init.py__ items") #error occured
+            print("pyrobot/robot/__init.py__ builtinDevice") #error occured
+            print(self.builtinDevices) #error occured
+            print(type(self.builtinDevices)) #error occured
+            print("pyrobot/robot/__init.py__ item %s" % item) #error occured
+            #deviceList = self.startDeviceBuiltin(item) #error occured
+            deviceList = self.startDeviceBuiltin(item) #error occured
+            print(type(deviceList))
             if type(deviceList) == type("device"): # loaded it here, from the robot
                 return [ deviceList ]
             else:
