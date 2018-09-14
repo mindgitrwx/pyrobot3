@@ -17,8 +17,13 @@ class Joystick(tkinter.Toplevel):
       menu = [('Options',[['Toggle spring-back to center', self.toggleSpringBack],
                           ]),
               ]
+
+      self.menubar = tkinter.Menu()  # add for correct to tkinter3.6 upper.
+
       for entry in menu:
-         self.mBar.tk_menuBar(self.makeMenu(self.mBar, entry[0], entry[1]))
+         #self.mBar.tk_menuBar(self.makeMenu(self.mBar, entry[0], entry[1]))
+         self.menubar.add_cascade(label = entry[0], menu = self.makeMenu(self.menubar,entry[0],entry[1]))
+      self.configure(menu = self.menubar)
       if self.hasZ: # has a 3rd dimension, height
          self.mainFrame = tkinter.Frame(self)
          self.topFrame = tkinter.Frame(self.mainFrame)
