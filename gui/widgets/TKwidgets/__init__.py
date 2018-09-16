@@ -402,6 +402,7 @@ class FileDialog(ModalDialog):
 
 	def SetupDialog(self):
 
+		print("gui/widgets/TKwidgets/__init__ SetupDialog") # DEBUG
 		# directory label
 
 		self.dirFrame = tk.Frame(self.top)
@@ -441,10 +442,11 @@ class FileDialog(ModalDialog):
 		self.listBoxFrame.pack({'expand':'no', 'side' :'top',
 			'pady' :'2', 'padx': '0', 'fill' :'x'})
 		self.CreateDirListBox()
-		print("CreateDirListBox error log") # DEBUG
+		print("gui/widgets/TKwidgets/__init__ CreateDirListBox") # DEBUG
 		self.CreateFileListBox()
-		print("SetupDialog error log") # DEBUG
+		print("gui/widgets/TKwidgets/__init__ CreateFileListBox") # DEBUG
 		self.UpdateListBoxes()
+		print("gui/widgets/TKwidgets/__init__ CreateUpdateListFileListBox") # DEBUG
 
 		# editable filename
 
@@ -583,11 +585,14 @@ class FileDialog(ModalDialog):
 			cmdOutput = pipe.read()
 			pipe.close()
 		elif os.name in ['posix']:
+			print("gui/widgets/TKwidgets/__init__ cwd: %s?" % cwd) # DEBUG
+			print("gui/widgets/TKwidgets/__init__ cmd?") # DEBUG
 			cmd = "ls " + os.path.join(cwd, filter) + " | grep -v __init__.py"
 			# FIXED
+			print("gui/widgets/TKwidgets/__init__ cmd output?") # DEBUG
 			cmdOutput = subprocess.getoutput(cmd)
-			print("error log") # DEBUG
-			print(cmd) # DEBUG
+			print("gui/widgets/TKwidgets/__init__/ UpdateListBoxes cmd") # DEBUG
+			print("cmd: %s" % cmd) # DEBUG
 			#cmdOutput = getoutput(cmd)
 			# subprocess.check_output(cmd)
 			# cmdOutput = subprocess.check_output(cmd)
@@ -597,8 +602,7 @@ class FileDialog(ModalDialog):
 
 		# FIXED: cannot import name splitfields
 		# files = splitfields(cmdOutput, "\n")
-		print("print cmdOutput") # DEBUG
-		print(cmdOutput) # DEBUG
+		print("gui/wigets/TKwidgets/__init__ cmdOutput: %s " % cmdOutput) # DEBUG
 		files = cmdOutput.split("\n")
 		files.sort()
 		for i in range(len(files)):
@@ -614,20 +618,24 @@ class FileDialog(ModalDialog):
                       if files[i] != 'CVS' and (files[i][0] != '.' or files[i] == '..'):
                          self.dirLb.insert('end', files[i])
 		self.dirLabel['text'] = "Directory:" + self.cwd_print()
-		print("sorted files") # DEBUG
+		print("gui/wigets/TKwidgets/__init__    sorted files") # DEBUG
 
 	#	selection handlers
 
 	def DoSelection(self, event):
 		from posixpath import join
 		import string
+		print("gui/widgets/TKwidgets/__init__ DoSelection") # DEBUG
 		lb = event.widget
 		field = self.fileNameEntry
 		# DEBUG : ERRROR OCCURED
-		print("before tk") # DEBUG
+		print("gui/widgets/TKwidgets/__init__ before get simulator") # DEBUG
 		#field.delete(0, tk.AtEnd()) #DEBUG
-		field.delete(0,) #DEBUG
+		field.delete(0,'end') #DEBUG
 		#field.delete(0, tk.End())
+		print("gui/widgets/TKwidgets/__init__ cwd_print and nearest event y") # DEBUG
+		print(self.cwd_print) # DEBUG
+		print(lb.nearest(event.y)) # DEBUG
 		field.insert(0, join(self.cwd_print(), lb.get(lb.nearest(event.y))))
 		lb.select_clear(0, "end")
 		lb.select_anchor(lb.nearest(event.y))
@@ -638,13 +646,16 @@ class FileDialog(ModalDialog):
                 # and that seems like not a good idea. Maybe better
                 # to get data from a text file, or top of .py file
 		if field.get()[-3:] == ".py" or field.get()[-6:] == ".world":
-		   print("before field.get") # DEBUG
+		   print("gui/widgets/TKwidgets/__init__ before field.get (get simulator name)") # DEBUG
 		   print(field.get()) # DEBUG
 		   fp = open(field.get(), "r")
 		   lines = fp.readlines()
 		   # DEBUG
 		   # stringlines = string.join(lines, '')
 		   stringlines = ''.join(lines)
+		   print("gui/widgets/TKwidgets/__init__ print stringline") # DEBUG
+		   print("gui/widgets/TKwidgets/__init__ stringline seems to cotennts of simulator file") # DEBUG
+		   print(stringlines) # DEBUG
 		   fp.close()
 		else:
 		   stringlines = "Click the 'OK' button to load."
