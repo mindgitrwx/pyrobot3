@@ -57,9 +57,8 @@ class Dialog:
 		self.top.focus()
 
 	def TerminateDialog(self, withValue):
-		print("Terminate Dialog") # DEBUG
+		print("gui/widgets/TKwidgets Terminate Dialog") # DEBUG
 		self.top.setvar(self.myWaitVar, withValue)
-		print("Top withdraw") # DEBUG
 		self.top.withdraw()
 
 	def DialogCleanup(self):
@@ -70,29 +69,17 @@ class Dialog:
 		pass
 
 	def CenterDialog(self):
-		print("CenterDialog error log1") # DEBUG
 		self.top.withdraw()
-		print("CenterDialog error log2") # DEBUG
 		self.top.update_idletasks()
-		print("CenterDialog error log3") # DEBUG
 		w = self.top.winfo_screenwidth()
-		print("CenterDialog error log4") # DEBUG
 		h = self.top.winfo_screenheight()
-		print("CenterDialog error log5") # DEBUG
 		reqw = self.top.winfo_reqwidth()
-		print("CenterDialog error log6") # DEBUG
 		reqh = self.top.winfo_reqheight()
-		print("CenterDialog error log7") # DEBUG
 		centerx = repr((w-reqw)/2)
-		print("CenterDialog error log8") # DEBUG
 		centery = repr((h-reqh)/2 - 100)
-		print("CenterDialog error log9") # DEBUG
 		geomStr = "+" + centerx + "+" + centery
-		print("CenterDialog error log10") # DEBUG
-		print(geomStr) # DEBUG
 		self.top.geometry("%dx%d%+d%+d" % (500, 500, 500, 500)) #DEBUG - not as i thin
 		#self.top.geometry(geomStr) # DEBUG : REMOVED
-		print("CenterDialog error log11") # DEBUG
 ####
 #	Class ModalDialog
 #

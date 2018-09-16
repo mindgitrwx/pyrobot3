@@ -14,7 +14,8 @@
 
 import sys
 from posixpath import exists, isdir, isfile, islink
-from posix import popen
+#from posix import popen
+from posix import *
 import os
 
 __author__ = "Douglas Blank <dblank@brynmawr.edu>"

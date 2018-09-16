@@ -228,7 +228,7 @@ if pyrobot.startup_check():
     ## need to make root here, before we load brain
     ## in case brain has gui things
     if window == "TK":
-        print("window == TK1")
+        print("    tkinter imported")# DEBUG
         import tkinter
         # save it, in case we need it:
         import pyrobot.system.share as share
@@ -238,26 +238,27 @@ if pyrobot.startup_check():
                 share.gui.withdraw()
             except:
                 window = 'TTY'
+    print("before engine configure in bin / pyrobot ...")
     eng = Engine(robotfile, brainfile, simulator,
                  pyroargs, c, worldfile, devices.split(",") )
     if window == 'GL':
-        print("window == GL")
+        print("    GLgui imported")# DEBUG
         from pyrobot.gui.GL import GLgui
         gui = GLgui(eng)
         gui.win.redraw = gui.redraw
     elif window == 'TK':
-        print("window == TK2")
+        print("    TKgui imported")
         from pyrobot.gui.TK import TKgui
         gui = TKgui(eng)
     elif window == 'SIMPLE':
-        print("window == TK3")
+        print("    tty gui imported")
         gui = pyrobot.gui.gui("tty gui", {}, eng)
     elif window == 'TTY':
-        print("window == TK4")
+        print("    tty gui imorted")
         from pyrobot.gui.tty import TTYGui
         gui = TTYGui(engine = eng)
     elif window == 'CURSES':
-        print("window == TK5")
+        print("    tty gui imported")
         from pyrobot.gui.Curses import Curses as Curses
         gui = Curses("curses gui", {}, eng)
     if evalcommand != "":

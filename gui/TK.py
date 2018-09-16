@@ -916,25 +916,19 @@ class TKgui(tkinter.Toplevel, gui):
          chdir(startdir)
       d = TKwidgets.LoadFileDialog(self, "Load " + filetype, skel, \
                                    pyrobot.pyrobotdir() + "/plugins/" + filetype)
-      print("retval start") #DEBUG
+      print("gui/TK.py - fileloaddialog") #DEBUG
       print(d) #DEBUG
       try:
-         print("before retval") #DEBUG
          retval = d.Show()
-         print("retval") #DEBUG
-         print(retval) #DEBUG
          if retval == 1:
-            print("2") #DEBUG
+            print("    retval == 1") #DEBUG
             doc = d.GetFileName()
-            print("3") #DEBUG
             d.DialogCleanup()
             retval = doc
-            print(retval) #DEBUG
          else:
             d.DialogCleanup()
       except:
-         print("fail occured") #DEBUG
-         print("failed!")
+         print("    fail occured") #DEBUG
          # double-click bug. What should we do?
          doc = d.GetFileName()
          d.DialogCleanup()

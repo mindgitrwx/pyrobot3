@@ -5,12 +5,12 @@ A Pure Python 3D Robot Simulator
 """
 import time, math, random
 import tkinter
-try:
+#try:
     # for Python2
-    from Tkinter import *
-except ImportError:
+    #from Tkinter import *
+#except ImportError:
     # for Python3
-    from tkinter import *
+from tkinter import *
 
 try:
     import pickle as pickle
