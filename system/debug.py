@@ -120,7 +120,7 @@ class PyrobotDebugger(code.InteractiveConsole):
             a_es, b_es, c_es, d_es = self.stack[self.currentPos]
             fileName = a_es
             lineNumber =  b_es
-            os.system("emacs +%s %s &" % (lineNumber, fileName))
+            os.system("vim +%s %s &" % (lineNumber, fileName))
             return
         return code.InteractiveConsole.push(self, line)
 

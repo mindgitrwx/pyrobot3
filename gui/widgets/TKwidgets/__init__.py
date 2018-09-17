@@ -726,7 +726,7 @@ class FileDialog(ModalDialog):
 	   if os.getenv("EDITOR"):
 	      editor = os.getenv("EDITOR")
 	   else:
-	      editor = "emacs"
+	      editor = "vim"
 	   os.system("%s %s &" % (editor, filename))
 	   self.TerminateDialog(0) #selectIt)
 

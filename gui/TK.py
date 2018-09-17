@@ -10,6 +10,7 @@ import pyrobot.system as system
 import pyrobot.system.share as share
 from posixpath import exists
 from pyrobot.tools.joystick import Joystick
+#import #pdb #DEBUG
 
 def ask(title, qlist):
    d = TKwidgets.AskDialog(share.gui, title, qlist)
@@ -44,6 +45,7 @@ class JoystickDriver(Joystick):
          pass
       Joystick.__init__(self, hasZ = hasZ)
    def move(self, x, y, z = None):
+      ##pdb.set_trace() #DEBUG
       if self.hasZ:
          self.robot.move(x, y, z)
       else:
@@ -71,6 +73,7 @@ class TKgui(tkinter.Toplevel, gui):
                                  #set to 0 for infinite
       #store the gui structure in something nice insted of python code
 
+      ##pdb.set_trace() #DEBUG
       menu = [('File',[['New brain...', self.newBrain],
                        None,
                        ['Editor',self.editor],
@@ -192,31 +195,39 @@ class TKgui(tkinter.Toplevel, gui):
       #self.tk_focusFollowsMouse()
       self.commandEntry.focus_force()
       self.inform("Pyrobot Version " + version() + ": Ready...")
+      self.inform("You entered the TKintner gui") #FOR DEBUG
       self.updateDeviceList(select=0)
 
    def freeRobot(self):
       self.updateDeviceList(clear = 1)
       gui.freeRobot(self)
+      #pdb.set_trace() #DEBUG
 
    def loadDevice(self):
       gui.loadDevice(self)
       self.updateDeviceList()
+      #pdb.set_trace() #DEBUG
 
    def loadRobot(self):
       gui.loadRobot(self)
       self.updateDeviceList()
+      #pdb.set_trace() #DEBUG
+
 
    def loadBrain(self):
       gui.loadBrain(self)
       self.updateDeviceList()
+      #pdb.set_trace() #DEBUG
 
    def resetEngine(self):
       gui.resetEngine(self)
       self.updateDeviceList()
+      #pdb.set_trace() #DEBUG
 
    def updateDeviceList(self, clear = 0, select = -1):
       devices = []
       selDevice = None
+      #pdb.set_trace() #DEBUG
       if not clear:
          if self.engine and self.engine.robot:
             for devType in self.engine.robot.getDevices():
@@ -233,6 +244,7 @@ class TKgui(tkinter.Toplevel, gui):
 
    def editDevice(self, deviceName):
       pass # this is just selecting it from the menu
+      #pdb.set_trace() #DEBUG
 
    def viewDevice(self, deviceName = None):
       deviceExp = "self.engine.robot." + self.var.get()
@@ -241,6 +253,7 @@ class TKgui(tkinter.Toplevel, gui):
       except:
          return
       dev.makeWindow()
+      #pdb.set_trace() #DEBUG
 
    def pasteCallback(self, full_id):
       self.commandEntry.insert('end', self.makeExpression(full_id))
@@ -254,9 +267,11 @@ class TKgui(tkinter.Toplevel, gui):
       else:
          help_exp = "help(%s.__class__)" % (exp,)
       self.processCommand(help_exp)
+      #pdb.set_trace() #DEBUG
 
    def viewCallback(self, full_id):
       self.objectBrowser(self.makeExpression(full_id))
+      #pdb.set_trace() #DEBUG
 
    def watchCallback(self, full_id):
       if len(full_id) == 3 and (full_id[0] == "robot" and
@@ -265,6 +280,7 @@ class TKgui(tkinter.Toplevel, gui):
          self.engine.robot.__dict__[ full_id[1] ][full_id[2]].makeWindow()
       else:
          self.processCommand("watch " + self.makeExpression(full_id))
+      #pdb.set_trace() #DEBUG
 
    def makeExpression(self, full_id):
       self._populateEnv()
@@ -295,6 +311,7 @@ class TKgui(tkinter.Toplevel, gui):
             thingStr += ".%s" % item
             thing = thing.__dict__[item] # property
          i += 1
+      #pdb.set_trace() #DEBUG
       return thingStr
 
    def getTreeContents(self, node, tree):
@@ -637,7 +654,7 @@ class TKgui(tkinter.Toplevel, gui):
       if os.getenv("EDITOR"):
          os.system(os.getenv("EDITOR") + " &")
       else:
-         os.system("emacs &")
+         os.system("vim &")
    def newBrain(self):
       import os
       for i in range(1, 100):
@@ -648,25 +665,25 @@ class TKgui(tkinter.Toplevel, gui):
       if os.getenv("EDITOR"):
          os.system(os.getenv("EDITOR") + " %s &" % myfile)
       else:
-         os.system("emacs %s &"  % myfile)
+         os.system("vim %s &"  % myfile)
    def editBrain(self):
       import os
       if os.getenv("EDITOR"):
          os.system(os.getenv("EDITOR") + " " + self.engine.brainfile + "&")
       else:
-         os.system("emacs " + self.engine.brainfile + "&")
+         os.system("vim " + self.engine.brainfile + "&")
    def editWorld(self):
       import os
       if os.getenv("EDITOR"):
          os.system(os.getenv("EDITOR") + " " + self.engine.worldfile + "&")
       else:
-         os.system("emacs " + self.engine.worldfile + "&")
+         os.system("vim " + self.engine.worldfile + "&")
    def editRobot(self):
       import os
       if os.getenv("EDITOR"):
          os.system(os.getenv("EDITOR") + " " + self.engine.robotfile + "&")
       else:
-         os.system("emacs " + self.engine.robotfile + "&")
+         os.system("vim " + self.engine.robotfile + "&")
    def update(self):
       now = time.time()
       needToUpdateState = 1
@@ -903,6 +920,7 @@ class TKgui(tkinter.Toplevel, gui):
          self.engine.config.save(retval)
          print("Config '%s' saved!" % retval)
 
+   # fileloaddialog mean any dialog  
    def fileloaddialog(self, filetype, skel, startdir = ''):
       # FIXED: string import replace
       import string
@@ -913,16 +931,28 @@ class TKgui(tkinter.Toplevel, gui):
       if startdir == '':
          chdir(pyrobot.pyrobotdir() + "/plugins/" + filetype)
       else:
-         chdir(startdir)
+         print("startdir") #DEBUG
+         chdir(pyrobot.pyrobotdir() + "/plugins/" + filetype) #DEBUG
+         print(startdir) #DEBUG
+         #chdir(startdir)
+      print("gui/TK.py - fileloaddialog : File Load dialog mean server.. Robot.. Brain") #DEBUG
       d = TKwidgets.LoadFileDialog(self, "Load " + filetype, skel, \
                                    pyrobot.pyrobotdir() + "/plugins/" + filetype)
       print("gui/TK.py - fileloaddialog") #DEBUG
+      print("gui/TK.py - d values") #DEBUG
       print(d) #DEBUG
       try:
          retval = d.Show()
+         print("d.show()") #DEBUG
+         print(retval) #DEBUG
          if retval == 1:
+            print("gui/TK.py") #DEBUG
+            print("gui/TK.py, print d") #DEBUG
+            print(d) #DEBUG
             print("    retval == 1") #DEBUG
             doc = d.GetFileName()
+            print("    print doc") #DEBUG
+            print(doc) #DEBUG
             d.DialogCleanup()
             retval = doc
          else:
@@ -938,7 +968,8 @@ class TKgui(tkinter.Toplevel, gui):
 
    def filesavedialog(self, filetype, skel, startdir = '', default=None):
       # FIXED: from string import replace
-      import string
+      print("pyrobot/gui/TK.py filesaveddialog") #DEBUG
+      import strinu
       import pyrobot
       from os import getcwd, getenv, chdir
       retval = ""
@@ -991,6 +1022,7 @@ if __name__ == '__main__':
    root = tkinter.Tk()
    engine = Engine()
    gui = TKgui(engine)
+   gui.inform("pyrobot/gui")
    gui.inform("Ready...")
 
 #        from pyrobot.gui.TK import TKgui

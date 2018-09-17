@@ -137,7 +137,7 @@ class gui:
       print("Version " + version())
       print("=========================================================")
       while done is not 1:
-         print("pyrobot> ", end=' ') 
+         print("pyrobot ", end=' ') 
          if len(command) > 0:
             print(command[0], end=' ')
             retval = command[0].strip()
@@ -307,7 +307,7 @@ class gui:
             if os.getenv("EDITOR"): 
                editor = os.getenv("EDITOR")
             else:
-               editor = "emacs"
+               editor = "vim"
             os.system("%s %s" % (editor, self.engine.brainfile))
             self.inform("Reloading...")
             self.engine.reset()
@@ -403,11 +403,15 @@ class gui:
 
    def fileloaddialog(self, type, skel, olddir = ''):
       """ Read a line from user """
+      print("pyrobot/gui/__init__.py fileloaddialog entered")
       print("\n%s Filename: " % type, end=' ')
       retval =  sys.stdin.readline()
       retval = retval.replace("\n", "")
       retval = retval.replace("\r", "")
+      print("pyrobot/gui/__init__.py retval")
+      print(retval)
       if file_exists(retval):
+         print("pyrobot/gui/__init__.py fileloaddialog exists")
          return retval
       elif file_exists(olddir +"/" + retval):
          return olddir +"/" + retval
@@ -475,20 +479,29 @@ class gui:
    def resetEngine(self):
       self.engine.reset()
       
+   #load modules --------------------------------------------------------------
    def loadBrain(self):
+      print("pyropot/gui/__init__ self.fileloaddialog f:") #DEBUG
       f = self.fileloaddialog("brains","*.py", self.lastDir.get("brain", ''))
       if f != '' and f != 0:
          #self.lastDir["brain"] = str.join(f.split('/')[:-1],'/') #DEBUG
-         self.lastDir["brain"] = ('/').join(f)[:-1] #DEBUG
+         print("pyropot/gui/__init__ self.fileloaddialog") #DEBUG
+         #print(('/').join(f)[:-1]) #DEBUG Warning!! 
+         #self.lastDir["brain"] = ('/').join(f)[:-1] #DEBUG Warning!! 
+         self.lastDir["brain"] = os.path.dirname(f) #DEBUG Warning!! 
          self.freeBrain()
          self.engine.loadBrain(f)
          self._populateEnv()
 
    def loadDevice(self):
+      print("pyropot/gui/__init__ self.fileloaddialog f:") #DEBUG
       f = self.fileloaddialog("devices","*.py",self.lastDir.get("devices",''))
       if f != '' and f != 0:
          #self.lastDir["devices"] = str.join(f.split('/')[:-1],'/') #DEBUG
-         self.lastDir["devices"] = ('/').join(f)[:-1] #DEBUG
+         print("pyropot/gui/__init__ self.fileloaddialog ccccjj") #DEBUG
+         #print(('/').join(f)[:-1]) #DEBUG Warning!! 
+         #self.lastDir["devices"] = ('/').join(f)[:-1] #DEBUG
+         self.lastDir["devices"] = os.path.dirname(f) #DEBUG
          if self.engine != 0 and self.engine.robot != 0:
             self.engine.robot.startDevices(f)
 
@@ -500,12 +513,23 @@ class gui:
 
    def loadSim(self, worldfile = ''):
       pyropath = os.getenv('PYROBOT')
+      print("pyropot/gui/__init__ self.fileloaddialog f:") #DEBUG
+      print("505 line - problem seems to be occured") #DEBUG
       f = self.fileloaddialog("simulators","*",self.lastDir.get("sim", ''))
+      print("pyropot/gui/__init__ self.fileloaddialog f:") #DEBUG
+      print("505 line - problem seems to be occured kkk") #DEBUG
+      print(f) #DEBUG
+      print(('/').join(f)[:-1]) #DEBUG Warning!! 
       if f != '' and f != 0:
          #self.lastDir["sim"] = str.join(f.split('/')[:-1],'/') #DEBUG
-         self.lastDir["sim"] = ('/').join(f)[:-1] #DEBUG
+         print("seemstoeanerror") #DEBUG
+         print(('/').join(f)[:-1]) #DEBUG
+
+         #self.lastDir["sim"] = ('/').join(f)[:-1] #DEBUG
+         self.lastDir["sim"] = os.path.dirname(f) #DEBUG
          if worldfile == '':
             simulatorName = f.split('/')[-1]
+            print(simulatorName)
             if simulatorName[-6:] == "Server":
                configDirName = simulatorName[:-6]
                worldfile = self.fileloaddialog("configs","*.cfg",
@@ -515,10 +539,12 @@ class gui:
                if worldfile == "":
                   return
                #self.lastDir["%s-config" % simulatorName] = str.join(worldfile.split('/')[:-1],'/') #DEBUG
-               self.lastDir["%s-config" % simulatorName] = ('/').join(worldfile)[:-1]
+               #self.lastDir["%s-config" % simulatorName] = ('/').join(worldfile)[:-1] #DEBUG
+               self.lastDir["%s-config" % simulatorName] = os.path.dirname(worldfile)
             else:
                # ends with "Simulator"
                simDirName = simulatorName[:-9]
+               #simDirName = os.path.dirname(simulatorName)
                if simulatorName == "PyrobotSimulator":
                   worldfile = self.fileloaddialog("worlds","*.py",
                                                   self.lastDir.get("%s-world" % simulatorName,
@@ -537,11 +563,15 @@ class gui:
                if worldfile == "" or worldfile == 0:
                   return
                #self.lastDir["%s-world" % simulatorName] = str.join(worldfile.split('/')[:-1],'/') DEBUG
-               self.lastDir["%s-world" % simulatorName] = ('/').join(worldfile)[:-1] # DEBUG 
+               #self.lastDir["%s-world" % simulatorName] = ('/').join(worldfile)[:-1] # DEBUG 
+               self.lastDir["%s-world" % simulatorName] = worldfile # DEBUG 
          else:
+            print("/probot_ported/pyrobot/gui worldfile")
+            print(worldfile)
             simulatorName = worldfile
             #self.lastDir["%s-world" % simulatorName] = str.join(worldfile.split('/')[:-1],'/') # DEBUG
-            self.lastDir["%s-world" % simulatorName] = ('/').join(worldfile)[:-1] # DEBUG 
+            #self.lastDir["%s-world" % simulatorName] = ('/').join(worldfile)[:-1] # DEBUG 
+            self.lastDir["%s-world" % simulatorName] = os.path.dirname(worldfile) # DEBUG 
          self.engine.worldfile = worldfile
          self.engine.simfile = f
          pyroPID = os.getpid()
@@ -559,13 +589,16 @@ class gui:
       f = self.fileloaddialog("robots","*.py", self.lastDir.get("robot", ''))
       if f != '' and f != 0:
          #self.lastDir["robot"] = str.join(f.split('/')[:-1],'/') # DEBUG
-         self.lastDir["robot"] = ('/').join(f)[:-1] # DEBUG
+         #self.lastDir["robot"] = ('/').join(f)[:-1] # DEBUG
+         self.lastDir["robot"] = os.path.dirname(f) # DEBUG
          self.freeBrain()
          self.freeRobot()
          self.engine.loadRobot(f)
          #if self.engine.robot:
          #   for device in self.engine.robot.builtinDevices:
          #      self.menuButtons["Built-in Devices"].add_command(label=device,command=lambda:self.startDevice(device))
+
+   #load modules --------------------------------------------------------------
 
    def freeRobot(self):
       self.freeBrain()
@@ -576,7 +609,7 @@ class gui:
       print("STOP ----------------------------------------------------")
       self.triedToStop += 1
       if self.triedToStop > 1:
-         os.system("killall -9 pyrobot")
+         os.system("kill all -9 pyrobot")
       self.engine.pleaseStop()
       self.cleanup()
 
