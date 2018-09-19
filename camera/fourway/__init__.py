@@ -1,5 +1,5 @@
 from pyrobot.camera import Camera, CBuffer # base class
-from pyrobot.camera.fourway.fourway import Fourway
+from . import Fourway
 from pyrobot.vision.cvision import VisionSystem
 
 class FourwayCamera(Camera):

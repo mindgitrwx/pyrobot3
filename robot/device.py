@@ -392,9 +392,6 @@ class Device(object):
     def __getitem__(self, item):
         """Get a SensorValue, a range, or a set."""
         # DEBUG
-        print("item")
-        print(item)
-        print(type(item))
         #if type(item) == bytes: DEBUG
         if type(item) == str:
             if "groups" in self.__dict__ and item in self.__dict__["groups"]:

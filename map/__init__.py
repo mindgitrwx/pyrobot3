@@ -25,8 +25,8 @@ class Map:
             xpos = int((self.originMM[0] + x) / self.colScaleMM)
             ypos = int((self.originMM[1] - y) / self.rowScaleMM)
         else:
-            xpos = x
-            ypos = y
+            xpos = int(x)
+            ypos = int(y)
 
         if self.inRange(ypos, xpos):
             # if hit was already detected, leave it alone!
@@ -42,8 +42,8 @@ class Map:
             xpos = int((self.originMM[0] + x) / self.colScaleMM)
             ypos = int((self.originMM[1] - y) / self.rowScaleMM)
         else:
-            xpos = x
-            ypos = y
+            xpos = int(x)   #DEBUG x > int(x)
+            ypos = int(y)   #DEBUG x > int(y)
 
         if self.inRange(ypos, xpos):
             return( self.grid[ypos][xpos] )
@@ -56,8 +56,10 @@ class Map:
             xpos = int((self.originMM[0] + x) / self.colScaleMM)
             ypos = int((self.originMM[1] - y) / self.rowScaleMM)
         else:
-            xpos = x
-            ypos = y
+            #xpos = x
+            xpos = int(x)
+            #ypos = y
+            ypos = int(y)
 
         if self.inRange(ypos, xpos):
             self.grid[ypos][xpos] += value

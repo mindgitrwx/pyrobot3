@@ -33,7 +33,7 @@ class Vehicle(Brain):
       leftSpeed = step(max([s.value for s in self.robot.light[0]["right"]]))
       rightSpeed = step(max([s.value for s in self.robot.light[0]["left"]]))
       print(("leftSpeed, rightSpeed:", leftSpeed, rightSpeed))
-      self.motors(leftSpeed,  rightSpeed) 
+      self.motors(leftSpeed,  rightSpeed)
 
 def INIT(engine):
    if engine.robot.type not in ['K-Team', 'Pyrobot']:

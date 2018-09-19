@@ -92,15 +92,14 @@ class RangeSimDevice(Device):
                 self._noise = [0.05] * self.count
 		
 	def __len__(self):
-		#print("RangeSimDevice __len__") # error check
 		return len(self._geometry[0])
 
 	def getSensorValue(self, pos):
-		#print("SensorValue") # error check
 		try:
-			v = self._dev.__dict__["%s_%d" % (self.type, self.index)][pos]
+		    v = self._dev.__dict__["%s_%d" % (self.type, self.index)][pos]
 		except:
 			v = 0.0
+			v = self._dev.__dict__["%s_%d" % (self.type, self.index)][pos]
 		try:
 			value = SensorValue(self, v, pos,
 					    (self._geometry[0][pos][0], # x in meters
@@ -346,7 +345,7 @@ class Simbot(Robot):
 			return {name: PositionSimDevice(self)}
 		elif name == "light":
                         #FIXED: str append error
-                        self.properties.append("%s %d" % (name, index)) #removednderline
+                        self.properties.append("%s_%d" % (name, index)) #removednderline
                         #print(type(properties))
                         #self.properties += name + "_" + str(index)
                         self.move("s_%s_%d" % (name, index))

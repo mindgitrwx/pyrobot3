@@ -65,5 +65,5 @@ def INIT(engine): # passes in engine, if you need it
     brain = FSMBrain("Square Brain", engine)
     # add a few states:
     brain.add(edge(1))
-    brain.add(turn())
+    brain.add(turn(0))
     return brain

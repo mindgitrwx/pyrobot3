@@ -11,7 +11,7 @@ class SimpleBrain(Brain):
    def setup(self): 
       self.blockedFront = 0 
       self.direction = 1 
-      self.ravq = pyrobot.brain.ravq.ARAVQ(10, 1.75, 3.75, .1) 
+      self.ravq = pyrobot.brain.ravq.ARAVQ(10, 1.75, 3.75, 0, 0.1)
       self.ravq.setHistory(0)
       self.ravq.openLog('ravq_2.log')
       self.counter = 0 

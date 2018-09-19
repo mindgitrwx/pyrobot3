@@ -1,5 +1,6 @@
 from pyrobot.camera import Camera, CBuffer
-from pyrobot.camera.blob.blob import Blob
+#from pyrobot.camera.blob import Blob
+from pyrobot.plugins.devices import Blob
 import time
 
 class BlobCamera(Camera):
