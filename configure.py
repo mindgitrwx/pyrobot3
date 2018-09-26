@@ -14,7 +14,7 @@
 
 import sys
 from posixpath import exists, isdir, isfile, islink
-#from posix import popen
+from posix import popen
 from posix import *
 import os
 
@@ -43,7 +43,7 @@ if "--prefix" in [s[0:8] for s in sys.argv]:
     for command in sys.argv:
         if command[0:8] == "--prefix":
             com, prefix = command.split("=", 2)
-    
+
 if "--defaults" in sys.argv:
     useDefaults = 1
 else:
@@ -131,7 +131,7 @@ PYTHON_INCLUDE=-I%s
 # Where are X11 files (such as X11 include directory)?
 X11_DIR = %s
 
-#where are the player includes? 
+#where are the player includes?
 PLAYER_INCLUDE=-I%s
 
 # What subdirs to include in the make process?
@@ -162,11 +162,9 @@ x11_include_dir = ask("4. Where is the X11 include directory?",
                       "/usr/X11R6",
                       type = "dir",
                       locate = "/usr/X11R6")
-		      
+
 player_include_dir = ask(" 5. Where is the player include directory (if one, or 'none')?",
-                       "/usr/include/player-2.0",
-		       type= "dir",
-		       locate = "include/player-2")
+                       "/usr/include/player-2.0", type= "dir", locate = "include/player-2")
 
 
 included_packages = ask_yn("\n6. Options:", [

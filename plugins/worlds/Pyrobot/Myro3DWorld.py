@@ -6,6 +6,7 @@ a small inner room.
 """
 
 from pyrobot.simulators.pysim3d import *
+from pyrobot.simulators.pysim import *
 
 def INIT():
     # (width, height), (offset x, offset y), scale:

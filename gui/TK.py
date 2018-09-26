@@ -920,7 +920,7 @@ class TKgui(tkinter.Toplevel, gui):
          self.engine.config.save(retval)
          print("Config '%s' saved!" % retval)
 
-   # fileloaddialog mean any dialog  
+   # fileloaddialog mean any dialog
    def fileloaddialog(self, filetype, skel, startdir = ''):
       # FIXED: string import replace
       import string
@@ -1020,13 +1020,14 @@ class TKgui(tkinter.Toplevel, gui):
 
 if __name__ == '__main__':
    root = tkinter.Tk()
-   engine = Engine()
+
+   #engine = Engine() #DEBUG
+   engine = Engine(robotfile="PYrobotRobot60000", brainfile="Avoid", worldfile="AndrewHallWay")
    gui = TKgui(engine)
    gui.inform("pyrobot/gui")
    gui.inform("Ready...")
 
 #        from pyrobot.gui.TK import TKgui
 #        gui = TKgui(eng)
- 
 #    gui.run(evalcommand)
 #    gui.cleanup()

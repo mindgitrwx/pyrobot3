@@ -98,11 +98,11 @@ class CascorNetwork(Network):
         for i in range(layer.size):
             line += ("=" * colWidth) + "="
         print(line)
-                    
+
     def displayConnections(self, title = "Cascade Connections"):
         Network.displayConnections(self, title)
         self.displayCorrelations()
-        
+
     def displayNet(self):
         """
         Displays the weights of the network in a way similar to how Fahlman's code
@@ -227,7 +227,7 @@ class CascorNetwork(Network):
             #no need to reactivate output layer here since we don't need to recompute any data about its propagation status
             V_p, netInptToCnd = self.computeChangingDataFromProp(layerActivations)
             V_avg = numpy.sum(V_p)/len(V_p)
-            
+
             sumSqErr = [numpy.sum(numpy.multiply(E_po[:,j], E_po[:,j])) for j in range(numOutputs)] ##does this help?
             for c in range(numCandidates): #for every candidate unit in the layer, get ready to train the bias weight
                 #recompute dSdw for the bias weight for this candidate
@@ -325,7 +325,7 @@ class CascorNetwork(Network):
         evaluate a generator expression
         """
         return numpy.sum(numpy.fabs(numpy.sum(
-            [[numpy.multiply( numpy.subtract(V_p[i], V_avg), E_po[i][j] - E_o_avg[j])  
+            [[numpy.multiply( numpy.subtract(V_p[i], V_avg), E_po[i][j] - E_o_avg[j])
                 for j in range(len(E_po[0])) ] for i in range(len(V_p)) ])))
     def computeFahlmanS_co(self, V_p, V_avg, E_po, E_o_avg):
         return (numpy.array([numpy.sum(numpy.transpose(numpy.multiply(numpy.transpose(V_p), E_po[:,c]))) \
@@ -339,7 +339,7 @@ class CascorNetwork(Network):
                     [sigma_o[i][col]*(E_po[p][i] - E_o_avg[i])*self.actDeriv( netInptToCnd[p][col] )*layerActivations[(p, conxn.fromLayer.name)][row] \
                      for p in self.loadOrder]) for i in range(numOutputs)] ) \
                                  for col in range(len(conxn.weight[0]))] for row in range(len(conxn.weight))])
-        
+
     def done(self):
         return len(self) >= (self.maxHidden + 3)
     def trainOutputs(self, sweeps, cont = 0):
@@ -429,7 +429,7 @@ class CascorNetwork(Network):
         #print "----------------------------------------------------"
         #self.totalEpoch += self.epoch
         return (totalCorrect * 1.0 / totalCount <  self.stopPercent) #true means we continue
-    
+
     def addCandidateLayer(self, size=8):
         """
         Adds a candidate layer for recruiting the new hidden layer cascade
@@ -449,7 +449,7 @@ class CascorNetwork(Network):
         # first, add the new layer:
         hcount = 0
         for layer in self:
-            if layer.type == "Hidden": 
+            if layer.type == "Hidden":
                 hcount += 1
         hname = "hidden%d" % hcount
         hsize = 1 # wonder what would happen if we added more than 1?
@@ -465,19 +465,19 @@ class CascorNetwork(Network):
         #     the fact that this code needs to be here is indicative of a poor design in Conx
         self[hname].minTarget, self[hname].minActivation = self["candidate"].minTarget, self["candidate"].minActivation
         # first, connect up input
-        for layer in self: 
+        for layer in self:
             if layer.type == "Input" and layer.name != hname: # includes contexts
                 self.connectAt(layer.name, hname, position = 1)
                 self[layer.name, hname].frozen = 1 # don't change incoming weights
         # next add hidden connections
         if self.incrType == "cascade": # or parallel
-            for layer in self: 
-                if layer.type == "Hidden" and layer.name not in [hname, "candidate"]: 
+            for layer in self:
+                if layer.type == "Hidden" and layer.name not in [hname, "candidate"]:
                     self.connectAt(layer.name, hname, position = -1)
                     self[layer.name, hname].frozen = 1 # don't change incoming weights
         # and then output connections
-        for layer in self: 
-            if layer.type == "Output" and layer.name not in ["candidate", hname]: 
+        for layer in self:
+            if layer.type == "Output" and layer.name not in ["candidate", hname]:
                 self.connectAt(hname, layer.name, position = -1)
                 # not frozen! Can change these hidden to the output
         # now, let's copy the weights, and randomize the old ones:

@@ -109,8 +109,8 @@ class DeviceWindow(tkinter.Toplevel):
 class WindowError(AttributeError):
     """ Device Window Error """
 
-class DeviceError(AttributeError):
-    """ Used to signal device problem """
+class keviceError(AttributeError):
+   """ Used to signal device problem """
 
 class SensorValue:
     """ Used in new Python range sensor interface """
@@ -125,10 +125,10 @@ class SensorValue:
         <SensorValue>
         >>> robot.sonar[0][3].value
         2.354
-        
+
         Methods:
            display()    - same as .value, but can change units
-           angle()      - same as .geometry[3], but can change units 
+           angle()      - same as .geometry[3], but can change units
 
         Properties:
            value    - the rawvalue of the device
@@ -196,7 +196,7 @@ class Device(object):
     """ A basic device class. All devices derive from this."""
 
     ### Note: Pyro5 will standardize this interface.
-    ### 
+    ###
 
     def __init__(self, deviceType = 'unspecified', visible = 0,
                  async = 0, sleep = 0.01):
@@ -315,7 +315,7 @@ class Device(object):
     def distance(self, *args, **kwargs):
         """
         Device-level method to get all of the distances.
-        
+
         >>> robot.sonar[0].angle(unit="radians")
         [2.34, 1.34, .545]
         >>> robot.sonar[0]["left"].angle(unit="degrees")
@@ -369,7 +369,7 @@ class Device(object):
                     return 0 <= val <= start or stop <= val <= 0
                 else:
                     return start <= val <= -180 or stop <= val <= 180
-            
+
         return [s for s in self[subset] if between(s.angle(unit=units))]
 
     def getSensorValue(self, pos):
@@ -442,7 +442,7 @@ class Device(object):
     def setup(self):
         """Use this to put setup code in (instead of in __init__)."""
         pass
-    
+
     def getGroupNames(self, pos):
         """Return all of the groups a pos is in."""
         retval = []
@@ -512,7 +512,7 @@ class Device(object):
         # now, get it into meters:
         if self.rawunits.upper() == "MM":
             if units == "MM":
-                return raw 
+                return raw
             else:
                 raw = raw / 1000.0
         elif self.rawunits.upper() == "RAW":
@@ -537,9 +537,9 @@ class Device(object):
         elif units == "MM":
             return raw * 1000.0
         elif units == "CM":
-            return raw * 100.0 
+            return raw * 100.0
         elif units == "METERS" or units == "M":
-            return raw 
+            return raw
         else:
             raise TypeError("Units are set to invalid type '%s': use M, CM, MM, ROBOTS, SCALED, or RAW" % units)
 
@@ -608,7 +608,7 @@ class Device(object):
             for d in self.__dict__:
                 if d[0] != "_":
                     window.addData(d, d, self.__dict__[d])
-                
+
     def updateWindow(self):
         """Method to update the device window."""
         if self.visible and self.window != 0:
@@ -619,7 +619,7 @@ class Device(object):
                 for d in self.__dict__:
                     if d[0] != "_":
                         self.window.updateWidget(d, self.__dict__[d])
-                
+
     def makeWindow(self):
         """Method to make and show the device window."""
         if self.window:
@@ -688,5 +688,5 @@ class GripperDevice(Device):
             self.window.updateWidget("4", self.isMoving())
             self.window.updateWidget("5", self.isLiftMoving())
             Device.updateWindow(self)
-            
-            
+
+

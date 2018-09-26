@@ -57,7 +57,7 @@ class SOM:
       of.write( "%f %f " % (min((float(translate) - self.min_translate) / (self.max_translate - self.min_translate), 1.0), min((float(rotate) - self.min_rotate) / (self.max_rotate - self.min_rotate), 1.0)))
       left = vector[2]
       right = vector[3]
-      
+
       of.write( "%f %f " % ((float(left) - self.min_speed) / (self.max_speed - self.min_speed), (float(right) - self.min_speed) / (self.max_speed - self.min_speed)))
 
       i = 0

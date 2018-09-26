@@ -34,31 +34,31 @@ import time
 #
 
 class Straight (Behavior):
-    def setup(self): 
-        self.Effects('translate', .1) 
-        self.Effects('rotate', .1) 
+    def setup(self):
+        self.Effects('translate', .1)
+        self.Effects('rotate', .1)
 
     def update(self):
-        self.IF(1, 'translate', .2) 
-        self.IF(1, 'rotate', 0) 
+        self.IF(1, 'translate', .2)
+        self.IF(1, 'rotate', 0)
 
 class TurnLeft (Behavior):
     def setup(self):
-        self.Effects('translate', .2) 
+        self.Effects('translate', .2)
         self.Effects('rotate', .1)
 
     def update(self):
         self.IF(1, 'rotate', .1)
-        self.IF(1, 'translate', 0) 
+        self.IF(1, 'translate', 0)
 
 class TurnRight (Behavior):
     def setup(self):
-        self.Effects('translate', .2) 
+        self.Effects('translate', .2)
         self.Effects('rotate', .1)
 
     def update(self):
         self.IF(1, 'rotate', -.1)
-        self.IF(1, 'translate', 0) 
+        self.IF(1, 'translate', 0)
 
 class Start (State):
     # go straight for 8 meters
@@ -68,11 +68,13 @@ class Start (State):
     def onActivate(self): # method called when activated or gotoed
         self.startX = self.robot.x
         self.startY = self.robot.y
-        
+
     def update(self):
         x = self.robot.x
         y = self.robot.y
-        dist = distance( self.startX, self.startY, x, y) 
+        print ( "x and y " )
+        print ( x, y )
+        dist = distance( self.startX, self.startY, x, y)
         if dist > 8.0:
             self.goto('A1')
 
@@ -87,7 +89,7 @@ class A1 (State):
 
     def update(self):
         th = self.robot.th
-        if angleAdd(th, - self.th) > 90: 
+        if angleAdd(th, - self.th) > 90:
             self.goto('A2')
 
 class A2 (State):
@@ -98,11 +100,11 @@ class A2 (State):
     def onActivate(self): # method called when activated or gotoed
         self.startX = self.robot.x
         self.startY = self.robot.y
-        
+
     def update(self):
         x = self.robot.x
         y = self.robot.y
-        dist = distance( self.startX, self.startY, x, y) 
+        dist = distance( self.startX, self.startY, x, y)
         if dist > 1.5:
             self.goto('B1')
 
@@ -119,7 +121,7 @@ class B1 (State):
         th = self.robot.th
         if angleEqual(angleAdd(th, -self.th), 270):
             self.goto('B2')
-            
+
 class B2 (State):
     # go straight for 6.5 meters
     def setup(self):
@@ -128,11 +130,11 @@ class B2 (State):
     def onActivate(self): # method called when activated or gotoed
         self.startX = self.robot.x
         self.startY = self.robot.y
-        
+
     def update(self):
         x = self.robot.x
         y = self.robot.y
-        dist = distance( self.startX, self.startY, x, y) 
+        dist = distance( self.startX, self.startY, x, y)
         if dist > 6.5:
             self.goto('C1')
 
@@ -147,7 +149,7 @@ class C1 (State):
 
     def update(self):
         th = self.robot.th
-        if angleAdd(th, - self.th) > 90: 
+        if angleAdd(th, - self.th) > 90:
             self.goto('C2')
 
 class C2 (State):
@@ -158,11 +160,11 @@ class C2 (State):
     def onActivate(self): # method called when activated or gotoed
         self.startX = self.robot.x
         self.startY = self.robot.y
-        
+
     def update(self):
         x = self.robot.x
         y = self.robot.y
-        dist = distance( self.startX, self.startY, x, y) 
+        dist = distance( self.startX, self.startY, x, y)
         if dist > 8.0:
             self.goto('D1')
 
@@ -177,9 +179,9 @@ class D1 (State):
 
     def update(self):
         th = self.robot.th
-        if angleAdd(th, - self.th) > 90: 
+        if angleAdd(th, - self.th) > 90:
             self.goto('D2')
-            
+
 class D2 (State):
     # go straight for 12 meters
     def setup(self):
@@ -188,11 +190,11 @@ class D2 (State):
     def onActivate(self): # method called when activated or gotoed
         self.startX = self.robot.x
         self.startY = self.robot.y
-        
+
     def update(self):
         x = self.robot.x
         y = self.robot.y
-        dist = distance( self.startX, self.startY, x, y) 
+        dist = distance( self.startX, self.startY, x, y)
         if dist > 12.0:
             self.goto('E1')
 
@@ -207,9 +209,9 @@ class E1 (State):
 
     def update(self):
         th = self.robot.th
-        if angleAdd(self.th, -th) < 270: 
+        if angleAdd(self.th, -th) < 270:
             self.goto('E2')
-            
+
 class E2 (State):
     # go straight for 2 meters
     def setup(self):
@@ -218,11 +220,11 @@ class E2 (State):
     def onActivate(self): # method called when activated or gotoed
         self.startX = self.robot.x
         self.startY = self.robot.y
-        
+
     def update(self):
         x = self.robot.x
         y = self.robot.y
-        dist = distance( self.startX, self.startY, x, y) 
+        dist = distance( self.startX, self.startY, x, y)
         if dist > 2.0:
             self.goto('Done')
 
@@ -236,15 +238,15 @@ def INIT(engine): # passes in robot, if you need it
                                 'update' : engine.robot.update }, engine)
     # add a few states:
     brain.add(Start(1)) # active
-    brain.add(A1()) # non active
-    brain.add(A2()) # non active
-    brain.add(B1()) # non active
-    brain.add(B2()) # non active
-    brain.add(C1()) # non active
-    brain.add(C2()) # non active
-    brain.add(D1()) # non active
-    brain.add(D2()) # non active
-    brain.add(E1()) # non active
+    brain.add(A1(0)) # non active
+    brain.add(A2(0)) # non active
+    brain.add(B1(0)) # non active
+    brain.add(B2(0)) # non active
+    brain.add(C1(0)) # non active
+    brain.add(C2(0)) # non active
+    brain.add(D1(0)) # non active
+    brain.add(D2(0)) # non active
+    brain.add(E1(0)) # non active
     brain.add(E2(1)) # active
-    brain.add(Done()) # non active
+    brain.add(Done(0)) # non active
     return brain

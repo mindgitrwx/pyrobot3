@@ -75,11 +75,11 @@ class BehaviorBasedBrain(Brain):
          s, b, c = e.split(':')
          totalEffects[c] = max(float(self.effectsTotal[e]), totalEffects[c])
       # sum up totalTruth
-      for d in self.desires: 
+      for d in self.desires:
          # compute total truth for each controller
          totalTruth[d[1]] += d[0] * (self.effectsTotal[d[5]+":"+d[4]+":"+d[1]] / totalEffects[d[1]])
       self.pie = []
-      for d in self.desires: 
+      for d in self.desires:
          # (beffect / totaleffect) * (truth / totaltruth) * value
          c = d[1]
          if totalTruth[c] != 0:
@@ -103,7 +103,7 @@ class BehaviorBasedBrain(Brain):
       # -------------------------------------------------
       # This will update robot's position so that the GUI
       # can draw it, even if no command is sent to move
-      # the robot. 
+      # the robot.
       # -------------------------------------------------
       self.controls['update']()
       # -------------------------------------------------
@@ -132,7 +132,7 @@ class BehaviorBasedBrain(Brain):
       width = 100
       row = (pie - 1) * (width * 1.5)
       colors = ['blue', 'red', 'tan', 'yellow', 'orange', 'black', 'azure', 'beige', 'brown', 'coral', 'gold', 'ivory', 'moccasin', 'navy', 'salmon', 'tan', 'ivory']
-      self.canvas.create_text(xoffset + 60,row + 10, tags='pie',fill='black', text = controller) 
+      self.canvas.create_text(xoffset + 60,row + 10, tags='pie',fill='black', text = controller)
       self.canvas.create_arc(xoffset + 10,row + yoffset,width + xoffset + 10,row + width + yoffset,start = percentSoFar * 360.0, extent = percent * 360.0 - .001, tags='pie',fill=colors[(piececnt - 1) % 17])
       self.canvas.create_text(xoffset + 300,row + 10 + piececnt * 20, tags='pie',fill=colors[(piececnt - 1) % 17], text = name)
 
@@ -270,6 +270,7 @@ class State:
       else:
          self.behaviors[b.name] = b
       # keep a pointer to parent engine, from the beh:
+      print("branin behavior state name:" + b.name + "'")
       b.engine = self.engine
       b.brain = self.engine.brain
       b.robot = self.engine.robot
@@ -330,4 +331,5 @@ class State:
       return self.robot.hasA(*args)
    def requires(self, *args):
       return self.robot.requires(*args)
+
 

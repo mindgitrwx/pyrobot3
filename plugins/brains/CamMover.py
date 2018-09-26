@@ -12,4 +12,4 @@ class SimpleBrain(Brain):
 
 def INIT(engine):
    return SimpleBrain('SimpleBrain', engine)
-      
+

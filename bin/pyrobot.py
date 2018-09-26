@@ -10,7 +10,8 @@ import os, sys, posixpath
 __author__ = "Douglas Blank <dblank@brynmawr.edu>"
 __version__ = "$Revision: 1.5 $"
 
-# Where are we? Compute cwd 
+
+# Where are we? Compute cwd
 # ----------------------------------------------------
 if os.name in ['nt', 'dos', 'os2']:
     if sys.argv[0][1] == ':' and sys.argv[0][2] == '\\':
@@ -64,7 +65,7 @@ if 'HOSTNAME' not in os.environ:
     os.putenv('HOSTNAME', 'computer' )
 # add PYROBOT to PYTHONPATH first
 spare = ''
-path = os.environ["PYROBOT"] 
+path = os.environ["PYROBOT"]
 while spare == '':
    (path,spare) = os.path.split(path) # peel off pyrobot dir
 sys.path.insert(0, path) # add PYROBOT to PYTHON and OS search path
@@ -119,9 +120,9 @@ def process_options():
     global robotfile, brainfile, window, simulator, \
            pyroargs, configfile, evalcommand, worldfile, devices
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 
-                                   "r:b:hg:s:a:i:e:w:d:c:v:p:", 
-                                   ["robot=", "brain=", "help", 
+        opts, args = getopt.getopt(sys.argv[1:],
+                                   "r:b:hg:s:a:i:e:w:d:c:v:p:",
+                                   ["robot=", "brain=", "help",
                                     "gui=", "sim=", "args=",
                                     "init=", "eval=", "world=",
                                     "devices=", "config=", "var=",
@@ -266,6 +267,6 @@ if pyrobot.startup_check():
     else:
         evalcommand = []
     gui.run(evalcommand)
-    gui.cleanup()
+    #  gui.cleanup() DEBUG
 else:
     basichelp()

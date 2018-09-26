@@ -4,7 +4,7 @@
 from pyrobot.brain import Brain
 
 class CleanUp(Brain):
-      
+
    def step(self):
       if self.robot.status == "dirty":
          self.robot.move("suck")
@@ -15,4 +15,4 @@ class CleanUp(Brain):
 
 def INIT(engine):
    return CleanUp('AIMA', engine)
-      
+

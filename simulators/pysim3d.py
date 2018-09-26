@@ -29,7 +29,7 @@ class Tk3DSimulator(TkSimulator):
             y_diff = self.click_start[1] - self.click_stop[1]
         self.offset_x -= x_diff
         self.offset_y -= y_diff
-        self.rotateMatrixWorld *= translate(-x_diff, y_diff, 0) 
+        self.rotateMatrixWorld *= translate(-x_diff, y_diff, 0)
         self.redraw()
     def simToggle(self, key):
         self.display[key] = (self.display[key] + 1) % 3
@@ -70,7 +70,7 @@ class Tk3DSimulator(TkSimulator):
         if len(points[0]) == 3:
             all = [self.getPoint3D(pt[0],pt[1],pt[2]) for pt in points]
         elif len(points[0]) == 2:
-            all = [self.getPoint3D(pt[0],pt[1],0) for pt in points]            
+            all = [self.getPoint3D(pt[0],pt[1],0) for pt in points]
         xy = [(pt[0], pt[1]) for pt in all]
         zs = [pt[2] for pt in all]
         z = max(zs)
@@ -95,8 +95,11 @@ class Tk3DSimulator(TkSimulator):
     def drawObjects(self):
         # sort them, based on Z buffer
         if self.display["wireframe"] < 2:
-            self.primitives.sort(lambda x,y: cmp(x[1], y[1])) # 1st item is Z
-            self.canvas.delete('all')
+            #self.primitives.sort(key= (lambda x, y:  (y[1] > x[1]) )) # 1st item is Z
+            #sorted(self.primitives.sort, key = (lambda x, y:  (y[1] > x[1]) )) # 1st item is Z
+            self.primitives.sort(key=lambda  x: x[1], reverse=True)   # 1st item is Z
+            #self.canvas.delete('all')
+            self.canvas.delete("all")
         for p in self.primitives:
             if p[0] == "oval":
                 name, z, x1, y1, x2, y2, args = p
@@ -119,7 +122,7 @@ class Tk3DSimulator(TkSimulator):
                 self.canvas.create_polygon(points, **args)
             else:
                 print(("need renderer for type:", p[0]))
-        
+
     def redraw(self):
         if self.display["wireframe"] == 2:
             self.primitives = []
@@ -128,7 +131,7 @@ class Tk3DSimulator(TkSimulator):
             scale(self.scale,self.scale,self.scale)
             )
         self.matrix = matrix
-        
+
         for segment in self.world:
             (x1, y1), (x2, y2) = segment.start, segment.end
             id = self.drawLine3D(x1, y1, 0, x2, y2, 0, tag="line")
@@ -190,7 +193,7 @@ class Tk3DSimulator(TkSimulator):
         self.drawObjects()
         for robot in self.robots:
             robot._last_pose = (-1, -1, -1)
-    
+
 
 if __name__ == "__main__":
     sim = Tk3DSimulator((446,491),(21,451),80.517190)

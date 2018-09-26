@@ -9,7 +9,7 @@ import string
 
 class ColorSet:
     def __init__(self):
-        self.colors = [ 0, 90, 215, 190, 138, 172, 24, 116, 233]
+        self.colors = [0, 90, 215, 190, 138, 172, 24, 116, 233]
         self.colorCount = 0
     def __next__(self):
         retval = self.colors[self.colorCount]
@@ -130,7 +130,7 @@ class Trace:
         self.window.withdraw()
         if self.quitWhenDone:
             sys.exit(1)
-      
+
     def updateWindow(self):
         self.rawImage = ImageTk.PhotoImage(self.im)
         self.label.configure(image = self.rawImage)
@@ -186,7 +186,7 @@ if __name__ == "__main__":
     else:
         opts, args = getopt.getopt(sys.argv[3:], "c:s:i:l:r:o:hvw", ["color=", "symbols=", "interval=", "length=", "resolution=", "outfile=", "help", "view", "window"])
     resolution = 0.01
-    defaults = {"color": "'0'", "symbols": "1", "interval": "1", 
+    defaults = {"color": "'0'", "symbols": "1", "interval": "1",
                 "length": "10", "outfile": '""', "window": "0", "view": "0"}
     for opt, val in opts:
         if opt in ("-h", "--help"):
@@ -201,9 +201,9 @@ if __name__ == "__main__":
             print("-w --window     Show data interactively in Tk window")
             print("-v --view       Open xview after creating an output file")
             sys.exit()
-        elif opt in ("-c", "--color"): 
+        elif opt in ("-c", "--color"):
             defaults["color"] = "'" + val + "'"
-        elif opt in ("-s", "--symbols"): 
+        elif opt in ("-s", "--symbols"):
             defaults["symbols"] = val
         elif opt in ("-i", "--interval"):
             defaults["interval"] = val
@@ -231,16 +231,16 @@ if __name__ == "__main__":
         tracer.run()
     if tracer.view:
         if tracer.outfile:
-            print("Creating file '%s'..." % tracer.outfile, end=' ') 
+            print("Creating file '%s'..." % tracer.outfile, end=' ')
             tracer.output()
             print("Done!")
             os.system("xview %s &" % tracer.outfile)
         else:
             print("No outfile specified. Try -o outputfile ")
     elif tracer.outfile:
-        print("Creating file '%s'..." % tracer.outfile, end=' ') 
+        print("Creating file '%s'..." % tracer.outfile, end=' ')
         tracer.output()
         print("Done!")
     if tracer.window:
         tracer.app.mainloop()
-    
+

@@ -1,0 +1,15 @@
+
+
+NVIM v0.2.2
+Build type: RelWithDebInfo
+LuaJIT 2.1.0-beta3
+Compilation: /usr/bin/cc -g -O2 -fdebug-prefix-map=/build/neovim-_mzR4z/neovim-0.2.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -DDISABLE_LOG -Wdate-time -D_FORTIFY_SOURCE=2 -Wconversion -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1 -DNVIM_MSGPACK_HAS_FLOAT32 -DNVIM_UNIBI_HAS_VAR_FROM -O2 -g -DMIN_LOG_LEVEL=3 -Og -g -Wall -Wextra -pedantic -Wno-unused-parameter -Wstrict-prototypes -std=gnu99 -Wimplicit-fallthrough -Wvla -fstack-protector-strong -fdiagnostics-color=auto -DINCLUDE_GENERATED_DECLARATIONS -D_GNU_SOURCE -I/build/neovim-_mzR4z/neovim-0.2.2/build/config -I/build/neovim-_mzR4z/neovim-0.2.2/src -I/usr/include -I/usr/include -I/usr/include -I/usr/include -I/usr/include -I/usr/include -I/usr/include -I/build/neovim-_mzR4z/neovim-0.2.2/build/src/nvim/auto -I/build/neovim-_mzR4z/neovim-0.2.2/build/include
+Compiled by pkg-vim-maintainers@lists.alioth.debian.org
+
+Features: +acl +iconv +jemalloc +tui 
+See ":help feature-compile"
+
+   system vimrc file: "$VIM/sysinit.vim"
+  fall-back for $VIM: "/usr/share/nvim"
+
+Run :checkhealth for more info

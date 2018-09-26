@@ -90,7 +90,7 @@ class RangeSimDevice(Device):
                 self.radius = robot.radius
                 self.count = len(self)
                 self._noise = [0.05] * self.count
-		
+
 	def __len__(self):
 		return len(self._geometry[0])
 
@@ -129,7 +129,7 @@ class LightSimDevice(RangeSimDevice):
 		for i in range(len(self)):
                         #FIXED : append error
 			retval.append( self.getSensorValue(i).rgb )
-			#retval += self.getSensorValue(i).rgb 
+			#retval += self.getSensorValue(i).rgb
 		return retval
 	def getSensorValue(self, pos):
 		retval = RangeSimDevice.getSensorValue(self, pos)
@@ -158,7 +158,7 @@ class BulbSimDevice(Device):
 		b = 1.0
 		window.addCommand("brightness", "Brightness!", str(b),
 				  lambda b: self.setBrightness(float(b)))
-		
+
 class SpeechSimDevice(SpeechDevice, Device):
 	def __init__(self, robot):
 		Device.__init__(self)
@@ -188,7 +188,7 @@ class PTZSimDevice(Device):
 		return self.setPose(None, command, None)
 	def onZoom(self, command):
 		return self.setPose(None, None, command)
-	
+
 class GripperSimDevice(GripperDevice):
 	def __init__(self, robot):
 		Device.__init__(self)
@@ -446,18 +446,11 @@ class TCPRobot(Simbot):
 			print("ok")
 			return "ok"
 		else:
-			# self.socket.sendto(message, self.addr) DEBUG
-			#print("TCP ROBOT move - not exit")
-			#print("TCP ROBOT move - sended messae:")
-			#print(message)
-			#self.socket.sendto(message.encode(), self.addr)
 			try:
-				#self.socket.sendto(message.encode(), self.addr) DEBUG
 				self.socket.sendto(message.encode('utf-8'), self.addr)
 			except:
 				print("TCP socket error")
 			try:
-				#print("TCPmove socket")
 				retval, addr = self.socket.recvfrom(self.BUFSIZE) #addr is not important
 			except:
 				#print("TCPmove socket except")

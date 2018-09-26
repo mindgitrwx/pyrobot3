@@ -163,7 +163,7 @@ class Engine:
       if wait == None:
          time.sleep(1) # default
       elif wait:
-         time.sleep(float(wait)) 
+         time.sleep(float(wait))
       print(".", end=' ')
       sys.stdout.flush()
 
@@ -176,7 +176,7 @@ class Engine:
          self.robotfile = file
       elif (os.getenv('PYROBOT') != None and
             system.file_exists(os.getenv('PYROBOT') + \
-                               '/plugins/robots/' + file)): 
+                               '/plugins/robots/' + file)):
          self.robot = system.loadINIT(os.getenv('PYROBOT') + \
                                       '/plugins/robots/' + file)
          self.robotfile = os.getenv('PYROBOT') + '/plugins/robots/' + file
@@ -210,7 +210,7 @@ class Engine:
          self.brainfile = file
       elif (os.getenv('PYROBOT') != None and
             system.file_exists(os.getenv('PYROBOT') + \
-                               '/plugins/brains/' + file)): 
+                               '/plugins/brains/' + file)):
          try:
             self.brain.window.destroy()
          except:
@@ -229,7 +229,7 @@ class Engine:
       """Kills the brain."""
       if self.brain != 0:
          self.brain.pleaseQuit()
-      
+
    def freeRobot(self):
       """Kills the robot."""
       self.freeBrain()
@@ -240,7 +240,7 @@ class Engine:
    def shutdown(self):
       """Shuts everything down."""
       self.freeRobot()
-         
+
    def tryToConnect(self):
       """Tests to see if you have a brain and robot."""
       if (self.robot is 0) or (self.brain is 0):
@@ -269,7 +269,7 @@ class Engine:
    def _draw(self,options,renderer):
       """Method to draw the engine. Not used, currently."""
       pass # overload, if you want to draw it
-      
+
    def destroyBrain(self):
       """Method to destroy the brain, if one."""
       if self.brain is not 0:
