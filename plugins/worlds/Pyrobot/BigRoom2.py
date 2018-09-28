@@ -21,7 +21,7 @@ def INIT():
     sim.addBox(10, 50, 20, 60)
     # port, name, x, y, th, bounding Xs, bounding Ys, color
     # (optional TK color name):
-    sim.addRobot(60000, TkPioneer("RedPioneer",
+    sim.addRobot(60002, TkPioneer("RedPioneer",
                                   4.99, 1.32, 6.28,
                                   ((.225, .225, -.225, -.225),
                                    (.175, -.175, -.175, .175)),
@@ -32,6 +32,29 @@ def INIT():
                                   ((.225, .225, -.225, -.225),
                                    (.175, -.175, -.175, .175)),
                                   "blue"))
+
+    sim.addRobot(60000, Puck("RedPioneer",
+                                  4.99, 1.32, 6.28,
+                                  ((.225, .225, -.225, -.225),
+                                   (.175, -.175, -.175, .175)),
+                                  "red"))
+
+    sim.addRobot(60003, TkPuck("RedPioneer",
+                                  4.99, 1.32, 6.28,
+                                  ((.225, .225, -.225, -.225),
+                                   (.175, -.175, -.175, .175)),
+                                  "red"))
+
+    sim.addRobot(60004, TkBlimp("RedPioneer",
+                                  4.99, 1.32, 6.28,
+                                  ((.225, .225, -.225, -.225),
+                                   (.175, -.175, -.175, .175)),
+                                  "red"))
+
+
+
+
+
 
     # add some sensors:
     sim.robots[0].addDevice(PioneerFrontSonars())

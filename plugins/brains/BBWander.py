@@ -14,9 +14,9 @@ class Avoid (Behavior):
     def direction(self, dir):
         """ computes opposite direction given an angle"""
         if dir < 0.0:
-            return 0.3
+            return 0.9
         else:
-            return -0.3
+            return -0.9
 
     def update(self):
         if self.count == 50:
@@ -45,7 +45,7 @@ class state1 (State):
         self.add(Avoid(1, {'translate': .3, 'rotate': .3}))
         print(("initialized state", self.name))
     def update(self):
-        if min([s.distance() for s in self.robot.range["front-all"]]) < 1: 
+        if min([s.distance() for s in self.robot.range["front-all"]]) < 1:
             self.goto("TurnAround")
 
 def INIT(engine): # passes in robot, if you need it

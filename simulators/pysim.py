@@ -1784,8 +1784,6 @@ class SimRobot:
         logger.debug(self.devices)
         deviceCounter = 0
         #  pdb.set_trace() #DEBUG
-        print("length of devices")
-        print(len(self.devices))
         for d in self.devices:
             deviceCounter += 1
             logger.debug(deviceCounter)
@@ -1978,7 +1976,7 @@ class SimRobot:
                             self.gripper.velocity = 0
                         if self.ovx != 0 or self.ovy != 0 or self.ova != 0:
                             self.stall = 1
-                        print("Step1")
+                        #print("Step1")
                         self.updateDevices()
                         self.draw()
                         return

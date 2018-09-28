@@ -12,6 +12,8 @@ import socket, threading, random, time
 from pyrobot.robot import Robot
 from pyrobot.robot.device import *
 from pyrobot.simulators.pysim import colorMap, colorCode, colorUnCode
+
+import pdb #DEBUG
 try:
 	import pickle as pickle
 except:
@@ -468,6 +470,8 @@ class TCPRobot(Simbot):
 		return exp
 
 	def disconnect(self):
+		print("disconnect!!!!!! ROBOT")
+		#pdb.set_trace()
 		if self.connectionNum == 0: # the main one, let's close up!
 			# Close socket
 			self.getItem("quit")

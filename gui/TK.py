@@ -10,6 +10,9 @@ import pyrobot.system as system
 import pyrobot.system.share as share
 from posixpath import exists
 from pyrobot.tools.joystick import Joystick
+
+import pdb #DEBUG
+
 #import #pdb #DEBUG
 
 def ask(title, qlist):
@@ -199,9 +202,13 @@ class TKgui(tkinter.Toplevel, gui):
       self.updateDeviceList(select=0)
 
    def freeRobot(self):
+      #  pdb.set_trace()
+      #  print("free robot - is it occured??")
       self.updateDeviceList(clear = 1)
       gui.freeRobot(self)
       #pdb.set_trace() #DEBUG
+
+
 
    def loadDevice(self):
       gui.loadDevice(self)

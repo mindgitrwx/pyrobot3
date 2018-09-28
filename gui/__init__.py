@@ -71,12 +71,12 @@ class BrainStem:
    def requires(self, *args):
       """Short-cut to call the robot's requires method."""
       return self.robot.requires(*args)
-   
+
 class gui:
    """
    This is the base class for a gui.
    """
-   
+
    def __init__(self, name = 'abstract gui', options = {}, engine = 0):
       """
       Child classes should do initialization pertaining to the creation
@@ -103,7 +103,7 @@ class gui:
 
    def updateDeviceList(self, clear = 0, select = -1):
       pass
-   
+
    def listCommandHistory(self, search = None):
       cnt = 1
       if search:
@@ -137,7 +137,7 @@ class gui:
       print("Version " + version())
       print("=========================================================")
       while done is not 1:
-         print("pyrobot ", end=' ') 
+         print("pyrobot ", end=' ')
          if len(command) > 0:
             print(command[0], end=' ')
             retval = command[0].strip()
@@ -153,7 +153,7 @@ class gui:
    def makeWatcher(self):
       """ Text-based watcher """
       self.watcher = TextWatcher()
-      
+
    def watch(self, exp):
       if self.watcher == None:
          self.makeWatcher()
@@ -276,7 +276,7 @@ class gui:
             start, stop = start.strip(), stop.strip()
             if start == "": # neg number
                self.processCommand(self.history[-int(stop) - 1])
-            else:  
+            else:
                for i in range(int(start), int(stop) + 1):
                   self.processCommand(self.history[i - 1])
          else:
@@ -284,7 +284,7 @@ class gui:
             if val.strip().isdigit():
                self.processCommand(self.history[int(val) - 1])
             else:
-               self.listCommandHistory(val)               
+               self.listCommandHistory(val)
       elif retval == "about":
          about()
       elif retval == "reload":
@@ -304,7 +304,7 @@ class gui:
          return 1
       elif retval == "edit":
          if self.engine.brainfile != '':
-            if os.getenv("EDITOR"): 
+            if os.getenv("EDITOR"):
                editor = os.getenv("EDITOR")
             else:
                editor = "vim"
@@ -478,7 +478,7 @@ class gui:
 
    def resetEngine(self):
       self.engine.reset()
-      
+
    #load modules --------------------------------------------------------------
    def loadBrain(self):
       print("pyropot/gui/__init__ self.fileloaddialog f:") #DEBUG
@@ -486,9 +486,9 @@ class gui:
       if f != '' and f != 0:
          #self.lastDir["brain"] = str.join(f.split('/')[:-1],'/') #DEBUG
          print("pyropot/gui/__init__ self.fileloaddialog") #DEBUG
-         #print(('/').join(f)[:-1]) #DEBUG Warning!! 
-         #self.lastDir["brain"] = ('/').join(f)[:-1] #DEBUG Warning!! 
-         self.lastDir["brain"] = os.path.dirname(f) #DEBUG Warning!! 
+         #print(('/').join(f)[:-1]) #DEBUG Warning!!
+         #self.lastDir["brain"] = ('/').join(f)[:-1] #DEBUG Warning!!
+         self.lastDir["brain"] = os.path.dirname(f) #DEBUG Warning!!
          self.freeBrain()
          self.engine.loadBrain(f)
          self._populateEnv()
@@ -499,7 +499,7 @@ class gui:
       if f != '' and f != 0:
          #self.lastDir["devices"] = str.join(f.split('/')[:-1],'/') #DEBUG
          print("pyropot/gui/__init__ self.fileloaddialog ccccjj") #DEBUG
-         #print(('/').join(f)[:-1]) #DEBUG Warning!! 
+         #print(('/').join(f)[:-1]) #DEBUG Warning!!
          #self.lastDir["devices"] = ('/').join(f)[:-1] #DEBUG
          self.lastDir["devices"] = os.path.dirname(f) #DEBUG
          if self.engine != 0 and self.engine.robot != 0:
@@ -519,12 +519,13 @@ class gui:
       print("pyropot/gui/__init__ self.fileloaddialog f:") #DEBUG
       print("505 line - problem seems to be occured kkk") #DEBUG
       print(f) #DEBUG
-      print(('/').join(f)[:-1]) #DEBUG Warning!! 
+      print(('/').join(f)[:-1]) #DEBUG Warning!!
       if f != '' and f != 0:
          #self.lastDir["sim"] = str.join(f.split('/')[:-1],'/') #DEBUG
          print("seemstoeanerror") #DEBUG
          print(('/').join(f)[:-1]) #DEBUG
 
+         print(os.path.dirname(f))
          #self.lastDir["sim"] = ('/').join(f)[:-1] #DEBUG
          self.lastDir["sim"] = os.path.dirname(f) #DEBUG
          if worldfile == '':
@@ -563,15 +564,15 @@ class gui:
                if worldfile == "" or worldfile == 0:
                   return
                #self.lastDir["%s-world" % simulatorName] = str.join(worldfile.split('/')[:-1],'/') DEBUG
-               #self.lastDir["%s-world" % simulatorName] = ('/').join(worldfile)[:-1] # DEBUG 
-               self.lastDir["%s-world" % simulatorName] = worldfile # DEBUG 
+               #self.lastDir["%s-world" % simulatorName] = ('/').join(worldfile)[:-1] # DEBUG
+               self.lastDir["%s-world" % simulatorName] = worldfile # DEBUG
          else:
             print("/probot_ported/pyrobot/gui worldfile")
             print(worldfile)
             simulatorName = worldfile
             #self.lastDir["%s-world" % simulatorName] = str.join(worldfile.split('/')[:-1],'/') # DEBUG
-            #self.lastDir["%s-world" % simulatorName] = ('/').join(worldfile)[:-1] # DEBUG 
-            self.lastDir["%s-world" % simulatorName] = os.path.dirname(worldfile) # DEBUG 
+            #self.lastDir["%s-world" % simulatorName] = ('/').join(worldfile)[:-1] # DEBUG
+            self.lastDir["%s-world" % simulatorName] = os.path.dirname(worldfile) # DEBUG
          self.engine.worldfile = worldfile
          self.engine.simfile = f
          pyroPID = os.getpid()
@@ -584,7 +585,7 @@ class gui:
             os.system(f + (" %d " % pyroPID) + worldfile + " &")
          else:
             raise AttributeError("your OS (%s) is not supported" % os.name)
-         
+
    def loadRobot(self):
       f = self.fileloaddialog("robots","*.py", self.lastDir.get("robot", ''))
       if f != '' and f != 0:
@@ -601,10 +602,34 @@ class gui:
    #load modules --------------------------------------------------------------
 
    def freeRobot(self):
-      self.freeBrain()
+      print("free robot in gui init py")
+      try:
+         self.freeBrain()
+      except Exception as e:
+          pass
       self.engine.robotfile = ''
       self.engine.freeRobot()
 
+
+   #  def loadSim(self, worldfile = ''):
+      #  pyropath = os.getenv('PYROBOT')
+      #  print("pyropot/gui/__init__ self.fileloaddialog f:") #DEBUG
+      #  print("505 line - problem seems to be occured") #DEBUG
+      #  f = self.fileloaddialog("simulators","*",self.lastDir.get("sim", ''))
+      #  print("pyropot/gui/__init__ self.fileloaddialog f:") #DEBUG
+      #  print("505 line - problem seems to be occured kkk") #DEBUG
+      #  print(f) #DEBUG
+      #  print(('/').join(f)[:-1]) #DEBUG Warning!!
+      #  if f != '' and f != 0:
+         #  #self.lastDir["sim"] = str.join(f.split('/')[:-1],'/') #DEBUG
+         #  print("seemstoeanerror") #DEBUG
+         #  print(('/').join(f)[:-1]) #DEBUG
+
+         #  #self.lastDir["sim"] = ('/').join(f)[:-1] #DEBUG
+         #  self.lastDir["sim"] = os.path.dirname(f) #DEBUG
+         #  if worldfile == '':
+            #  simulatorName = f.split('/')[-1]
+            #  print(simulatorName)
    def INThandler(self, signum, frame):
       print("STOP ----------------------------------------------------")
       self.triedToStop += 1
@@ -615,7 +640,7 @@ class gui:
 
    def inform(self, message):
       print(message)
-      
+
    def filesavedialog(self, type, skel, startdir = ''):
       """ Read a line from user """
       print("\nFilename: ", end=' ')

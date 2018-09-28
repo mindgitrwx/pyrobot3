@@ -34,7 +34,7 @@ class ReadUDP(threading.Thread):
         self._stopevent = threading.Event()
         self._sleepperiod = 0.0
         threading.Thread.__init__(self, name="ReadUDP")
-        
+
     def run(self):
         """
         overload of threading.thread.run()
@@ -131,7 +131,7 @@ class RobocupSimulationDevice(Device):
         self.robot = robot
     def setPose(self, poseX, poseY):
         self.robot.sendMsg("(move %f %f)" % (poseX, poseY ))
-            
+
 class RobocupLaserDevice(Device):
     def __init__(self, robot):
         Device.__init__(self, "laser")
@@ -209,7 +209,7 @@ class RobocupLaserDevice(Device):
                 elif item[0][0] == 'b':
                     pos = min(max(int(item[2]) + 45,0),89)
                     self.values[ pos ] = item[1]
-                    
+
 class RobocupRobot(Robot):
     """ A robot to interface with the Robocup simulator. """
     def __init__(self, name="TeamPyrobot", host="localhost", port=6000,
@@ -235,8 +235,8 @@ class RobocupRobot(Robot):
         msg = "(init %s (version 9.0)" % self.name
         if goalie:
             msg += "(goalie)"
-        msg += ")" 
-        self.socket.sendto(msg, self.address)
+        msg += ")"
+        self.socket.sendto(msg.encode('utf-8'), self.address) # error occured
         # wait to get the real address
         while self.address[1] == self.port: pass
         self.builtinDevices = ["simulation", "laser"]
@@ -261,7 +261,7 @@ class RobocupRobot(Robot):
         self.supportedFeatures.append( "range-sensor" )
         self.localize(0, 0, 0)
         self.update()
-        
+
     def startDeviceBuiltin(self, item):
         if item == "simulation":
             return {"simulation": RobocupSimulationDevice(self)}
@@ -269,7 +269,7 @@ class RobocupRobot(Robot):
             return {"laser": RobocupLaserDevice(self)}
         else:
             raise AttributeError("robocup robot does not support device '%s'" % item)
-        
+
     def sendMsg(self, msg, address = None):
         if address == None:
             address = self.address
@@ -315,7 +315,7 @@ class RobocupRobot(Robot):
             elif msg[0] == "hear": # hear time who what
                 self.__dict__[msg[0]] = msg[2:]
                 self.__dict__["%s_time" % msg[0]] = msg[1]
-            elif msg[0] == "score": 
+            elif msg[0] == "score":
                 self.__dict__[msg[0]] = msg[2:]
                 self.__dict__["%s_time" % msg[0]] = msg[1]
             else:
@@ -341,7 +341,7 @@ class RobocupRobot(Robot):
             self.translate(self.lastTranslate)
         elif self.lastRotate:
             self.rotate(self.lastRotate)
-            
+
     def translate(self, translate_velocity):
         # robocup takes values between -100 and 100
         self.lastTranslate = translate_velocity
