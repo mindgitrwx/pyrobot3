@@ -34,7 +34,7 @@ i = 1
 while i < len(sys.argv):
     if sys.argv[i] == "-h":
         print("python evolang.py command line:")
-        print() 
+        print()
         print("   -g 2d|3d|none  (graphics)")
         print("   -n N           (robot count)")
         print("   -a             (automatic restart)")
@@ -65,7 +65,7 @@ while i < len(sys.argv):
     elif sys.argv[i] == "-e":
         startEvolving = True
     elif sys.argv[i] == "-p":
-        i += 1 
+        i += 1
         sd = SoundDevice(sys.argv[i])
         playSound = True
     elif sys.argv[i] == "-r":
@@ -75,7 +75,7 @@ while i < len(sys.argv):
 
 # Define the world:
 # In pixels, (width, height), (offset x, offset y), scale:
-sim = SimulatorClass((441,434), (22,420), 40.357554, run=0)  
+sim = SimulatorClass((441,434), (22,420), 40.357554, run=0)
 # Add a bounding box:
 # x1, y1, x2, y2 in meters:
 sim.addBox(0, 0, 10, 10)
@@ -166,12 +166,12 @@ def quadSound(myLoc, lastS, location):
             dist = distance(myLoc[0], myLoc[1], loc[0], loc[1])
             # global angle from one robot to another:
             # 0 to right, neg down (geometry-style)
-            angle = Polar(loc[0] - myLoc[0], loc[1] - myLoc[1], bIsPolar=0) 
+            angle = Polar(loc[0] - myLoc[0], loc[1] - myLoc[1], bIsPolar=0)
             angle = angle.t # get theta
             if angle < 0:
                 angle = math.pi + (math.pi + angle) # 0 to 2pi
             angle = (angle - math.pi/2) % (math.pi * 2)
-            q = quadNum(myLoc[2], angle) 
+            q = quadNum(myLoc[2], angle)
             #print n, myLoc[2], angle, q
             if dist < closest[q][0]: # if shorter than previous
                 closest[q] = dist, lastS[n] # new closest
@@ -200,14 +200,14 @@ class NNGA(GA):
         for n in range(len(engines)):
             engine = engines[n]
             # Put each robot in a random location:
-            x, y, t = (1 + random.random() * 7, 
-                       1 + random.random() * 7, 
+            x, y, t = (1 + random.random() * 7,
+                       1 + random.random() * 7,
                        random.random() * math.pi * 2)
             minDistance = min([distance(x, y, x2, y2) for (x2,y2) in positions])
             # make sure they are far enough apart:
             while minDistance < 1:
-                x, y, t = (1 + random.random() * 7, 
-                           1 + random.random() * 7, 
+                x, y, t = (1 + random.random() * 7,
+                           1 + random.random() * 7,
                            random.random() * math.pi * 2)
                 minDistance = min([distance(x, y, x2, y2) for (x2,y2) in positions])
             positions.append( (x,y) )
@@ -225,7 +225,7 @@ class NNGA(GA):
         sim.redraw()
         s = [0] * robotCount # each robot's sound
         lastS = [0] * robotCount # previous sound
-        location = [(0, 0, 0) for v in range(robotCount)] 
+        location = [(0, 0, 0) for v in range(robotCount)]
         fitness = 0.01
         for i in range(self.seconds * (1000/sim.timeslice)): # (10 per sec)
             # ------------------------------------------------
@@ -247,8 +247,8 @@ class NNGA(GA):
                 oTrans, oRotate, s[n] = engine.brain.propagate(quad)
                 # then set the move velocities:
                 engine.brain.step(oTrans, oRotate)
-                sim.robots[n].say("%.2f Heard: [%s]" % 
-                                  (s[n], 
+                sim.robots[n].say("%.2f Heard: [%s]" %
+                                  (s[n],
                                    ",".join(["%.2f" % v for v in quad])))
             # ------------------------------------------------
             # Save the sounds
@@ -364,8 +364,8 @@ for e in engines:
     e.robot = temp
 
 # ----------------------------------
-# Code to handle control+c: once to 
-# exit at end of generation; twice to 
+# Code to handle control+c: once to
+# exit at end of generation; twice to
 # abort right now.
 # ----------------------------------
 def suspend(*args):

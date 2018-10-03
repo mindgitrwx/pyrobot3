@@ -10,7 +10,7 @@ class TrackBall(Brain):
         self.cam.addFilter("match", 229, 68, 164)
         self.cam.addFilter("match", 234, 18, 129)
         self.cam.addFilter("blobify",0,255,255,0,1,1,1,)
-                
+
     def destroy(self):
         self.cam.clearFilters()
 
@@ -29,21 +29,21 @@ class TrackBall(Brain):
                         pass
                     elif diff < 0:
                         # negative is right, positive is left
-                        self.ptz.pan( pose[0] + .05) 
+                        self.ptz.pan( pose[0] + .05)
                     else:
-                        self.ptz.pan( pose[0] - .05) 
+                        self.ptz.pan( pose[0] - .05)
                     # ---------------------------------
-                    diff = (centerY - self.cam.height/2) 
+                    diff = (centerY - self.cam.height/2)
                     if abs(diff) < .1 * self.cam.height:
                         pass
                     elif diff < 0: # down
                         self.ptz.tilt( pose[1] + .05) # positive is left
                     else:
                         self.ptz.tilt( pose[1] - .05) # negative is right
-                    
+
                 else:
                     self.ptz.center() #print "searching..."
-                
+
             else:
                 self.ptz.center() #print "searching..."
 
@@ -51,4 +51,4 @@ def INIT(engine):
     engine.robot.requires("ptz")
     engine.robot.requires("camera")
     return TrackBall("Tracker", engine)
-      
+

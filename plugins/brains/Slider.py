@@ -22,4 +22,4 @@ class Controller(Brain):
 
 def INIT(engine):
    return Controller('Slider', engine)
-      
+

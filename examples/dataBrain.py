@@ -10,37 +10,37 @@ Created Novermber 3, 2005.
 Based on 'SubsumptionFindLight.py', a simple brain by Lisa Meeden
 
 
-This is a Subsumption-based brain, designed to quickly and efficiently 
-navigate most worlds looking for a light source, and then to change methods if 
+This is a Subsumption-based brain, designed to quickly and efficiently
+navigate most worlds looking for a light source, and then to change methods if
 it can't find anything using its original technique.
 
 Specifically, it has the following layers:
-Layer 0: Wander - the default wonder method, left in to catch any situations 
+Layer 0: Wander - the default wonder method, left in to catch any situations
         in which no other rules fire
-Layer 1: WhitespaceFollow - a freespace-following behavior; very active from 
+Layer 1: WhitespaceFollow - a freespace-following behavior; very active from
         the beginning and the most important and effective of our strategies
-Layer 2: TimedWallFollow - a wall-following behavior that only activates 
+Layer 2: TimedWallFollow - a wall-following behavior that only activates
         sporadically, based on a timer, used to reach areas that freespace-
         following alone would miss
-Layer 3: SeekLight - a simple drive-towards-the-light behavior for the last 
+Layer 3: SeekLight - a simple drive-towards-the-light behavior for the last
         leg of the robot's journey
 Layer 4: Avoid - the robot tries its best not to hit walls
 Layer 5: StallRecover - a quick and dirty stall recovery method
 Layer 6: FoundLight - the robot stops when it finds the light
 
-Essentially, the robot uses a freespace-following algorithm to find its way 
-around the world, and then switches to a wall-follower if freespace-following 
-doesn't reach the goal in a reasonable amount of time (some things, such as 
-time spent trying to get out of a corner, don't actually count against it). If, 
-subsequently, wall-following also doesn't find the goal, we switch back to 
-freespace-following for a while and the cycle continues; more time is set aside 
-for wall-following with each loop (the logic being that finding a tiny crevice 
-is going to be more time-consuming than simply moving around looking for big 
+Essentially, the robot uses a freespace-following algorithm to find its way
+around the world, and then switches to a wall-follower if freespace-following
+doesn't reach the goal in a reasonable amount of time (some things, such as
+time spent trying to get out of a corner, don't actually count against it). If,
+subsequently, wall-following also doesn't find the goal, we switch back to
+freespace-following for a while and the cycle continues; more time is set aside
+for wall-following with each loop (the logic being that finding a tiny crevice
+is going to be more time-consuming than simply moving around looking for big
 patches of empty space).
 
-This robot can successfully navigate all of the default worlds, as well as more 
-difficult worlds such as the "Light in Maze" world with discontinuous walls. It 
-exhibits near-optimal behavior in most cases, though the speed could perhaps be 
+This robot can successfully navigate all of the default worlds, as well as more
+difficult worlds such as the "Light in Maze" world with discontinuous walls. It
+exhibits near-optimal behavior in most cases, though the speed could perhaps be
 tuned to improve performance in some scenarios (we try not to be *too* fast).
 """
 
@@ -114,8 +114,8 @@ class SubsumptionBrain(Brain):
 
 class Wander(SubsumptionBehavior):
     """
-    This is a basic Wander function, unchanged from the original. Note that 
-    our architecture never results in this being called, but it is left in here 
+    This is a basic Wander function, unchanged from the original. Note that
+    our architecture never results in this being called, but it is left in here
     so that there is always a default method for dealing with stuff.
     """
     def update(self):
@@ -123,10 +123,10 @@ class Wander(SubsumptionBehavior):
 
 class WhitespaceFollow(SubsumptionBehavior):
     """
-    This is a freespace following behavior. By looking at each sensor 
-    individually and weighing them more-or-less based on their angles, we can 
-    generate very nice, smooth motion. This is the work horse of our 
-    implementation, and tends to find the goal quickly and efficiently on most 
+    This is a freespace following behavior. By looking at each sensor
+    individually and weighing them more-or-less based on their angles, we can
+    generate very nice, smooth motion. This is the work horse of our
+    implementation, and tends to find the goal quickly and efficiently on most
     worlds.
     """
     def update(self):
@@ -148,8 +148,8 @@ class WhitespaceFollow(SubsumptionBehavior):
 
 class SeekLight(SubsumptionBehavior):
     """
-    This is the basic SeekLight behavior, which simply causes a robot to try to 
-    move towards any light that it sees, modified slightly to use our speed 
+    This is the basic SeekLight behavior, which simply causes a robot to try to
+    move towards any light that it sees, modified slightly to use our speed
     settings.
     """
     def update(self):
@@ -173,7 +173,7 @@ class FoundLight(SubsumptionBehavior):
 
 class Avoid(SubsumptionBehavior):
     """
-    This is the basic Avoid function, slightly refactored but left very much 
+    This is the basic Avoid function, slightly refactored but left very much
     intact.
     """
     def __init__(self):
@@ -192,18 +192,18 @@ class Avoid(SubsumptionBehavior):
 
 class TimedWallFollow(SubsumptionBehavior):
     """
-    This subsumption behavior integrates a wall-follower into our robot. 
-    Because our freespace-follower works so well and the two can't really run 
-    together, TimedWallFollow only exists to catch situations that fall through 
-    the cracks. We do this by having a counter (self.numSteps) that gets 
-    incremented every time this behavior is invoked. If the counter is too low, 
-    we simply pass control onto the function below us, just like any other 
-    behavior that doesn't trigger. If it is sufficiently high, we wall-follow 
+    This subsumption behavior integrates a wall-follower into our robot.
+    Because our freespace-follower works so well and the two can't really run
+    together, TimedWallFollow only exists to catch situations that fall through
+    the cracks. We do this by having a counter (self.numSteps) that gets
+    incremented every time this behavior is invoked. If the counter is too low,
+    we simply pass control onto the function below us, just like any other
+    behavior that doesn't trigger. If it is sufficiently high, we wall-follow
     instead, using an approximation of the typical "equalize two side sensors"
-    algorithm. The wall-follower has a favored side, which changes with time. 
+    algorithm. The wall-follower has a favored side, which changes with time.
     Generally, the robot will intermix periods of wall- and freespace-
-    following, which should allow it to find its way through almost any map in 
-    a fairly reasonable amount of time. Time spent in higher-level layers like 
+    following, which should allow it to find its way through almost any map in
+    a fairly reasonable amount of time. Time spent in higher-level layers like
     Avoid, which tends to be highly variable, is not counted.
     """
     def __init__(self):
@@ -228,15 +228,15 @@ class TimedWallFollow(SubsumptionBehavior):
             if self.left_handed:
                 # left wall following
                 if self.left < allSonar[0]*0.8:
-                    # we want to approximate the effect of two parallel light 
-                    # sensors on each side of the robot; to do this, we pick 
-                    # the side sensor and the front-side sensor closest to it, 
-                    # note that the angle between them is ~25 degrees, then do 
-                    # some basic trig and rounding to get the above relation, 
-                    # which indicates that we want to turn toward the wall some 
-                    # more - this is a good way to find "doors" when we run 
+                    # we want to approximate the effect of two parallel light
+                    # sensors on each side of the robot; to do this, we pick
+                    # the side sensor and the front-side sensor closest to it,
+                    # note that the angle between them is ~25 degrees, then do
+                    # some basic trig and rounding to get the above relation,
+                    # which indicates that we want to turn toward the wall some
+                    # more - this is a good way to find "doors" when we run
                     # across them, too
-                    
+
                     # turn left
                     rot = 0.5
                     forward = self.spd_med
@@ -247,7 +247,7 @@ class TimedWallFollow(SubsumptionBehavior):
                 # right wall following
                 if self.right < allSonar[5]*0.8:
                     # this is symmetrical to the left case; see above
-                    
+
                     # turn right
                     rot = -0.5
                     forward = self.spd_meed
@@ -256,11 +256,11 @@ class TimedWallFollow(SubsumptionBehavior):
                     forward = self.spd_med
             self.move(forward, rot)
         if self.numSteps > self.onsetDelay + self.wallFollowTimer:
-            # every time we fail to freespace-follow our way to glory in a set 
+            # every time we fail to freespace-follow our way to glory in a set
             # time, we try the clunkier wallspace-follower, which sticks to a
-            # wall on one side of the robot for self.wallFollowTimer iterations 
+            # wall on one side of the robot for self.wallFollowTimer iterations
             # before giving control up to the freespace-follower again
-            
+
             self.left_handed = not self.left_handed # change handedness
 
             # tweak our parameters for less freespace-following and more wall-
@@ -274,7 +274,7 @@ class TimedWallFollow(SubsumptionBehavior):
 
 class StallRecover(SubsumptionBehavior):
     """
-    This is a very simple method for stall recovery: the robot simply tries to 
+    This is a very simple method for stall recovery: the robot simply tries to
     move backwards and turn randomly.
     """
     def update(self):
