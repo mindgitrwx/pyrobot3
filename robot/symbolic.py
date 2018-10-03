@@ -262,7 +262,7 @@ class Simbot(Robot):
 		self.radius = self.getItem("radius")
 		#self.properties = self.getItem("properties") FIXED:append error
 		self.properties = []
-		self.builtinDevices = self.getItem("builtinDevices").split()
+		self.builtinDevices = self.getItem("builtinDevices")#.split()
 		#FIXED: str has no attribute append
 		#self.builtinDevices += "simulation"
 		#self.builtinDevices += "position"
