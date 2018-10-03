@@ -22,18 +22,18 @@ Following steps are the successful case step.
 
 ----------------
 
-|---------------+--------------+-----------------|
-| world         | robot        | plugin          |
-|---------------+--------------+-----------------|
-| AndrewHallway | pyrobot60000 | Subsumption.py  |
-| AndrewHallway | pyrobot60000 | Slider.py       |
-| AndrewHallway | pyrobot60000 | SimpleWander.py |
-| AndrewHallway | pyrobot60000 | SimpleBrain.py  |
-| AndrewHallway | pyrobot60000 | Subsumption     |
-| AndrewHallway | pyrobot60000 | Subsumption     |
-| AndrewHallway | pyrobot60000 | Subsumption     |
-| AndrewHallway | pyrobot60000 | Subsumption     |
-|---------------+--------------+-----------------|
+| --------------- | -------------- | ----------------- |
+| world           | robot          | plugin            |
+| --------------- | -------------- | ----------------- |
+| AndrewHallway   | pyrobot60000   | Subsumption.py    |
+| AndrewHallway   | pyrobot60000   | Slider.py         |
+| AndrewHallway   | pyrobot60000   | SimpleWander.py   |
+| AndrewHallway   | pyrobot60000   | SimpleBrain.py    |
+| AndrewHallway   | pyrobot60000   | Subsumption       |
+| AndrewHallway   | pyrobot60000   | Subsumption       |
+| AndrewHallway   | pyrobot60000   | Subsumption       |
+| AndrewHallway   | pyrobot60000   | Subsumption       |
+| --------------- | -------------- | ----------------- |
 
 <!--
    - pyrobot60000 ./plugins/worlds/Pyrobot/AndrewHallway.py 
