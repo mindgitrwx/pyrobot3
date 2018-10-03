@@ -10,7 +10,8 @@ import os, sys, posixpath
 __author__ = "Douglas Blank <dblank@brynmawr.edu>"
 __version__ = "$Revision: 1.5 $"
 
-# Where are we? Compute cwd 
+
+# Where are we? Compute cwd
 # ----------------------------------------------------
 if os.name in ['nt', 'dos', 'os2']:
     if sys.argv[0][1] == ':' and sys.argv[0][2] == '\\':
@@ -23,7 +24,7 @@ elif os.name in ['posix']:
     else:
         cwd = os.getcwd() + '/' + sys.argv[0]
 else:
-    raise AttributeError, "your OS (%s) is not supported" % os.name
+    raise AttributeError("your OS (%s) is not supported" % os.name)
 # ----------------------------------------------------
 # Add cwd to our PYTHON search path
 # ----------------------------------------------------
@@ -41,7 +42,7 @@ if os.name in ['nt', 'dos', 'os2']:
     os.putenv('HOME', pyropath)
     os.environ['HOSTNAME'] = os.getenv('COMPUTERNAME')
     os.putenv('HOSTNAME', os.getenv('COMPUTERNAME'))
-if os.environ.has_key('PYROBOT') and os.environ["PYROBOT"] != '':
+if 'PYROBOT' in os.environ and os.environ["PYROBOT"] != '':
     pass
 else:
     if posixpath.exists(pyropath + "/plugins"):
@@ -59,12 +60,12 @@ else:
                 os.putenv('PYROBOT', pyropathguess )
             else:
                 raise "Can't find pyrobot directory! Put in python%s/site-packages/ OR run pyrobot directly from the installation directory" % sys.version[0:3]
-if not os.environ.has_key('HOSTNAME'):
+if 'HOSTNAME' not in os.environ:
     os.environ['HOSTNAME'] = 'computer'
     os.putenv('HOSTNAME', 'computer' )
 # add PYROBOT to PYTHONPATH first
 spare = ''
-path = os.environ["PYROBOT"] 
+path = os.environ["PYROBOT"]
 while spare == '':
    (path,spare) = os.path.split(path) # peel off pyrobot dir
 sys.path.insert(0, path) # add PYROBOT to PYTHON and OS search path
@@ -99,13 +100,13 @@ worldfile = 0
 evalcommand = ""
 
 def basichelp():
-    print "You may need to define the PYROBOT environment variable. Try:"
-    print "         export PYROBOT=/usr/lib/python2.3/site-packages/pyrobot"
-    print "or maybe export PYROBOT=~/pyrobot"
-    print ""
-    print "Also, make sure PYROBOT is in PYTHONPATH. Try:"
-    print "         export PYTHONPATH=$PYTHONPATH:$PYROBOT"
-    print "(if it isn't already in Python's path)"
+    print("You may need to define the PYROBOT environment variable. Try:")
+    print("         export PYROBOT=/usr/lib/python2.3/site-packages/pyrobot")
+    print("or maybe export PYROBOT=~/pyrobot")
+    print("")
+    print("Also, make sure PYROBOT is in PYTHONPATH. Try:")
+    print("         export PYTHONPATH=$PYTHONPATH:$PYROBOT")
+    print("(if it isn't already in Python's path)")
 try:
     import pyrobot
 except:
@@ -119,9 +120,9 @@ def process_options():
     global robotfile, brainfile, window, simulator, \
            pyroargs, configfile, evalcommand, worldfile, devices
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 
-                                   "r:b:hg:s:a:i:e:w:d:c:v:p:", 
-                                   ["robot=", "brain=", "help", 
+        opts, args = getopt.getopt(sys.argv[1:],
+                                   "r:b:hg:s:a:i:e:w:d:c:v:p:",
+                                   ["robot=", "brain=", "help",
                                     "gui=", "sim=", "args=",
                                     "init=", "eval=", "world=",
                                     "devices=", "config=", "var=",
@@ -133,6 +134,8 @@ def process_options():
 
     flags = {}
     flags.update(opts)
+
+    #TODO: What is the meaning of o , a??
     for o, a in opts:
         if o in ("-h", "--help"):
             pyrobot.system.usage()
@@ -145,17 +148,17 @@ def process_options():
             simulator = a
         elif o in ("-b", "--brain"):
             brainfile = a
-	elif o in ("-a", "--args"):
+        elif o in ("-a", "--args"):
             pyroargs = a
-	elif o in ("-i", "--init"):
+        elif o in ("-i", "--init"):
             configfile = a
-	elif o in ("-w", "--world", "-c", "--config"):
+        elif o in ("-w", "--world", "-c", "--config"):
             worldfile = a
-	elif o in ("-d", "--devices"):
+        elif o in ("-d", "--devices"):
             devices = a
-	elif o in ("-e", "--eval"):
+        elif o in ("-e", "--eval"):
             evalcommand = a
-	elif o in ("-v", "--var"):
+        elif o in ("-v", "--var"):
             vars.append( a )
         elif o in ("-p", "--proc"):
             flags[o] = a # handle later
@@ -175,16 +178,16 @@ if os.name in ['posix']:
     if retval == 0:
         message += " with CPU %s" % cpu
     elif retval == 256: # invalid call; help
-        print "PYROBOT WARNING: invalid cpu list: %s" % cpu
+        print("PYROBOT WARNING: invalid cpu list: %s" % cpu)
         message += " with default CPUs"
     elif retval == 32512: # can't find taskset
-        print "PYROBOT WARNING: can't find 'taskset'"
+        print("PYROBOT WARNING: can't find 'taskset'")
         message += " with default CPUs"
     else: # other error
-        print "PYROBOT WARNING: taskset error: %d" % retval
+        print("PYROBOT WARNING: taskset error: %d" % retval)
         message += " with default CPUs"
 # ------------------------------- Let's go
-print "Using PYROBOT%s in '%s'..." % (message, os.environ["PYROBOT"],)
+print("Using PYROBOT%s in '%s'..." % (message, os.environ["PYROBOT"],))
 if pyrobot.startup_check():
     import pyrobot.system
     from pyrobot.system.config import Configuration
@@ -226,30 +229,37 @@ if pyrobot.startup_check():
     ## need to make root here, before we load brain
     ## in case brain has gui things
     if window == "TK":
-        import Tkinter
+        print("    tkinter imported")# DEBUG
+        import tkinter
         # save it, in case we need it:
         import pyrobot.system.share as share
         if not share.gui:
             try:
-                share.gui = Tkinter.Tk()
+                share.gui = tkinter.Tk()
                 share.gui.withdraw()
             except:
                 window = 'TTY'
+    print("before engine configure in bin / pyrobot ...")
     eng = Engine(robotfile, brainfile, simulator,
                  pyroargs, c, worldfile, devices.split(",") )
     if window == 'GL':
+        print("    GLgui imported")# DEBUG
         from pyrobot.gui.GL import GLgui
         gui = GLgui(eng)
         gui.win.redraw = gui.redraw
     elif window == 'TK':
+        print("    TKgui imported")
         from pyrobot.gui.TK import TKgui
         gui = TKgui(eng)
     elif window == 'SIMPLE':
+        print("    tty gui imported")
         gui = pyrobot.gui.gui("tty gui", {}, eng)
     elif window == 'TTY':
+        print("    tty gui imorted")
         from pyrobot.gui.tty import TTYGui
         gui = TTYGui(engine = eng)
     elif window == 'CURSES':
+        print("    tty gui imported")
         from pyrobot.gui.Curses import Curses as Curses
         gui = Curses("curses gui", {}, eng)
     if evalcommand != "":
@@ -257,6 +267,6 @@ if pyrobot.startup_check():
     else:
         evalcommand = []
     gui.run(evalcommand)
-    gui.cleanup()
+    #  gui.cleanup() DEBUG
 else:
     basichelp()

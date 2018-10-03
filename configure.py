@@ -89,7 +89,7 @@ def ask(question, default, filecheck = 1, type = 'file', locate = ''):
       if (locate) and not useDefaults:
           pipe = popen("locate %s | head -1 " % locate )
           default = pipe.readline().strip()
-      print('Default = [' + default + ']: ', end=' ')
+      #  print('Default = [' + default + ']: ', end=' ')
       if useDefaults or useLocates:
           retval = ""
       else:
@@ -149,19 +149,19 @@ answer or 'none'.
 
 python_script_name = ask("1. Python version number?", pyverSuggest, 0)
 
-python_include_files = ask("2. Where are Python's include files?",
-                           ("%s/include/python" + python_script_name) % prefix,
-                           type = "dir",
-                           locate = "include/python" + python_script_name)
+print(prefix)
+print(type(prefix))
+print(python_script_name)
+print(type(python_script_name))
+python_include_files = ask("2. Where are Python's include files?", ("%s/include/python" + python_script_name) % prefix, type = "dir", locate = "include/python" + python_script_name)
 
-python_bin_path = ask("3. What is Python's binary? (enter path and name)",
-                           ("%s/bin/python" + python_script_name) % prefix,
-                      locate = "bin/python" + python_script_name)
+print(prefix)
+print(type(prefix))
+print(python_script_name)
+print(type(python_script_name))
+python_bin_path = ask("3. What is Python's binary? (enter path and name)", ("%s/bin/python" + python_script_name) % prefix, locate = "bin/python" + python_script_name)
 
-x11_include_dir = ask("4. Where is the X11 include directory?",
-                      "/usr/X11R6",
-                      type = "dir",
-                      locate = "/usr/X11R6")
+x11_include_dir = ask("4. Where is the X11 include directory?", "/usr/X11R6", type = "dir", locate = "/usr/X11R6")
 
 player_include_dir = ask(" 5. Where is the player include directory (if one, or 'none')?",
                        "/usr/include/player-2.0", type= "dir", locate = "include/player-2")

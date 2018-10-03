@@ -8,7 +8,7 @@ __author__ = "E. Jucovy, Douglas Blank <dblank@brynmawr.edu>"
 __version__ = "$Revision: 1.9 $"
 
 from math import exp
-  
+
 class FuzzyOperators:
   def Union(self,a,b):
     pass
@@ -42,14 +42,14 @@ class FuzzyValue:
 
   Contains a floating-point value between 0 and 1
   """
-  
+
   def __init__(self, val, ops = StandardFuzzyOperators()):
     """
     Initialize the fuzzy value
 
     If val is less than zero or greater than one, limit val to those bounds
     """
-    
+
     self.Ops = ops
     if val < 0:
       self.Value = 0.0
@@ -61,7 +61,7 @@ class FuzzyValue:
   def __and__(self, other):
     """
     Return the intersection of self and other
-    """  
+    """
     return FuzzyValue(self.Ops.Intersection(self.Value, float(other)), self.Ops)
 
   def __or__(self, other):
@@ -82,7 +82,7 @@ class FuzzyValue:
     return FuzzyValue(self.Value + float(other), self.Ops)
 
   __radd__ = __add__
-  
+
   def __sub__(self, other):
     return FuzzyValue(self.Value - float(other), self.Ops)
 
@@ -93,7 +93,7 @@ class FuzzyValue:
     return FuzzyValue(self.Value * float(other), self.Ops)
 
   __rmul__ = __mul__
-  
+
   def __div__(self, other):
     return FuzzyValue(self.Value / float(other), self.Ops)
 
@@ -102,7 +102,7 @@ class FuzzyValue:
 
   def __cmp__(self, other):
     return self.Value - float(other)
-  
+
   def __float__(self):
     return self.Value
 
@@ -110,9 +110,9 @@ class FuzzyValue:
 
   def __str__(self):
     return "<Fuzzy value " + str(self.Value) + ">"
-  
+
 #  def alphaCut(self, alpha):
-#    return self.Value >= alpha 
+#    return self.Value >= alpha
 
 class FuzzyClassifier:
   """
@@ -122,15 +122,15 @@ class FuzzyClassifier:
   setMembershipFunction(function). The membership function should
   return a value between 0 and 1 (values outside that range will be
   automatically set to either 0 or 1).
-  
+
   All relevant parameters used by the membership function can be set
   on initialization or by setParams()
   """
-  
+
   def __init__(self, func=None, fName=None, ops=StandardFuzzyOperators(), **kwargs):
     """
     Initialize the FuzzyClassifier
-    
+
     First argument is a reference to the membership function
     Second argument is the name of the membership function
     Remaining arguments are parameter names and values
@@ -140,7 +140,7 @@ class FuzzyClassifier:
 
     if func.__class__ is FuzzyClassifier:
       self.Function = func.Function
-      self.myParams = func.myParams 
+      self.myParams = func.myParams
     elif not func is None:
       self.Function = func
     else:
@@ -149,7 +149,7 @@ class FuzzyClassifier:
       self.Function = Halfway
 
     if func.__class__ is FuzzyClassifier:
-      self.FunctionName = func.FunctionName      
+      self.FunctionName = func.FunctionName
     elif not fName is None:
       self.FunctionName = fName
     else:
@@ -159,7 +159,7 @@ class FuzzyClassifier:
     self.Ops = ops
     for i in kwargs:
       self.myParams[i] = kwargs[i]
-    
+
   def __call__(self, *args):
     """
     Apply the fuzzy classifier to a set of values
@@ -189,7 +189,7 @@ class FuzzyClassifier:
     elif x < 0:
       raise FuzzyError("%d undefined parameters to FuzzyClassifier %s" \
                       % (-x, self.FunctionName))
-    
+
     return FuzzyValue(self.Function(**mydict), self.Ops)
 
   def safesetParams(self, **kwargs):
@@ -220,7 +220,7 @@ class FuzzyClassifier:
     delete all parameters that might already exist
     """
     self.myParams = kwargs
-    
+
   def getParam(self, *names):
     """
     Return one or more of the classifier's parameters
@@ -238,14 +238,14 @@ class FuzzyClassifier:
     Set the classifier's membership function
 
     First (required) parameter is the membership function itself.
-    
+
     Second (optional) parameter is a name for the function, recommended,
     e.g., for lambda functions; if this is not set then the function's
     actual name will be used
     """
 
     if not fName is None:
-      self.FunctionName = fName      
+      self.FunctionName = fName
     elif func.__class__ is FuzzyClassifier:
       self.FunctionName = func.FunctionName
     else:
@@ -258,12 +258,12 @@ class FuzzyClassifier:
       self.Function = func
 
     self.__name__ = "FuzzyClassifier:%s" % self.FunctionName
-   
+
   def __str__(self):
     return "FuzzyClassifier instance with\n\tmembership function " + \
            "%s\n\tparameters %s\n\toperator set %s" \
            % (self.FunctionName, self.myParams, self.Ops)
-   
+
   def __bool__(self):
     return True
 
@@ -322,7 +322,7 @@ def RisingFuzzy(a,b):
   a: lower bound, mu(a) = 0.0
   b: upper bound, mu(b) = 1.0
   """
-  
+
   def __upMF(x0,a,b):
     """
     A linear rising membership function
@@ -393,7 +393,7 @@ def TrapezoidFuzzy(a,b,c,d):
   c: end of top, mu(c) = 1.0
   d: upper bound, mu(d) = 0.0
   """
-  
+
   def __trapMF(x0,a,b,c,d):
     """
     A linear trapezoidal membership function
@@ -434,10 +434,10 @@ def BellFuzzy(a,b,c):
   All values will effectively be mapped to either 0, 0.5, or 1.
   (Not quite, since it's continuous, but close.)
   """
-  
+
   def __BellMF(x,a,b,c):
     return 1.0 / (1.0 + pow((x - c) / a, 2.0*b))
-  
+
   return FuzzyClassifier(__BellMF, "BellCurve", a=a,b=b,c=c)
 
 # NOT YET
@@ -478,7 +478,7 @@ def LRFuzzy(f,g,c,a,b):
 
   return FuzzyClassifier(__LRMF, "Left"+f.__name__+"Right"+g.__name__,
                          f=f,g=g,c=c,a=a,b=b)
-    
+
 if __name__ == '__main__': # some tests
   f = BellFuzzy(10,20,30)
   for i in range(100):

@@ -1,0 +1,18 @@
+qptwospirals.py:1:from pyrobot.brain.conx import *
+seqXor.py:4:from pyrobot.brain.conx import *
+sumXor.py:1:from pyrobot.brain.conx import *
+twospiral.py:1:from pyrobot.brain.conx import *
+governor.py:10:from pyrobot.brain.conx import *
+incrnet.py:1:from pyrobot.brain.conx import *
+xormedley.py:1:from pyrobot.brain.conx import *
+cascor.py:1:from pyrobot.brain.conx import *
+seqXor2.py:6:from pyrobot.brain.conx import *
+qpencoder.py:1:from pyrobot.brain.conx import *
+vconx.py:4:from pyrobot.brain.conx import *
+ga.py:557:    from pyrobot.brain.conx import *
+sequence1.py:5:#from pyrobot.brain.conx import SRN
+sequence.py:4:from pyrobot.brain.conx import *
+VisConx/VisSweepConx.py:4:from pyrobot.brain.conx import *
+VisConx/NetStruct.py:110:    from pyrobot.brain.conx import SRN
+VisConx/VisConxBase.py:8:from pyrobot.brain.conx import *
+VisConx/VisRobotConx.py:5:from pyrobot.brain.conx import *

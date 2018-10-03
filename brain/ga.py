@@ -25,7 +25,7 @@ def flip(probability):
 
 
 # The classes:
-#  Gene - specifics of gene representation 
+#  Gene - specifics of gene representation
 #  Population - collection of Genes
 #  GA - the parameters of evolution
 
@@ -87,7 +87,7 @@ class Gene:
         return len(self.genotype)
 
     def display(self):
-        if self.mode == 'bit' or self.mode == 'integer': 
+        if self.mode == 'bit' or self.mode == 'integer':
             # print(string.join([repr(int(v)) for v in self.genotype], "")) DEBUG
             print([repr(int(v)) for v in self.genotype].join("")) # DEBUG
         elif self.mode == 'float':
@@ -106,26 +106,26 @@ class Gene:
             if flip(mutationRate):
                 if self.verbose > 2:
                     print("mutating at position", i)
-                if self.mode == 'bit': 
+                if self.mode == 'bit':
                     self.genotype[i] = not self.genotype[i]
-                elif self.mode == 'integer': 
+                elif self.mode == 'integer':
                     r = random.random()
                     if (r < .33):
                         self.genotype[i] += round(random.random() * self.maxStep)
-                        self.genotype[i] = min(self.genotype[i], self.max) 
+                        self.genotype[i] = min(self.genotype[i], self.max)
                     elif (r < .67):
                         self.genotype[i] -= round(random.random() * self.maxStep)
-                        self.genotype[i] = max(self.genotype[i], self.min) 
+                        self.genotype[i] = max(self.genotype[i], self.min)
                     else:
                         self.genotype[i] = round(random.random() * (self.max - self.min + 1)) + self.min
-                elif self.mode == 'float': 
+                elif self.mode == 'float':
                     r = random.random()
                     if (r < .33):
                         self.genotype[i] += (random.random() * self.maxStep)
-                        self.genotype[i] = min(self.genotype[i], self.max) 
+                        self.genotype[i] = min(self.genotype[i], self.max)
                     elif (r < .67):
                         self.genotype[i] -= (random.random() * self.maxStep)
-                        self.genotype[i] = max(self.genotype[i], self.min) 
+                        self.genotype[i] = max(self.genotype[i], self.min)
                     else:
                         self.genotype[i] = (random.random() * (self.max - self.min)) + self.min
                 elif self.mode == 'char':
@@ -193,8 +193,8 @@ class Gene:
 
 class Population:
     def __init__(self, cnt, geneConstructor, **args):
-        self.sumFitness = 0   
-        self.avgFitness = 0   
+        self.sumFitness = 0
+        self.avgFitness = 0
         self.individuals = []
         self.eliteMembers = []
         self.elitePercent = 0.0
@@ -217,7 +217,7 @@ class Population:
         for i in range(self.size):
             newPop.individuals.append( self.individuals[i].copy() )
         return newPop
-        
+
     def __getitem__(self, val):
         return self.individuals[val]
 
@@ -286,7 +286,7 @@ class Population:
         self.bestMember = best
         self.avgFitness = (self.sumFitness * 1.0) / self.size
         if self.verbose > 0:
-            print("Fitness: Total", "%7.2f" % self.sumFitness, end=' ') 
+            print("Fitness: Total", "%7.2f" % self.sumFitness, end=' ')
             print("Best", "%5.2f" % best.fitness, end=' ')
             print("Average", "%5.2f" % self.avgFitness, end=' ')
             print("Worst", "%5.2f" % worst.fitness)
@@ -328,13 +328,13 @@ class GA:
 
     def setup(self, **args):
         pass
-    
+
     def reInitialize(self):
         self.pop = self.origPop.copy()
         self.initialize()
 
     def initialize(self):
-        self.applyFitnessFunction() 
+        self.applyFitnessFunction()
         if self.verbose > 0:
             print("-" * 60)
             print("Initial population")
@@ -359,7 +359,7 @@ class GA:
     def applyFitnessFunction(self):
         for i in range( len(self.pop.individuals) ):
             self.pop.individuals[i].fitness = self.fitnessFunction(i)
-            
+
     def setSeed(self, value):
         self.seed = value
         random.seed(self.seed)
@@ -399,7 +399,7 @@ class GA:
         for i in range(self.pop.size):
             if i not in elitePositions:
                 self.pop.individuals[i] = newpop[i]
-    
+
     def evolve(self, cont = 0):
         if not cont:
             self.generation = 0
@@ -549,7 +549,7 @@ if __name__ == '__main__':
         ga.reInitialize()
         ga.initGenesFromFile("bestsumga.genes", mutate = 1, full = 1)
         ga.evolve()
-    print() 
+    print()
 
     # Here is a test to evolve the weights/biases in a neural network
     # that solves the XOR problem:
@@ -579,7 +579,7 @@ if __name__ == '__main__':
             GA.__init__(self,
                         Population(cnt, Gene, size=len(g), verbose=1,
                                    min=-10, max=10, maxStep = 1,
-                                   imin=-10, imax=10, 
+                                   imin=-10, imax=10,
                                    elitePercent = .01),
                         mutationRate=0.05, crossoverRate=0.6,
                         maxGeneration=400, verbose=1)
@@ -682,9 +682,9 @@ if __name__ == '__main__':
 # 224 * 300 = 67200
 
 # generations
-# 224 
-# 171 
-#  60 
+# 224
+# 171
+#  60
 # 167
 # 404
 
