@@ -20,6 +20,9 @@ Following steps are the successful case step.
 
 # Combination of available robot
 
+----------------
+
+|---------------+--------------+-----------------|
 | world         | robot        | plugin          |
 |---------------+--------------+-----------------|
 | AndrewHallway | pyrobot60000 | Subsumption.py  |
