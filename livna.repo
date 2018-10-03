@@ -1,5 +1,0 @@
-[livna-stable]
-name=Livna.org Fedora Compatible Packages (stable)
-baseurl=http://rpm.livna.org/fedora/$releasever/$basearch/RPMS.lvn
-gpgcheck=1
-

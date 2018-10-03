@@ -20,6 +20,8 @@ Following steps are the successful case step.
 
 # Modules
 
+![modules.png](modules.png)
+
 ## World
 
 pyrbot map
