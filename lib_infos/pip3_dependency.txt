@@ -1,0 +1,41 @@
+  183  pip3 install --upgrade pip
+  200  pip3 install pyrobot
+  202  pip3 install pyrobot
+  203  pip3 install ipaddress
+  337  pip3 install pyrobot
+  341  pip3 install pyrobot.system
+  354  pip3 install tkiner
+  355  pip3 install tkinter
+  367  pip3 install playerc
+  380  pip3 list
+  383  pip3 list
+  392  pip3 list
+  399  pip3 install tkinter
+  400  pip3 list
+  403  pip3 list
+  441  pip3 list
+  511  pip3 list
+  512  pip3 install coverage
+  513  pip3 list
+  533  pip3 install coverage
+  534  pip3 install coverage.py
+  564  pip3 install Form
+  567  pip3 install Form
+  568  pip3 install prompt_toolkit
+  569  pip3 install Form
+  570  pip3 install Token
+  571  pip3 install Form
+  572  pip3 list
+  573  pip3 install Form
+  574  pip3 install token
+  575  pip3 install Form
+  577  pip3 install Form
+  578  pip3 install Token
+  579  pip3 install Form
+  580  pip3 install Forms
+  581  pip3 install Token
+  582  pip3 install Form
+  617  pip3 install ImageTk
+  618  pip3 install python-imaging
+  619  pip3 install python-imaging-tk
+  630  history | grep 'pip3' > pip3_dependency.txt

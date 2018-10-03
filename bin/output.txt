@@ -1,0 +1,6 @@
+Script started, file is ../pyro_print.txt
+]0;root@ubuntu: ~/pyrobot/pyrobot/bin[01;32mroot@ubuntu[00m:[01;34m~/pyrobot/pyrobot/bin[00m# 
+]0;root@ubuntu: ~/pyrobot/pyrobot/bin[01;32mroot@ubuntu[00m:[01;34m~/pyrobot/pyrobot/bin[00m# 
+]0;root@ubuntu: ~/pyrobot/pyrobot/bin[01;32mroot@ubuntu[00m:[01;34m~/pyrobot/pyrobot/bin[00m# zawef[26P(arg: 1)[C[C[C[C[C]0;root@ubuntu: ~/pyrobot/pyrobot/bin[01;32mroot@ubuntu[00m:[01;34m~/pyrobot/pyrobot/bin[00m# zawef[26P(arg: 1)[C[C[C[C[C2[C[C[C[C[C[C]0;root@ubuntu: ~/pyrobot/pyrobot/bin[01;32mroot@ubuntu[00m:[01;34m~/pyrobot/pyrobot/bin[00m# zawefefaewfafeawefawefawefawefawefa
+zaweefaewfafeawefawefawefawefawefa: command not found
+]0;root@ubuntu: ~/pyrobot/pyrobot/bin[01;32mroot@ubuntu[00m:[01;34m~/pyrobot/pyrobot/bin[00m# 

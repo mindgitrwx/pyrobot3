@@ -1,0 +1,266 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Call	responses.py	/^Call = namedtuple('Call', ['request', 'response'])$/;"	v
+CallList	responses.py	/^class CallList(Sequence, Sized):$/;"	c
+DELETE	responses.py	/^    DELETE = 'DELETE'$/;"	v	class:RequestsMock
+GET	responses.py	/^    GET = 'GET'$/;"	v	class:RequestsMock
+HEAD	responses.py	/^    HEAD = 'HEAD'$/;"	v	class:RequestsMock
+OPTIONS	responses.py	/^    OPTIONS = 'OPTIONS'$/;"	v	class:RequestsMock
+OrderedDict	compat.py	/^OrderedDict = OrderedDict$/;"	v
+OrderedDict	ordereddict.py	/^class OrderedDict(dict, DictMixin):$/;"	c
+PATCH	responses.py	/^    PATCH = 'PATCH'$/;"	v	class:RequestsMock
+POST	responses.py	/^    POST = 'POST'$/;"	v	class:RequestsMock
+PUT	responses.py	/^    PUT = 'PUT'$/;"	v	class:RequestsMock
+PY2	compat.py	/^PY2 = int(sys.version[0]) == 2$/;"	v
+PY26	compat.py	/^PY26 = PY2 and int(sys.version_info[1]) < 7$/;"	v
+PYTHON_BIN	Makefile	/^PYTHON_BIN=python$/;"	m
+RequestsMock	responses.py	/^class RequestsMock(object):$/;"	c
+RoboBrowser	browser.py	/^class RoboBrowser(object):$/;"	c
+RoboError	browser.py	/^class RoboError(Exception): pass$/;"	c
+RoboState	browser.py	/^class RoboState(object):$/;"	c
+SUBDIRS	Makefile	/^SUBDIRS =  $(CONFIGDIRS) $/;"	m
+WikiParser	wikiparser.php	/^  function WikiParser() {$/;"	f
+WikiParser	wikiparser.php	/^class WikiParser {$/;"	c
+__all__	responses.py	/^__all__ = []$/;"	v
+__author__	__init__.py	/^__author__ = "Douglas Blank <dblank@brynmawr.edu>"$/;"	v
+__author__	compile.py	/^__author__ = "Douglas Blank <dblank@brynmawr.edu>"$/;"	v
+__author__	configWin.py	/^__author__ = "Douglas Blank <dblank@brynmawr.edu>"$/;"	v
+__author__	configure.py	/^__author__ = "Douglas Blank <dblank@brynmawr.edu>"$/;"	v
+__call__	compat.py	/^        __call__ = type.__call__$/;"	v	class:with_metaclass.metaclass
+__delitem__	ordereddict.py	/^    def __delitem__(self, key):$/;"	m	class:OrderedDict	file:
+__eq__	ordereddict.py	/^    def __eq__(self, other):$/;"	m	class:OrderedDict	file:
+__getitem__	responses.py	/^    def __getitem__(self, idx):$/;"	m	class:CallList	file:
+__init__	browser.py	/^    def __init__(self, auth=None, parser=None, headers=None, user_agent=None,$/;"	m	class:RoboBrowser
+__init__	browser.py	/^    def __init__(self, browser, response):$/;"	m	class:RoboState
+__init__	compat.py	/^        __init__ = type.__init__$/;"	v	class:with_metaclass.metaclass
+__init__	ordereddict.py	/^    def __init__(self, *args, **kwds):$/;"	m	class:OrderedDict
+__init__	responses.py	/^    def __init__(self):$/;"	m	class:CallList
+__init__	responses.py	/^    def __init__(self):$/;"	m	class:RequestsMock
+__iter__	ordereddict.py	/^    def __iter__(self):$/;"	m	class:OrderedDict	file:
+__iter__	responses.py	/^    def __iter__(self):$/;"	m	class:CallList	file:
+__len__	responses.py	/^    def __len__(self):$/;"	m	class:CallList	file:
+__ne__	ordereddict.py	/^    def __ne__(self, other):$/;"	m	class:OrderedDict	file:
+__new__	compat.py	/^        def __new__(cls, name, this_bases, d):$/;"	m	class:with_metaclass.metaclass	file:
+__reduce__	ordereddict.py	/^    def __reduce__(self):$/;"	m	class:OrderedDict	file:
+__repr__	browser.py	/^    def __repr__(self):$/;"	m	class:RoboBrowser	file:
+__repr__	ordereddict.py	/^    def __repr__(self):$/;"	m	class:OrderedDict	file:
+__reversed__	ordereddict.py	/^    def __reversed__(self):$/;"	m	class:OrderedDict	file:
+__setitem__	ordereddict.py	/^    def __setitem__(self, key, value):$/;"	m	class:OrderedDict	file:
+__version__	__init__.py	/^__version__ = "$Revision: 1.3 $"$/;"	v
+__version__	compile.py	/^__version__ = "$Revision: 1.2 $"$/;"	v
+__version__	configWin.py	/^__version__ = "$Revision: 1.1 $"$/;"	v
+__version__	configure.py	/^__version__ = "$Revision: 1.27 $"$/;"	v
+_build_url	browser.py	/^    def _build_url(self, url):$/;"	m	class:RoboBrowser
+_default_mock	responses.py	/^_default_mock = RequestsMock()$/;"	v
+_find_match	responses.py	/^    def _find_match(self, request):$/;"	m	class:RequestsMock
+_form_ptn	browser.py	/^_form_ptn = re.compile('^form$', re.I)$/;"	v
+_link_ptn	browser.py	/^_link_ptn = re.compile('^(a|button)$', re.I)$/;"	v
+_on_request	responses.py	/^    def _on_request(self, request, **kwargs):$/;"	m	class:RequestsMock
+_start	responses.py	/^    def _start(self):$/;"	m	class:RequestsMock
+_stop	responses.py	/^    def _stop(self):$/;"	m	class:RequestsMock
+_traverse	browser.py	/^    def _traverse(self, n=1):$/;"	m	class:RoboBrowser
+_update_state	browser.py	/^    def _update_state(self, response):$/;"	m	class:RoboBrowser
+activate	responses.py	/^    def activate(self, func):$/;"	m	class:RequestsMock
+add	responses.py	/^    def add(self, method, url, body='', match_querystring=False,$/;"	m	class:RequestsMock
+add	responses.py	/^    def add(self, request, response):$/;"	m	class:CallList
+addRule	wikiparser.php	/^  function addRule( $match, $replacement, $option = 0) {$/;"	f
+applyRule	wikiparser.php	/^  function applyRule($num, $text) {$/;"	f
+ask	configure.py	/^def ask(question, default, filecheck = 1, type = 'file', locate = ''):$/;"	f
+ask_yn	configure.py	/^def ask_yn(title, list_of_options):$/;"	f
+back	browser.py	/^    def back(self, n=1):$/;"	m	class:RoboBrowser
+basestring	compat.py	/^    basestring = (str, bytes)$/;"	v
+basestring	compat.py	/^    basestring = basestring$/;"	v
+bodytext	diydocs.php	/^     $bodytext = '';$/;"	v
+bodytext	index.php	/^  $bodytext = '';$/;"	v
+builtin_name	compat.py	/^    builtin_name = '__builtin__'$/;"	v
+builtin_name	compat.py	/^    builtin_name = 'builtins'$/;"	v
+buttons	index.php	/^$buttons = array("Home" => "Pyro", $/;"	v
+calls	responses.py	/^    def calls(self):$/;"	m	class:RequestsMock
+clear	ordereddict.py	/^    def clear(self):$/;"	m	class:OrderedDict
+copy	ordereddict.py	/^    def copy(self):$/;"	m	class:OrderedDict
+counter	wikiparser.php	/^  var $counter = 0;$/;"	v
+currentOrderedSpaces	wikiparser.php	/^  var $currentOrderedSpaces = 0;$/;"	v
+currentUnorderedSpaces	wikiparser.php	/^  var $currentUnorderedSpaces = 0;$/;"	v
+d1	wikiparser.php	/^	$d1 = str_replace(" ", "_20", $o1);$/;"	v
+d1	wikiparser.php	/^	$d1 = str_replace("\/", "_2f", $d1);$/;"	v
+d1	wikiparser.php	/^      $d1 = str_replace(" ", "_20", $o1);$/;"	v
+d1	wikiparser.php	/^      $d1 = str_replace("\/", "_2f", $d1);$/;"	v
+data	diydocs.php	/^$data = $_POST["page"];$/;"	v
+depth	wikiparser.php	/^    $depth = array();$/;"	v
+depth_type	wikiparser.php	/^    $depth_type = array();$/;"	v
+ensure_soup	helpers.py	/^def ensure_soup(value):$/;"	f
+extra	wikiparser.php	/^      $extra = substr($o1, -1);$/;"	v
+extra	wikiparser.php	/^    $extra = "";$/;"	v
+file_exists	configure.py	/^def file_exists(file_name, type = 'file'):$/;"	f
+filename	diydocs.php	/^   $filename = "\/var\/moin\/share\/moin\/data\/text\/" . $page;$/;"	v
+filename	index.php	/^$filename = "\/var\/moin\/share\/moin\/data\/text\/" . $page;$/;"	v
+filename	wikiparser.php	/^    $filename = str_replace("-", "_2d", $filename);$/;"	v
+filename	wikiparser.php	/^    $filename = str_replace(".", "_2e", $filename);$/;"	v
+find	browser.py	/^    def find(self):$/;"	m	class:RoboBrowser
+find	helpers.py	/^def find(soup, name=None, attrs=None, recursive=True, text=None, **kwargs):$/;"	f
+find_all	browser.py	/^    def find_all(self):$/;"	m	class:RoboBrowser
+find_all	helpers.py	/^def find_all(soup, name=None, attrs=None, recursive=True, text=None,$/;"	f
+follow_link	browser.py	/^    def follow_link(self, value=None, *args, **kwargs):$/;"	m	class:RoboBrowser
+forward	browser.py	/^    def forward(self, n=1):$/;"	m	class:RoboBrowser
+fp	configWin.py	/^fp = open("system\/version.py", "w")$/;"	v
+fp	configure.py	/^fp = open("Makefile.cfg", "w")$/;"	v
+fp	diydocs.php	/^     $fp = fopen($filename, "r");$/;"	v
+fp	index.php	/^  $fp = fopen($filename, "r");$/;"	v
+fp	wikiparser.php	/^    $fp = @fopen($this->wikidir . $filename, "r");$/;"	v
+fromkeys	ordereddict.py	/^    def fromkeys(cls, iterable, value=None):$/;"	m	class:OrderedDict
+fullSearch	wikiparser.php	/^    $fullSearch = "<a href=http:\/\/emergent.brynmawr.edu\/index.cgi\/FindPage>Go here for full search functions<\/a>";$/;"	v
+getFile	wikiparser.php	/^  function getFile($filename) {$/;"	f
+get_form	browser.py	/^    def get_form(self, id=None, *args, **kwargs):$/;"	m	class:RoboBrowser
+get_forms	browser.py	/^    def get_forms(self, *args, **kwargs):$/;"	m	class:RoboBrowser
+get_link	browser.py	/^    def get_link(self, text=None, *args, **kwargs):$/;"	m	class:RoboBrowser
+get_links	browser.py	/^    def get_links(self, text=None, *args, **kwargs):$/;"	m	class:RoboBrowser
+getwikipage	diydocs.php	/^ function getwikipage($page) {$/;"	f
+goto	wikiparser.php	/^    $goto = '<table border="0" cellspacing="0" cellpadding="0">$/;"	v
+handleFormat	wikiparser.php	/^  function handleFormat($command) {$/;"	f
+handlePragma	wikiparser.php	/^  function handlePragma($command) {$/;"	f
+headerNum	wikiparser.php	/^  function headerNum($level, $text) {$/;"	f
+home	diydocs.php	/^$home = "\/";$/;"	v
+home	index.php	/^$home = "\/";$/;"	v
+homename	diydocs.php	/^$homename = "Pyro Robotics";$/;"	v
+homename	index.php	/^$homename = "Pyro Robotics";$/;"	v
+html	wikiparser.php	/^  function html($text) {$/;"	f
+included_packages	configure.py	/^included_packages = ask_yn("\\n6. Options:", [$/;"	v
+items	ordereddict.py	/^    items = DictMixin.items$/;"	v	class:OrderedDict
+iteritems	compat.py	/^    iteritems = lambda d: d.iteritems()$/;"	v
+iteritems	compat.py	/^    iteritems = lambda d: iter(d.items())$/;"	v
+iteritems	ordereddict.py	/^    iteritems = DictMixin.iteritems$/;"	v	class:OrderedDict
+iterkeys	compat.py	/^    iterkeys = lambda d: d.iterkeys()$/;"	v
+iterkeys	compat.py	/^    iterkeys = lambda d: iter(d.keys())$/;"	v
+iterkeys	ordereddict.py	/^    iterkeys = DictMixin.iterkeys$/;"	v	class:OrderedDict
+itervalues	compat.py	/^    itervalues = lambda d: d.itervalues()$/;"	v
+itervalues	compat.py	/^    itervalues = lambda d: iter(d.values())$/;"	v
+itervalues	ordereddict.py	/^    itervalues = DictMixin.itervalues$/;"	v	class:OrderedDict
+keys	ordereddict.py	/^    def keys(self):$/;"	m	class:OrderedDict
+lastHeaderNum	wikiparser.php	/^    $this->lastHeaderNum = $level;$/;"	v
+lastHeaderNum	wikiparser.php	/^  var $lastHeaderNum = 0;$/;"	v
+level	wikiparser.php	/^  var $level = array();$/;"	v
+levelString	wikiparser.php	/^    $levelString = $this->makeLevelHeading($level);$/;"	v
+lines	wikiparser.php	/^    $lines = split("\\n", $text);$/;"	v
+locate	configure.py	/^                           locate = "include\/python" + python_script_name)$/;"	v
+locate	configure.py	/^                      locate = "\/usr\/X11R6")$/;"	v
+locate	configure.py	/^                      locate = "bin\/python" + python_script_name)$/;"	v
+lowercase_attr_names	helpers.py	/^def lowercase_attr_names(tag):$/;"	f
+makeLevelHeading	wikiparser.php	/^  function makeLevelHeading($max) {$/;"	f
+match_text	helpers.py	/^def match_text(text, tag):$/;"	f
+memoize	wikiparser.php	/^  function memoize($num, $o1, $o2, $o3, $o4) {$/;"	f
+metaclass	compat.py	/^    class metaclass(meta):$/;"	c	function:with_metaclass
+o1	wikiparser.php	/^        $o1 == ucfirst($o1) &&$/;"	v
+o1	wikiparser.php	/^      $o1 = substr($o1, 0, -1);$/;"	v
+open	browser.py	/^    def open(self, url):$/;"	m	class:RoboBrowser
+option	wikiparser.php	/^  var $option = array();$/;"	v
+page	diydocs.php	/^   $page = str_replace("-", "_2d", $page);$/;"	v
+page	diydocs.php	/^   $page = str_replace(".", "_2e", $page);$/;"	v
+page	diydocs.php	/^   $page = str_replace(":", "_3a", $page);$/;"	v
+page	diydocs.php	/^   $page = str_replace("_20", " ", $page);$/;"	v
+page	diydocs.php	/^   $page = str_replace("_2d", "-", $page);$/;"	v
+page	diydocs.php	/^   $page = str_replace("_2e", ".", $page);$/;"	v
+page	diydocs.php	/^   $page = str_replace("_3a", ":", $page);$/;"	v
+page	index.php	/^$page = str_replace("-", "_2d", $page);$/;"	v
+page	index.php	/^$page = str_replace(".", "_2e", $page);$/;"	v
+page	index.php	/^$page = str_replace(":", "_3a", $page);$/;"	v
+page	wikiparser.php	/^    $page = "FrontPage";$/;"	v
+page	wikiparser.php	/^    $page = $_SERVER["argv"][0];$/;"	v
+page	wikiparser.php	/^    $page == "FindPage" || $/;"	v
+page	wikiparser.php	/^    $page == "HelpIndex"$/;"	v
+page	wikiparser.php	/^    $page == "WikiSandBox" || $/;"	v
+parsed	browser.py	/^    def parsed(self):$/;"	m	class:RoboBrowser
+parsed	browser.py	/^    def parsed(self):$/;"	m	class:RoboState
+parts	wikiparser.php	/^	$parts = split(":", $o1);$/;"	v
+pass0	wikiparser.php	/^  function pass0($text) {$/;"	f
+pass1	wikiparser.php	/^  function pass1($text) {$/;"	f
+pass2	wikiparser.php	/^  function pass2($text) {$/;"	f
+pass3	wikiparser.php	/^  function pass3($text) {$/;"	f
+pipe	configure.py	/^        pipe = popen("which %s 2> \/dev\/null" % pyver )$/;"	v
+player_include_dir	configure.py	/^player_include_dir = ask(" 5. Where is the player include directory (if one, or 'none')?",$/;"	v
+pop	ordereddict.py	/^    pop = DictMixin.pop$/;"	v	class:OrderedDict
+popitem	ordereddict.py	/^    def popitem(self, last=True):$/;"	m	class:OrderedDict
+pre	wikiparser.php	/^	  $pre = 1;$/;"	v
+pre	wikiparser.php	/^    $pre = 0;$/;"	v
+prefix	configure.py	/^prefix = "\/usr"$/;"	v
+preformat	wikiparser.php	/^  function preformat($text) {$/;"	f
+prettyname	diydocs.php	/^ function prettyname($page) {$/;"	f
+pyrobotdir	__init__.py	/^def pyrobotdir():$/;"	f
+python_bin_path	configure.py	/^python_bin_path = ask("3. What is Python's binary? (enter path and name)",$/;"	v
+python_include_files	configure.py	/^python_include_files = ask("2. Where are Python's include files?",$/;"	v
+python_script_name	configure.py	/^python_script_name = ask("1. Python version number?", pyverSuggest, 0)$/;"	v
+pyver	configure.py	/^        pyver = "python%.1f" % (i \/ 10.0)$/;"	v
+pyverSuggest	configure.py	/^    pyverSuggest = versions[-1][1]$/;"	v
+repl	wikiparser.php	/^  var $repl = array();$/;"	v
+reset	responses.py	/^    def reset(self):$/;"	m	class:CallList
+reset	responses.py	/^    def reset(self):$/;"	m	class:RequestsMock
+response	browser.py	/^    def response(self):$/;"	m	class:RoboBrowser
+retval	wikiparser.php	/^    $retval = "";$/;"	v
+row	wikiparser.php	/^	$row = str_replace("||", "<\/td><td>", $o[1]);$/;"	v
+rule	wikiparser.php	/^  var $rule = array();$/;"	v
+rule_count	wikiparser.php	/^  var $rule_count = 0;$/;"	v
+section_numbers	wikiparser.php	/^      $this->section_numbers = 0;$/;"	v
+section_numbers	wikiparser.php	/^  var $section_numbers = 1;$/;"	v
+select	browser.py	/^    def select(self):$/;"	m	class:RoboBrowser
+setURL	wikiparser.php	/^  function setURL($url) {$/;"	f
+setdefault	ordereddict.py	/^    setdefault = DictMixin.setdefault$/;"	v	class:OrderedDict
+startup_check	__init__.py	/^def startup_check():$/;"	f
+state	browser.py	/^    def state(self):$/;"	m	class:RoboBrowser
+string_types	compat.py	/^    string_types = (str, unicode)$/;"	v
+string_types	compat.py	/^    string_types = (str,)$/;"	v
+submit_form	browser.py	/^    def submit_form(self, form):$/;"	m	class:RoboBrowser
+table	wikiparser.php	/^	  $table = 0;$/;"	v
+table	wikiparser.php	/^	$table = 1;$/;"	v
+table	wikiparser.php	/^    $table = 0;$/;"	v
+text	diydocs.php	/^       $text = preg_replace("\/#FORMAT python\\n\/", "", $bodytext);$/;"	v
+text	index.php	/^    $text = preg_replace("\/#FORMAT python\\n\/", "", $bodytext);$/;"	v
+text	wikiparser.php	/^      $text = $this->applyRule($i, $text);$/;"	v
+text	wikiparser.php	/^      $text = preg_replace("'\\<\\<\\<" . ($i+0) . "\\>\\>\\>'", $/;"	v
+text	wikiparser.php	/^    $text = $this->pass0($text);$/;"	v
+text	wikiparser.php	/^    $text = $this->pass1("\\n" . $text);$/;"	v
+text	wikiparser.php	/^    $text = $this->pass2($text);$/;"	v
+text	wikiparser.php	/^    $text = $this->pass3($text); $/;"	v
+text	wikiparser.php	/^    $text = '';$/;"	v
+text	wikiparser.php	/^    $text = preg_replace("'&#36;&#36;&#36;(.*)&#36;&#36;&#36;'", "<font color=\\"red\\">$1<\/font>", $text);$/;"	v
+text	wikiparser.php	/^    $text = preg_replace("'&#36;&#36;(.*)&#36;&#36;'", "<font color=\\"blue\\">$1<\/font>", $text);$/;"	v
+text	wikiparser.php	/^    $text = preg_replace("'\\[\\[Include\\(([^\\]]*)\\)\\]\\]'" . 'e', $/;"	v
+text	wikiparser.php	/^    $text = preg_replace("\/\\\\\\'\\\\\\'\\\\\\'(.*)\\\\\\'\\\\\\'\\\\\\'\/", "<b>$1<\/b>", $text);$/;"	v
+text	wikiparser.php	/^    $text = preg_replace($this->rule[$num] . 'e', $/;"	v
+text	wikiparser.php	/^    $text = str_replace('"', '&quot;', $text); \/\/ replace \\" with double quote$/;"	v
+text	wikiparser.php	/^    $text = str_replace('$', '&#36;', $text); $/;"	v
+text	wikiparser.php	/^    $text = str_replace('<', '&lt;', $text); $/;"	v
+text	wikiparser.php	/^    $text = str_replace('>', '&gt;', $text); $/;"	v
+title	diydocs.php	/^$title = "Pyro, Python Robotics";$/;"	v
+title	index.php	/^$title = "Pyro, Python Robotics";$/;"	v
+title	index.php	/^$title = $page;$/;"	v
+titleSearch	wikiparser.php	/^    $titleSearch = "";$/;"	v
+tmp	wikiparser.php	/^	$tmp = fread($fp, 4096);$/;"	v
+type	configure.py	/^                           type = "dir",$/;"	v
+type	configure.py	/^                      type = "dir",$/;"	v
+unicode	compat.py	/^    unicode = str$/;"	v
+unicode	compat.py	/^    unicode = unicode$/;"	v
+update	ordereddict.py	/^    update = DictMixin.update$/;"	v	class:OrderedDict
+url	browser.py	/^    def url(self):$/;"	m	class:RoboBrowser
+url	wikiparser.php	/^function url($url) {$/;"	f
+urlparse	compat.py	/^    urlparse = urllib.parse$/;"	v
+urlparse	compat.py	/^    urlparse = urlparse$/;"	v
+useDefaults	configure.py	/^    useDefaults = 0$/;"	v
+useDefaults	configure.py	/^    useDefaults = 1$/;"	v
+useLocates	configure.py	/^    useLocates = 0$/;"	v
+useLocates	configure.py	/^    useLocates = 1$/;"	v
+values	ordereddict.py	/^    values = DictMixin.values$/;"	v	class:OrderedDict
+versions	configure.py	/^    versions = [("python", "")]$/;"	v
+which	configure.py	/^        which = pipe.readline().strip()$/;"	v
+wiki_url	wikiparser.php	/^    $this->wiki_url = $url;$/;"	v
+wiki_url	wikiparser.php	/^  var $wiki_url = "";$/;"	v
+wikidir	wikiparser.php	/^  var $wikidir = "\/var\/moin\/share\/moin\/data\/text\/";$/;"	v
+wikiname	wikiparser.php	/^  function wikiname($o1, $force = 0) {$/;"	f
+wikipage	diydocs.php	/^$wikipage = Array();$/;"	v
+wikiparser	diydocs.php	/^       $wikiparser = new WikiParser();$/;"	v
+wikiparser	index.php	/^    $wikiparser = new WikiParser();$/;"	v
+with_metaclass	compat.py	/^def with_metaclass(meta, *bases):$/;"	f
+wrapped	responses.py	/^        def wrapped(*args, **kwargs):$/;"	f	function:RequestsMock.activate
+x11_include_dir	configure.py	/^x11_include_dir = ask("4. Where is the X11 include directory?",$/;"	v
