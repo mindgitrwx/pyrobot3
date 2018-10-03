@@ -27,4 +27,25 @@ Following steps are the successful case step of jonghyeon-yeo's virtual environm
 ### 6. Click Run to make the robot wander around the simulated room
 
 
+<!--
+   - pyrobot60000 ./plugins/worlds/Pyrobot/AndrewHallway.py 
+   - pyrobot60000 ./plugins/brains/Subsumption.py 
+   - pyrobot60000 ./plugins/brains/Slider.py
+   - pyrobot60000 ./plugins/brains/SimpleWander.py
+   - pyrobot60000 ./plugins/brains/SimpleBrain.py
+   - pyrobot60000 ./plugins/brains/SimpleBrain.py
+   - pyrobot60000
+   - ./plugins/worlds/Pyrobot/KonaneWorld.py
+   -->
+
+| world         | robot        | plugin          |
+|---------------+--------------+-----------------|
+| AndrewHallway | pyrobot60000 | Subsumption.py  |
+| AndrewHallway | pyrobot60000 | Slider.py       |
+| AndrewHallway | pyrobot60000 | SimpleWander.py |
+| AndrewHallway | pyrobot60000 | SimpleBrain.py  |
+| AndrewHallway | pyrobot60000 | Subsumption     |
+| AndrewHallway | pyrobot60000 | Subsumption     |
+| AndrewHallway | pyrobot60000 | Subsumption     |
+| AndrewHallway | pyrobot60000 | Subsumption     |
 
