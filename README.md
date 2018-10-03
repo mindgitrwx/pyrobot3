@@ -1,17 +1,9 @@
 # Pyrobot README File
 ----------------
 
-It was successfully tested on **Ubuntu 18.04**. jonghyeon-yeo's environment.
+It was successfully tested on **Ubuntu 18.04**. 
 
-But it cannot be correctly worked on other environments.
-
-There are some issue that works only on the ubuntu of the jonghyeon-yeo's computer who first ported it, but not on other environments.
-
-We are checking the dependencies to see what are the causes of problem.
-
-It seems even I execute with 'python3' command with pyrobot.py, imported files executed with python2 recursively.
-
-Following steps are the successful case step of jonghyeon-yeo's virtual environment.
+Following steps are the successful case step. 
 
 
 ### 1. First just clone this project and change this folder name as pyrobot3 -> pyrobot `mv pyrobot3 pyrobot`
@@ -26,6 +18,19 @@ Following steps are the successful case step of jonghyeon-yeo's virtual environm
 
 ### 6. Click Run to make the robot wander around the simulated room
 
+# Combination of available robot
+
+| world         | robot        | plugin          |
+|---------------+--------------+-----------------|
+| AndrewHallway | pyrobot60000 | Subsumption.py  |
+| AndrewHallway | pyrobot60000 | Slider.py       |
+| AndrewHallway | pyrobot60000 | SimpleWander.py |
+| AndrewHallway | pyrobot60000 | SimpleBrain.py  |
+| AndrewHallway | pyrobot60000 | Subsumption     |
+| AndrewHallway | pyrobot60000 | Subsumption     |
+| AndrewHallway | pyrobot60000 | Subsumption     |
+| AndrewHallway | pyrobot60000 | Subsumption     |
+
 
 <!--
    - pyrobot60000 ./plugins/worlds/Pyrobot/AndrewHallway.py 
@@ -38,14 +43,4 @@ Following steps are the successful case step of jonghyeon-yeo's virtual environm
    - ./plugins/worlds/Pyrobot/KonaneWorld.py
    -->
 
-| world         | robot        | plugin          |
-|---------------+--------------+-----------------|
-| AndrewHallway | pyrobot60000 | Subsumption.py  |
-| AndrewHallway | pyrobot60000 | Slider.py       |
-| AndrewHallway | pyrobot60000 | SimpleWander.py |
-| AndrewHallway | pyrobot60000 | SimpleBrain.py  |
-| AndrewHallway | pyrobot60000 | Subsumption     |
-| AndrewHallway | pyrobot60000 | Subsumption     |
-| AndrewHallway | pyrobot60000 | Subsumption     |
-| AndrewHallway | pyrobot60000 | Subsumption     |
 
